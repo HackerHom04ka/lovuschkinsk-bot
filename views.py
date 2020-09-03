@@ -50,7 +50,7 @@ def bot():
                         from keyboards import keyboardStart
                         session.send_message(peer_id, 'Здравия, товарищ для начала, вам нужен паспорт, в сообщении появится кнопка', keyboard=json.dumps(keyboardStart))
                     if text.lower() == 'passport create' or text.lower() == 'паспорт создать' or payload['command'] == 'create_passport':
-                        session.send_message(peer_id, 'Что бы редактировать данные в паспорте, есть данные команды:\n"Фамилия (Фамилия)"\n"Имя (Имя)"\n"Отчество (Отчество)"\n"Пол (Пол)"\n"Дата_рождения (Дата рождения)"\n"Место рождения (Место рождения)"\n"Место проживания (Место жительства)"\n"Национальность (Национальность)"\n"Сексуальная ориентация (Сексуальная ориентация)"\n"Фото" и отправить своё фото\nНадеемся, что понятно объяснили!')
+                        session.send_message(peer_id, 'Что бы редактировать данные в паспорте, есть данные команды:\n"Фамилия (Фамилия)"\n"Имя (Имя)"\n"Отчество (Отчество)"\n"Пол (Пол)"\n"Дата рождения (Дата рождения)"\n"Место рождения (Место рождения)"\n"Место проживания (Место жительства)"\n"Национальность (Национальность)"\n"Сексуальная ориентация (Сексуальная ориентация)"\n"Фото" и отправить своё фото\nНадеемся, что понятно объяснили!')
                     if command_text1 == 'имя':
                         if text.split(' ')[1]:
                             try:
@@ -197,6 +197,33 @@ def bot():
                         except Exception as e:
                             session.send_message(peer_id, 'Произошла ошибка!')
                             print(e)
+                    if command_text1 == 'перевести':
+                        try:
+                            summ = text.lower().split(' ')[2]
+                            idTo = text.lower().split(' ')[1]
+                            FirstUser = Passport.query.filter_by(vk_id=from_id).first()
+                            SecondUser = Passport.query.filter_by(id=idTo).first()
+                            if SecondUser.Count >= summ:
+                                FirstUser.Count - int(summ)
+                                SecondUser.Count + int(summ)
+                                db.session.commit()
+                                from keyboards import keyboardChangeAccess
+                                if FirstUser.Name == '-':
+                                    Name = session.getUser(from_id)['first_name']
+                                else:
+                                    Name = FirstUser.Name
+                                if FirstUser.Surname == '-':
+                                    Surname = session.getUser(from_id)['last_name']
+                                else:
+                                    Surname = FirstUser.Name
+                                session.send_message(SecondUser.vk_id, 'К вам поступил платёж от ['+str(from_id)+'|'+Name+' '+Surname+'] в размере ' + summ + 'Ŀ\nПроверьте кошелек с помощью команды "Паспорт показать"', keyboard=json.dumps(keyboardChangeAccess))
+                                session.send_message(peer_id,
+                                                     'Платёж успешен завершен, деньги в размере ' + summ + 'Ŀ успешно переведенны! Ваш новый баланс вы можете посмотреть в паспорте',
+                                                     keyboard=json.dumps(keyboardChangeAccess))
+                            else:
+                                session.send_message(peer_id, 'Перевод не совершен, так как у вас баланс меньше который вы хотели перевести')
+                        except:
+                            session.send_message(peer_id, 'Произошла ошибка')
                 elif peer_id != from_id:
                     pass
 
