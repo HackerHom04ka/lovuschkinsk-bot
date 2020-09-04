@@ -202,24 +202,27 @@ def bot():
                             summ = text.lower().split(' ')[2]
                             idTo = text.lower().split(' ')[1]
                             FirstUser = Passport.query.filter_by(vk_id=from_id).first()
-                            SecondUser = Passport.query.filter_by(id=idTo).first()
+                            SecondUser = Passport.query.filter_by(id=int(idTo)).first()
                             if SecondUser.Count >= summ:
-                                FirstUser.Count - int(summ)
-                                SecondUser.Count + int(summ)
-                                db.session.commit()
-                                from keyboards import keyboardChangeAccess
-                                if FirstUser.Name == '-':
-                                    Name = session.getUser(from_id)['first_name']
+                                if from_id != int(idTo):
+                                    FirstUser.Count - int(summ)
+                                    SecondUser.Count + int(summ)
+                                    db.session.commit()
+                                    from keyboards import keyboardChangeAccess
+                                    if FirstUser.Name == '-':
+                                        Name = session.getUser(from_id)['first_name']
+                                    else:
+                                        Name = FirstUser.Name
+                                    if FirstUser.Surname == '-':
+                                        Surname = session.getUser(from_id)['last_name']
+                                    else:
+                                        Surname = FirstUser.Name
+                                    session.send_message(SecondUser.vk_id, 'К вам поступил платёж от ['+str(from_id)+'|'+Name+' '+Surname+'] в размере ' + summ + 'Ŀ\nПроверьте кошелек с помощью команды "Паспорт показать"', keyboard=json.dumps(keyboardChangeAccess))
+                                    session.send_message(peer_id,
+                                                         'Платёж успешен завершен, деньги в размере ' + summ + 'Ŀ успешно переведенны! Ваш новый баланс вы можете посмотреть в паспорте',
+                                                         keyboard=json.dumps(keyboardChangeAccess))
                                 else:
-                                    Name = FirstUser.Name
-                                if FirstUser.Surname == '-':
-                                    Surname = session.getUser(from_id)['last_name']
-                                else:
-                                    Surname = FirstUser.Name
-                                session.send_message(SecondUser.vk_id, 'К вам поступил платёж от ['+str(from_id)+'|'+Name+' '+Surname+'] в размере ' + summ + 'Ŀ\nПроверьте кошелек с помощью команды "Паспорт показать"', keyboard=json.dumps(keyboardChangeAccess))
-                                session.send_message(peer_id,
-                                                     'Платёж успешен завершен, деньги в размере ' + summ + 'Ŀ успешно переведенны! Ваш новый баланс вы можете посмотреть в паспорте',
-                                                     keyboard=json.dumps(keyboardChangeAccess))
+                                    session.send_message(peer_id, 'не переведеноо по причине пидорас (вы себя указали)')
                             else:
                                 session.send_message(peer_id, 'Перевод не совершен, так как у вас баланс меньше который вы хотели перевести')
                         except:
