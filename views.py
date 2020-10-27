@@ -55,10 +55,10 @@ def bot():
                         if text.split(' ')[1]:
                             try:
                                 User = Passport.query.filter_by(vk_id=from_id).first()
-                                User.Name = ' '.join(text.split(' ')[1:-1])
+                                User.Name = ' '.join(text.split(' ')[1:])
                                 db.session.commit()
                                 from keyboards import keyboardChangeAccess
-                                session.send_message(peer_id, 'Имя установленно! Ваше имя - ' + ' '.join(text.split(' ')[1:-1]), keyboard=json.dumps(keyboardChangeAccess))
+                                session.send_message(peer_id, 'Имя установленно! Ваше имя - ' + ' '.join(text.split(' ')[1:]), keyboard=json.dumps(keyboardChangeAccess))
                             except:
                                 session.send_message(peer_id, 'Произошла ошибка')
                         else:
@@ -67,10 +67,10 @@ def bot():
                         if text.split(' ')[1]:
                             try:
                                 User = Passport.query.filter_by(vk_id=from_id).first()
-                                User.Surname = ' '.join(text.split(' ')[1:-1])
+                                User.Surname = ' '.join(text.split(' ')[1:])
                                 db.session.commit()
                                 from keyboards import keyboardChangeAccess
-                                session.send_message(peer_id, 'Фамилия установленна! Ваша фамилия - ' + ' '.join(text.split(' ')[1:-1]), keyboard=json.dumps(keyboardChangeAccess))
+                                session.send_message(peer_id, 'Фамилия установленна! Ваша фамилия - ' + ' '.join(text.split(' ')[1:]), keyboard=json.dumps(keyboardChangeAccess))
                             except:
                                 session.send_message(peer_id, 'Произошла ошибка')
                         else:
@@ -79,10 +79,10 @@ def bot():
                         if text.split(' ')[1]:
                             try:
                                 User = Passport.query.filter_by(vk_id=from_id).first()
-                                User.Middlename = ' '.join(text.split(' ')[1:-1])
+                                User.Middlename = ' '.join(text.split(' ')[1:])
                                 db.session.commit()
                                 from keyboards import keyboardChangeAccess
-                                session.send_message(peer_id, 'Отчество установленно! Ваше отчество - ' + ' '.join(text.split(' ')[1:-1]), keyboard=json.dumps(keyboardChangeAccess))
+                                session.send_message(peer_id, 'Отчество установленно! Ваше отчество - ' + ' '.join(text.split(' ')[1:]), keyboard=json.dumps(keyboardChangeAccess))
                             except:
                                 session.send_message(peer_id, 'Произошла ошибка')
                         else:
@@ -92,10 +92,10 @@ def bot():
                             if text.split(' ')[2]:
                                 try:
                                     User = Passport.query.filter_by(vk_id=from_id).first()
-                                    User.Data_of_Birth = ' '.join(text.split(' ')[2:-1])
+                                    User.Data_of_Birth = ' '.join(text.split(' ')[2:])
                                     db.session.commit()
                                     from keyboards import keyboardChangeAccess
-                                    session.send_message(peer_id, 'Дата рождения установленна! Ваша дата рождения - ' + ' '.join(text.split(' ')[2:-1]), keyboard=json.dumps(keyboardChangeAccess))
+                                    session.send_message(peer_id, 'Дата рождения установленна! Ваша дата рождения - ' + ' '.join(text.split(' ')[2:]), keyboard=json.dumps(keyboardChangeAccess))
                                 except:
                                     session.send_message(peer_id, 'Произошла ошибка')
                             else:
@@ -107,10 +107,10 @@ def bot():
                             if text.split(' ')[2]:
                                 try:
                                     User = Passport.query.filter_by(vk_id=from_id).first()
-                                    User.Place_of_Birth = ' '.join(text.split(' ')[2:-1])
+                                    User.Place_of_Birth = ' '.join(text.split(' ')[2:])
                                     db.session.commit()
                                     from keyboards import keyboardChangeAccess
-                                    session.send_message(peer_id, 'Место рождения установленно! Ваше место рождения - ' + ' '.join(text.split(' ')[2:-1]), keyboard=json.dumps(keyboardChangeAccess))
+                                    session.send_message(peer_id, 'Место рождения установленно! Ваше место рождения - ' + ' '.join(text.split(' ')[2:]), keyboard=json.dumps(keyboardChangeAccess))
                                 except:
                                     session.send_message(peer_id, 'Произошла ошибка')
                             else:
@@ -119,10 +119,10 @@ def bot():
                             if text.split(' ')[2]:
                                 try:
                                     User = Passport.query.filter_by(vk_id=from_id).first()
-                                    User.Place_of_residence = ' '.join(text.split(' ')[2:-1])
+                                    User.Place_of_residence = ' '.join(text.split(' ')[2:])
                                     db.session.commit()
                                     from keyboards import keyboardChangeAccess
-                                    session.send_message(peer_id, 'Место проживания установленно! Ваше место проживания - ' + ' '.join(text.split(' ')[2:-1]), keyboard=json.dumps(keyboardChangeAccess))
+                                    session.send_message(peer_id, 'Место проживания установленно! Ваше место проживания - ' + ' '.join(text.split(' ')[2:]), keyboard=json.dumps(keyboardChangeAccess))
                                 except:
                                     session.send_message(peer_id, 'Произошла ошибка')
                             else:
@@ -133,10 +133,10 @@ def bot():
                         if text.split(' ')[1]:
                             try:
                                 User = Passport.query.filter_by(vk_id=from_id).first()
-                                User.Nation = ' '.join(text.split(' ')[1:-1])
+                                User.Nation = ' '.join(text.split(' ')[1:])
                                 db.session.commit()
                                 from keyboards import keyboardChangeAccess
-                                session.send_message(peer_id, 'Национальность установленна! Ваша национальность - ' + ' '.join(text.split(' ')[1:-1]), keyboard=json.dumps(keyboardChangeAccess))
+                                session.send_message(peer_id, 'Национальность установленна! Ваша национальность - ' + ' '.join(text.split(' ')[1:]), keyboard=json.dumps(keyboardChangeAccess))
                             except:
                                 session.send_message(peer_id, 'Произошла ошибка')
                         else:
@@ -146,10 +146,10 @@ def bot():
                             if text.split(' ')[2]:
                                 try:
                                     User = Passport.query.filter_by(vk_id=from_id).first()
-                                    User.Sexual_Orientation = ' '.join(text.split(' ')[2:-1])
+                                    User.Sexual_Orientation = ' '.join(text.split(' ')[2:])
                                     db.session.commit()
                                     from keyboards import keyboardChangeAccess
-                                    session.send_message(peer_id, 'Сексуальная ориентация установленна! Ваша сексуальная ориентация - ' + ' '.join(text.split(' ')[2:-1]), keyboard=json.dumps(keyboardChangeAccess))
+                                    session.send_message(peer_id, 'Сексуальная ориентация установленна! Ваша сексуальная ориентация - ' + ' '.join(text.split(' ')[2:]), keyboard=json.dumps(keyboardChangeAccess))
                                 except:
                                     session.send_message(peer_id, 'Произошла ошибка')
                             else:
@@ -160,10 +160,10 @@ def bot():
                         if text.split(' ')[1]:
                             try:
                                 User = Passport.query.filter_by(vk_id=from_id).first()
-                                User.Gender = ' '.join(text.split(' ')[1:-1])
+                                User.Gender = ' '.join(text.split(' ')[1:])
                                 db.session.commit()
                                 from keyboards import keyboardChangeAccess
-                                session.send_message(peer_id, 'Пол установленн! Ваш пол - ' + ' '.join(text.split(' ')[1:-1]), keyboard=json.dumps(keyboardChangeAccess))
+                                session.send_message(peer_id, 'Пол установленн! Ваш пол - ' + ' '.join(text.split(' ')[1:]), keyboard=json.dumps(keyboardChangeAccess))
                             except:
                                 session.send_message(peer_id, 'Произошла ошибка')
                         else:
