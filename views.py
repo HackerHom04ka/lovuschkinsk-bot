@@ -255,7 +255,7 @@ def bot():
                         except IndexError as e:
                             comment = '✉ | Вопроса заранее нет.'
                         session.send_message(578425189,
-                                             text = 'Здравия, вас зовут!\nhttps://vk.com/gim193840305?sel=' + from_id + '\n' + comment)
+                                             text = 'Здравия, вас зовут!\nhttps://vk.com/gim193840305?sel=' + str(from_id) + '\n' + comment)
                 elif peer_id != from_id:
                     pass
 
