@@ -4,6 +4,12 @@ from flask import request
 import json
 from vk_api import vk
 
+def findLen(str):
+    if not str:
+        return 0
+    else:
+        return len(str)
+
 @app.route('/bot', methods=['POST'])
 def bot():
     # Распаковка данных
@@ -187,6 +193,7 @@ def bot():
                         except:
                             session.send_message(peer_id, 'Произошла ошибка!')
                     if text.lower() == 'паспорт показать' or text.lower() == 'показать паспорт' or payload['command'] == 'show_passport':
+                        session.send_message(peer_id, 'Пожайлуста подождите⌛.\nПаспорту нужно время на обработку.')
                         try:
                             from passport import createPassport
                             from keyboards import keyboardPassport
@@ -197,7 +204,26 @@ def bot():
                         except Exception as e:
                             session.send_message(peer_id, 'Произошла ошибка!')
                             print(e)
-
+                    if command_text1 == 'перевести':
+                        try:
+                            FirstUser = Passport.query.filter_by(vk_id=from_id).first()
+                            SecondUser = Passport.query.filter_by(id=int(text.split(' ')[1])).first()
+                            summ = int(text.split(' ')[2])
+                            if FirstUser.Count >= summ:
+                                FirstUser.Count = FirstUser.Count - summ
+                                SecondUser.Count = SecondUser.Count + summ
+                                db.session.commit()
+                                if findLen(text.split('\n')[1]) > 0:
+                                    comment = '✉ | Комментарий к переводу: ' + text.split('\n')[1]
+                                else:
+                                    comment = '✉ | Комментария к переводу нет.'
+                                session.send_message(peer_id, '💳 | Перевод в сумму ' + str(
+                                    summ) + 'Ŀ - успешно совершен!\n' + comment)
+                                session.send_message(SecondUser.vk_id, '💳 | [' + SecondUser.vk_id + '|' + SecondUser.Name + ' ' + SecondUser.Surname + '], к вам пришел перевод в размере ' + str(
+                                    summ) + 'Ŀ!\n' + comment)
+                        except Exception as e:
+                            session.send_message(peer_id, 'Произошла ошибка!')
+                            print(e)
                 elif peer_id != from_id:
                     pass
 
