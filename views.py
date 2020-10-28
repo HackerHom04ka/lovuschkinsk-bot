@@ -207,8 +207,8 @@ def bot():
                     if command_text1 == 'перевести':
                         try:
                             FirstUser = Passport.query.filter_by(vk_id=from_id).first()
-                            SecondUser = Passport.query.filter_by(id=int(text.split(' ')[1])).first()
-                            summ = int(text.split(' ')[2])
+                            SecondUser = Passport.query.filter_by(id=int(text.split('\n')[0].text.split(' ')[1])).first()
+                            summ = int(text.split('\n')[0].text.split(' ')[2])
                             if FirstUser.Count >= summ:
                                 FirstUser.Count = FirstUser.Count - summ
                                 SecondUser.Count = SecondUser.Count + summ
