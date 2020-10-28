@@ -188,13 +188,12 @@ def bot():
                             session.send_message(peer_id, 'Произошла ошибка!')
                     if command_text1 + ' ' + text.lower().split(' ')[1] == 'паспорт показать' or command_text1 + ' ' + text.lower().split(' ')[1] == 'показать паспорт' or payload['command'] == 'show_passport':
                         session.send_message(peer_id, 'Пожайлуста подождите⌛.\nПаспорту нужно время на обработку.')
-                        try:
+                        if payload['command'] != 'show_passport':
                             id = int(text.lower().split(' ')[2])
-                        except IndexError as e:
-                            try:
-                                id = payload['id']
-                            except:
-                                id = Passport.query.filter_by(vk_id=from_id).first().id
+                        elif payload['command'] == 'show_passport':
+                            id = payload['id']
+                        else:
+                            id = Passport.query.filter_by(vk_id=from_id).first().id
                         try:
                             from passport import createPassport
                             from keyboards import keyboardPassport
