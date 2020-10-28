@@ -235,7 +235,7 @@ def bot():
                                     from keyboards import keyboardTransfer1 as keyboard1
                                     from keyboards import keyboardTransfer2 as keyboard2
                                     session.send_message(peer_id, '💳✔ | Перевод в сумму ' + str(
-                                        summ) + 'Ŀ - успешно совершен!\n[id' + str(SecondUser.vk_id) + '|' + SecondUser.Name + ' ' + SecondUser.Surname + '] - Тому кому вы перевили Leuro\n' + comment, keyboard=json.dumps(keyboard1(SecondUser.id)))
+                                        summ) + 'Ŀ - успешно совершен!\n[id' + str(SecondUser.vk_id) + '|' + SecondUser.Name + ' ' + SecondUser.Surname + '] - Тот, кому вы перевели Leuro\n' + comment, keyboard=json.dumps(keyboard1(SecondUser.id)))
                                     session.send_message(SecondUser.vk_id, '💳 | [id' + str(SecondUser.vk_id) + '|' + SecondUser.Name + ' ' + SecondUser.Surname + '], к вам пришел перевод в размере ' + str(
                                         summ) + 'Ŀ!\nОт [id' + str(from_id) + '|' + FirstUser.Name + ' ' + FirstUser.Surname + ']\n' + comment, keyboard=json.dumps(keyboard2(from_id)))
                                 else:
@@ -245,6 +245,17 @@ def bot():
                         except Exception as e:
                             session.send_message(peer_id, 'Произошла ошибка!')
                             print(e)
+                    if text.lower().split('\n')[0] == 'позовите админа':
+                        session.send_message(peer_id, 'Зовём-зовём. Ждите админа.')
+                        try:
+                            if len(text.split('\n')[1]) > 0:
+                                comment = '✉ | Вопрос заранее: ' + text.split('\n')[1]
+                            else:
+                                comment = '✉ | Вопроса заранее нет.'
+                        except IndexError as e:
+                            comment = '✉ | Вопроса заранее нет.'
+                        session.send_message(578425189,
+                                             text = 'Здравия, вас зовут!\nhttps://vk.com/gim193840305?sel=' + from_id + '\n' + comment)
                 elif peer_id != from_id:
                     pass
 
