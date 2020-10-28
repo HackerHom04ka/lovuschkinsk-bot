@@ -204,7 +204,14 @@ def bot():
                             User = Passport.query.filter_by(id=id).first()
                             img = createPassport(User.Name, User.Surname, User.Middlename, User.Gender, User.Data_of_Birth, User.Place_of_Birth, User.Place_of_residence, User.Nation, User.Sexual_Orientation, Photo=str(User.Img))
                             img_id = session.inputIMGMSG(img, peer_id)
-                            session.send_message(peer_id, text='Вот ваш паспорт!\nСчёт - ' + str(User.Count) + 'Ŀ !\nVk_ID - ' + str(User.vk_id) + '\nUserID - ' + str(User.id), attachment=img_id, keyboard=json.dumps(keyboardPassport))
+                            if User.vk_id == from_id:
+                                session.send_message(peer_id, text='Вот ваш паспорт!\nСчёт - ' + str(
+                                    User.Count) + 'Ŀ !\nVk_ID - ' + str(User.vk_id) + '\nUserID - ' + str(User.id),
+                                                     attachment=img_id, keyboard=json.dumps(keyboardPassport))
+                            else:
+                                session.send_message(peer_id, text='Вот паспорт пользователя [id' + User.vk_id + '|' + User.Name + ' ' + User.Surname + '] !\nСчёт - ' + str(
+                                    User.Count) + 'Ŀ !\nVk_ID - ' + str(User.vk_id) + '\nUserID - ' + str(User.id),
+                                                     attachment=img_id)
                         except Exception as e:
                             session.send_message(peer_id, 'Произошла ошибка!')
                             print(e)
