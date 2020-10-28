@@ -4,12 +4,6 @@ from flask import request
 import json
 from vk_api import vk
 
-def findLen(str):
-    if not str:
-        return 0
-    else:
-        return len(str)
-
 @app.route('/bot', methods=['POST'])
 def bot():
     # Распаковка данных
@@ -213,7 +207,7 @@ def bot():
                                 FirstUser.Count = FirstUser.Count - summ
                                 SecondUser.Count = SecondUser.Count + summ
                                 db.session.commit()
-                                if findLen(text.split('\n')[1]) > 0:
+                                if len(text.split('\n')[1]) > 0:
                                     comment = '✉ | Комментарий к переводу: ' + text.split('\n')[1]
                                 else:
                                     comment = '✉ | Комментария к переводу нет.'
