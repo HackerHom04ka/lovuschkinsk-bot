@@ -216,7 +216,7 @@ def bot():
                                     comment = '✉ | Комментария к переводу нет.'
                                 session.send_message(peer_id, '💳 | Перевод в сумму ' + str(
                                     summ) + 'Ŀ - успешно совершен!\n' + comment)
-                                session.send_message(SecondUser.vk_id, '💳 | [' + SecondUser.vk_id + '|' + SecondUser.Name + ' ' + SecondUser.Surname + '], к вам пришел перевод в размере ' + str(
+                                session.send_message(SecondUser.vk_id, '💳 | [id' + str(SecondUser.vk_id) + '|' + SecondUser.Name + ' ' + SecondUser.Surname + '], к вам пришел перевод в размере ' + str(
                                     summ) + 'Ŀ!\n' + comment)
                         except Exception as e:
                             session.send_message(peer_id, 'Произошла ошибка!')
