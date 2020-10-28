@@ -209,7 +209,7 @@ def bot():
                                     User.Count) + 'Ŀ !\nVk_ID - ' + str(User.vk_id) + '\nUserID - ' + str(User.id),
                                                      attachment=img_id, keyboard=json.dumps(keyboardPassport))
                             else:
-                                session.send_message(peer_id, text='Вот паспорт пользователя [id' + User.vk_id + '|' + User.Name + ' ' + User.Surname + '] !\nСчёт - ' + str(
+                                session.send_message(peer_id, text='Вот паспорт пользователя [id' + str(User.vk_id) + '|' + User.Name + ' ' + User.Surname + '] !\nСчёт - ' + str(
                                     User.Count) + 'Ŀ !\nVk_ID - ' + str(User.vk_id) + '\nUserID - ' + str(User.id),
                                                      attachment=img_id)
                         except Exception as e:
@@ -232,11 +232,12 @@ def bot():
                                             comment = '✉ | Комментария к переводу нет.'
                                     except IndexError as e:
                                         comment = '✉ | Комментария к переводу нет.'
-                                    from keyboards import keyboardTransfer as keyboard
+                                    from keyboards import keyboardTransfer1 as keyboard1
+                                    from keyboards import keyboardTransfer2 as keyboard2
                                     session.send_message(peer_id, '💳✔ | Перевод в сумму ' + str(
-                                        summ) + 'Ŀ - успешно совершен!\n[id' + str(SecondUser.vk_id) + '|' + SecondUser.Name + ' ' + SecondUser.Surname + '] - Тому кому вы перевили Leuro\n' + comment, keyboard=json.dumps(keyboard(SecondUser.id)))
+                                        summ) + 'Ŀ - успешно совершен!\n[id' + str(SecondUser.vk_id) + '|' + SecondUser.Name + ' ' + SecondUser.Surname + '] - Тому кому вы перевили Leuro\n' + comment, keyboard=json.dumps(keyboard1(SecondUser.id)))
                                     session.send_message(SecondUser.vk_id, '💳 | [id' + str(SecondUser.vk_id) + '|' + SecondUser.Name + ' ' + SecondUser.Surname + '], к вам пришел перевод в размере ' + str(
-                                        summ) + 'Ŀ!\n' + comment, keyboard=json.dumps(keyboard))
+                                        summ) + 'Ŀ!\nОт [id' + str(from_id) + '|' + FirstUser.Name + ' ' + FirstUser.Surname + ']\n' + comment, keyboard=json.dumps(keyboard2(from_id)))
                                 else:
                                     session.send_message(peer_id, text='💳❌ | У вас сумма перевода больше, чем у вас имеется на счету денег.')
                             else:
