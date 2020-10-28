@@ -45,3 +45,28 @@ keyboardPassport = {
             ]
         ]
 }
+def keyboardTransfer (id):
+    keyboard = {
+        'inline': True,
+        'buttons': [
+            [
+                {
+                    'action': {
+                        'type': 'text',
+                        'label': '📖 | Показать паспорт получившего',
+                        'payload': json.dumps({'command': 'show_passport', 'id': id})
+                    },
+                    'color': 'positive'
+                },
+                {
+                    'action': {
+                        'type': 'text',
+                        'label': '📖 | Показать свой паспорт',
+                        'payload': json.dumps({'command': 'show_passport'})
+                    },
+                    'color': 'positive'
+                }
+            ]
+        ]
+    }
+    return keyboard

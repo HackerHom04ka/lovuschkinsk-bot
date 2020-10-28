@@ -186,12 +186,19 @@ def bot():
                             session.send_message(peer_id, 'Принято! Ссылка на фото:\n\n' + img_url, keyboard=json.dumps(keyboardChangeAccess))
                         except:
                             session.send_message(peer_id, 'Произошла ошибка!')
-                    if text.lower() == 'паспорт показать' or text.lower() == 'показать паспорт' or payload['command'] == 'show_passport':
+                    if command_text1 + ' ' + text.lower().split(' ')[1] == 'паспорт показать' or command_text1 + ' ' + text.lower().split(' ')[1] == 'показать паспорт' or payload['command'] == 'show_passport':
                         session.send_message(peer_id, 'Пожайлуста подождите⌛.\nПаспорту нужно время на обработку.')
+                        try:
+                            id = int(text.lower().split(' ')[2])
+                        except IndexError as e:
+                            try:
+                                id = payload['id']
+                            except:
+                                id = Passport.query.filter_by(vk_id=from_id).first().id
                         try:
                             from passport import createPassport
                             from keyboards import keyboardPassport
-                            User = Passport.query.filter_by(vk_id=from_id).first()
+                            User = Passport.query.filter_by(id=id).first()
                             img = createPassport(User.Name, User.Surname, User.Middlename, User.Gender, User.Data_of_Birth, User.Place_of_Birth, User.Place_of_residence, User.Nation, User.Sexual_Orientation, Photo=str(User.Img))
                             img_id = session.inputIMGMSG(img, peer_id)
                             session.send_message(peer_id, text='Вот ваш паспорт!\nСчёт - ' + str(User.Count) + 'Ŀ !\nVk_ID - ' + str(User.vk_id) + '\nUserID - ' + str(User.id), attachment=img_id, keyboard=json.dumps(keyboardPassport))
@@ -215,9 +222,9 @@ def bot():
                                             comment = '✉ | Комментария к переводу нет.'
                                     except IndexError as e:
                                         comment = '✉ | Комментария к переводу нет.'
-                                    from keyboards import keyboardChangeAccess as keyboard
+                                    from keyboards import keyboardTransfer as keyboard
                                     session.send_message(peer_id, '💳✔ | Перевод в сумму ' + str(
-                                        summ) + 'Ŀ - успешно совершен!\n[id' + str(SecondUser.vk_id) + '|' + SecondUser.Name + ' ' + SecondUser.Surname + '] - Тому кому вы перевили Leuro\n' + comment, keyboard=json.dumps(keyboard))
+                                        summ) + 'Ŀ - успешно совершен!\n[id' + str(SecondUser.vk_id) + '|' + SecondUser.Name + ' ' + SecondUser.Surname + '] - Тому кому вы перевили Leuro\n' + comment, keyboard=json.dumps(keyboard(SecondUser.id)))
                                     session.send_message(SecondUser.vk_id, '💳 | [id' + str(SecondUser.vk_id) + '|' + SecondUser.Name + ' ' + SecondUser.Surname + '], к вам пришел перевод в размере ' + str(
                                         summ) + 'Ŀ!\n' + comment, keyboard=json.dumps(keyboard))
                                 else:
