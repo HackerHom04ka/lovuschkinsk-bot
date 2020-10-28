@@ -214,10 +214,11 @@ def bot():
                                         comment = '✉ | Комментария к переводу нет.'
                                 except IndexError as e:
                                     comment = '✉ | Комментария к переводу нет.'
+                                from keyboards import keyboardChangeAccess as keyboard
                                 session.send_message(peer_id, '💳 | Перевод в сумму ' + str(
-                                    summ) + 'Ŀ - успешно совершен!\n' + comment)
+                                    summ) + 'Ŀ - успешно совершен!\n' + comment, keyboard=json.dumps(keyboard))
                                 session.send_message(SecondUser.vk_id, '💳 | [id' + str(SecondUser.vk_id) + '|' + SecondUser.Name + ' ' + SecondUser.Surname + '], к вам пришел перевод в размере ' + str(
-                                    summ) + 'Ŀ!\n' + comment)
+                                    summ) + 'Ŀ!\n' + comment, keyboard=json.dumps(keyboard))
                         except Exception as e:
                             session.send_message(peer_id, 'Произошла ошибка!')
                             print(e)
