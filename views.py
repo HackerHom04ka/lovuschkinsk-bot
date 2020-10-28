@@ -202,23 +202,28 @@ def bot():
                         try:
                             FirstUser = Passport.query.filter_by(vk_id=from_id).first()
                             SecondUser = Passport.query.filter_by(id=int(text.split('\n')[0].split(' ')[1])).first()
-                            summ = int(text.split('\n')[0].split(' ')[2])
-                            if FirstUser.Count >= summ:
-                                FirstUser.Count = FirstUser.Count - summ
-                                SecondUser.Count = SecondUser.Count + summ
-                                db.session.commit()
-                                try:
-                                    if len(text.split('\n')[1]) > 0:
-                                        comment = '✉ | Комментарий к переводу: ' + text.split('\n')[1]
-                                    else:
+                            if peer_id != SecondUser.vk_id:
+                                summ = int(text.split('\n')[0].split(' ')[2])
+                                if FirstUser.Count >= summ:
+                                    FirstUser.Count = FirstUser.Count - summ
+                                    SecondUser.Count = SecondUser.Count + summ
+                                    db.session.commit()
+                                    try:
+                                        if len(text.split('\n')[1]) > 0:
+                                            comment = '✉ | Комментарий к переводу: ' + text.split('\n')[1]
+                                        else:
+                                            comment = '✉ | Комментария к переводу нет.'
+                                    except IndexError as e:
                                         comment = '✉ | Комментария к переводу нет.'
-                                except IndexError as e:
-                                    comment = '✉ | Комментария к переводу нет.'
-                                from keyboards import keyboardChangeAccess as keyboard
-                                session.send_message(peer_id, '💳 | Перевод в сумму ' + str(
-                                    summ) + 'Ŀ - успешно совершен!\n' + comment, keyboard=json.dumps(keyboard))
-                                session.send_message(SecondUser.vk_id, '💳 | [id' + str(SecondUser.vk_id) + '|' + SecondUser.Name + ' ' + SecondUser.Surname + '], к вам пришел перевод в размере ' + str(
-                                    summ) + 'Ŀ!\n' + comment, keyboard=json.dumps(keyboard))
+                                    from keyboards import keyboardChangeAccess as keyboard
+                                    session.send_message(peer_id, '💳 | Перевод в сумму ' + str(
+                                        summ) + 'Ŀ - успешно совершен!\n' + comment, keyboard=json.dumps(keyboard))
+                                    session.send_message(SecondUser.vk_id, '💳 | [id' + str(SecondUser.vk_id) + '|' + SecondUser.Name + ' ' + SecondUser.Surname + '], к вам пришел перевод в размере ' + str(
+                                        summ) + 'Ŀ!\n' + comment, keyboard=json.dumps(keyboard))
+                                else:
+                                    session.send_message(peer_id, text='У вас сумма больше, чем у вас имеется на счету денег.')
+                            else:
+                                session.send_message(peer_id, text='Вы не можите перевести самому себе')
                         except Exception as e:
                             session.send_message(peer_id, 'Произошла ошибка!')
                             print(e)
