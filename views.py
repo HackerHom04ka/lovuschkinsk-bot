@@ -207,9 +207,12 @@ def bot():
                                 FirstUser.Count = FirstUser.Count - summ
                                 SecondUser.Count = SecondUser.Count + summ
                                 db.session.commit()
-                                if len(text.split('\n')[1]) > 0:
-                                    comment = '✉ | Комментарий к переводу: ' + text.split('\n')[1]
-                                else:
+                                try:
+                                    if len(text.split('\n')[1]) > 0:
+                                        comment = '✉ | Комментарий к переводу: ' + text.split('\n')[1]
+                                    else:
+                                        comment = '✉ | Комментария к переводу нет.'
+                                except IndexError as e:
                                     comment = '✉ | Комментария к переводу нет.'
                                 session.send_message(peer_id, '💳 | Перевод в сумму ' + str(
                                     summ) + 'Ŀ - успешно совершен!\n' + comment)
