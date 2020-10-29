@@ -7,7 +7,7 @@ keyboardStart = {
                 {
                     'action': {
                         'type': 'text',
-                        'label': '📖 | Инструкция по созданию паспорта',
+                        'label': '📘 | Инструкция по созданию паспорта',
                         'payload': json.dumps({'command': 'create_passport'})
                     },
                     'color': 'positive'
@@ -22,7 +22,7 @@ keyboardChangeAccess = {
                 {
                     'action': {
                         'type': 'text',
-                        'label': '📖 | Показать паспорт',
+                        'label': '📘 | Показать паспорт',
                         'payload': json.dumps({'command': 'show_passport'})
                     },
                     'color': 'positive'
@@ -37,7 +37,7 @@ keyboardPassport = {
                 {
                     'action': {
                         'type': 'text',
-                        'label': '🖊 | Поменять данные',
+                        'label': '🖊 | Изменить данные',
                         'payload': json.dumps({'command': 'create_passport'})
                     },
                     'color': 'positive'
@@ -53,7 +53,7 @@ def keyboardTransfer1 (id):
                 {
                     'action': {
                         'type': 'text',
-                        'label': '📖 | Показать паспорт получившего',
+                        'label': '📙 | Показать паспорт получившего',
                         'payload': json.dumps({'command': 'show_passport', 'id': id})
                     },
                     'color': 'positive'
@@ -61,7 +61,7 @@ def keyboardTransfer1 (id):
                 {
                     'action': {
                         'type': 'text',
-                        'label': '📖 | Показать свой паспорт',
+                        'label': '📘 | Показать свой паспорт',
                         'payload': json.dumps({'command': 'show_passport'})
                     },
                     'color': 'positive'
@@ -79,7 +79,7 @@ def keyboardTransfer2 (id):
                 {
                     'action': {
                         'type': 'text',
-                        'label': '📖 | Показать паспорт переведшего',
+                        'label': '📙 | Показать паспорт переведшего',
                         'payload': json.dumps({'command': 'show_passport', 'id': id})
                     },
                     'color': 'positive'
@@ -87,7 +87,7 @@ def keyboardTransfer2 (id):
                 {
                     'action': {
                         'type': 'text',
-                        'label': '📖 | Показать свой паспорт',
+                        'label': '📘 | Показать свой паспорт',
                         'payload': json.dumps({'command': 'show_passport'})
                     },
                     'color': 'positive'
