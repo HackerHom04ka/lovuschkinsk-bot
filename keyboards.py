@@ -130,3 +130,22 @@ BugReport1 = {
         ]
     ]
 }
+
+def fineKeyboard (id):
+    keyboard = {
+        'inline': True,
+        'buttons': [
+            [
+                {
+                    'action': {
+                        'type': 'text',
+                        'label': '📙 | Показать паспорт оштрафованного',
+                        'payload': json.dumps({'command': 'show_passport', 'id': id})
+                    },
+                    'color': 'positive'
+                }
+            ]
+        ]
+    }
+    return keyboard
+

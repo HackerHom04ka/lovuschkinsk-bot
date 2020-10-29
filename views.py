@@ -305,11 +305,15 @@ def bot():
                                 try:
                                     User.Count = User.Count - summ
                                     db.session.commit()
+                                    from keyboards import fineKeyboard as keyboard1
+                                    from keyboards import keyboardChangeAccess as keyboard2
                                     session.send_message(peer_id, '💸 | Штраф в размере ' + str(
                                         summ) + ' оформлен!\nПоучивший штраф - [id' + str(
-                                        User.vk_id) + '|' + User.Name + ' ' + User.Surname + ']\n' + comment)
+                                        User.vk_id) + '|' + User.Name + ' ' + User.Surname + ']\n' + comment,
+                                        keyboard=json.dumps(keyboard1(User.id)))
                                     session.send_message(User.vk_id, '💸 | Вам штраф в размере ' + str(
-                                        summ) + 'Leuro!\n💳 | Ваш баланс: ' + str(User.Count) + 'Leuro\n' + comment)
+                                        summ) + 'Leuro!\n💳 | Ваш баланс: ' + str(User.Count) + 'Leuro\n' + comment,
+                                        keyboard=json.dumps(keyboard2))
                                 except Exception as e:
                                     exceptionHelp(e, peer_id)
                         else:
