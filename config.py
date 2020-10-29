@@ -14,7 +14,8 @@ group_config = {
     "id": 193840305,
     "secret": "mjeynofbopn7t1j5aipm9ggxivjnxvq9",
     "confirm": confirm,
-    "token": "3a11ee2eef165b831ea31253e369bfd4377f12fee98dcfbc11054655de7538485133a773c55cb1521aaae"
+    "token": "3a11ee2eef165b831ea31253e369bfd4377f12fee98dcfbc11054655de7538485133a773c55cb1521aaae",
+    'admin_ids': [578425189]
 }
 
 app.config['DEBUG'] = False

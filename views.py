@@ -33,7 +33,7 @@ def bot():
                     payload = {'command': ''}
                 peer_id = message['peer_id'] # Откуда пришло
                 from_id = message['from_id'] # Кто прислал
-                command_text1 = text.lower().split(' ')[0]
+                command_text1 = text.lower().split('\n')[0].split(' ')[0]
 
                 if Passport.query.filter_by(vk_id=from_id).first() == None:
                     if str(from_id)[0] != '-':
@@ -263,8 +263,9 @@ def bot():
                                 comment = '✉ | Вопроса заранее нет.'
                         except IndexError as e:
                             comment = '✉ | Вопроса заранее нет.'
-                        session.send_message(578425189,
-                                             text = 'Здравия, вас зовут!\nhttps://vk.com/gim193840305?sel=' + str(from_id) + '\n' + comment)
+                        for a in group_config['admin_ids']:
+                            session.send_message(a,
+                                                 text = 'Здравия, вас зовут!\nhttps://vk.com/gim193840305?sel=' + str(from_id) + '\n' + comment)
                     if payload['command'] == 'bug_report':
                         from keyboards import BugReport2 as keyboard
                         id = Passport.query.filter_by(vk_id=from_id).first().id
@@ -290,6 +291,29 @@ def bot():
                     if text.lower() == 'ладно ок ладно':
                         from keyboards import BugReport1 as keyboard
                         session.send_message(peer_id, 'Жесть, ошибка!', keyboard=json.dumps(keyboard))
+                    if command_text1 == 'штраф':
+                        if from_id in group_config['admin_ids']:
+                            User = Passport.query.filter_by(id=int(text.split('\n')[0].split(' ')[1])).first()
+                            summ = int(text.split('\n')[0].split(' ')[2])
+                            if User == None:
+                                session.send_message(peer_id, 'Пользователя с таким id нет!')
+                            else:
+                                try:
+                                    comment = '✉ | Комментарий к штрафу: ' + text.split('\n')[1]
+                                except IndexError as e:
+                                    comment = '✉ | Комментария к штрафу нет.'
+                                try:
+                                    User.Count = User.Count - summ
+                                    db.session.commit()
+                                    session.send_message(peer_id, '💸 | Штраф в размере ' + str(
+                                        summ) + ' оформлен!\nПоучивший штраф - [id' + str(
+                                        User.vk_id) + '|' + User.Name + ' ' + User.Surname + ']\n' + comment)
+                                    session.send_message(User.vk_id, '💸 | Вам штраф в размере ' + str(
+                                        summ) + 'Leuro!\n💳 | Ваш баланс: ' + str(User.Count) + 'Leuro\n' + comment)
+                                except Exception as e:
+                                    exceptionHelp(e, peer_id)
+                        else:
+                            session.send_message(peer_id, '🙍‍♂️❌ | У вас недостаточнго прав!')
                 elif peer_id != from_id:
                     pass
 
