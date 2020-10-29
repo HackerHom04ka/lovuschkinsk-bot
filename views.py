@@ -4,6 +4,11 @@ from flask import request
 import json
 from vk_api import vk
 
+def exceptionHelp (e, peer_id):
+    from keyboards import BugReport1 as keyboard
+    print(e)
+    session.send_message(peer_id, 'Жесть, ошибка!', keyboard=json.dumps(keyboard))
+
 @app.route('/bot', methods=['POST'])
 def bot():
     # Распаковка данных
@@ -37,12 +42,12 @@ def bot():
                             img = session.getUser(from_id)['photo_max']
                             Name = session.getUser(from_id)['first_name']
                             Surname = session.getUser(from_id)['last_name']
-                            newUser = Passport(vk_id=from_id, Img=img, Name=Name, Surname=Surname)
+                            newUser = Passport(vk_id=from_id, Img=img, Name=Name, Surname=Surname, Count=200)
                             db.session.add(newUser)
                             db.session.commit()
                             session.send_message(peer_id, 'Пользователь успешно дабавлен в ДБ\nОбратитесь в ЛС к боту!')
-                        except:
-                            session.send_message(peer_id, "При добавлении пользователя в ДБ, произошла ошибка:\n" + Exception)
+                        except Exception as e:
+                            exceptionHelp(e, peer_id)
 
                 # Только в личных сообщениях
                 if peer_id == from_id:
@@ -59,8 +64,8 @@ def bot():
                                 db.session.commit()
                                 from keyboards import keyboardChangeAccess
                                 session.send_message(peer_id, 'Имя установленно! Ваше имя - ' + ' '.join(text.split(' ')[1:]), keyboard=json.dumps(keyboardChangeAccess))
-                            except:
-                                session.send_message(peer_id, 'Произошла ошибка')
+                            except Exception as e:
+                                exceptionHelp(e, peer_id)
                         else:
                             session.send_message(peer_id, 'Введите имя пыжы')
                     if command_text1 == 'фамилия':
@@ -71,8 +76,8 @@ def bot():
                                 db.session.commit()
                                 from keyboards import keyboardChangeAccess
                                 session.send_message(peer_id, 'Фамилия установленна! Ваша фамилия - ' + ' '.join(text.split(' ')[1:]), keyboard=json.dumps(keyboardChangeAccess))
-                            except:
-                                session.send_message(peer_id, 'Произошла ошибка')
+                            except Exception as e:
+                                exceptionHelp(e, peer_id)
                         else:
                             session.send_message(peer_id, 'Введите фамилию пыжы')
                     if command_text1 == 'отчество':
@@ -83,8 +88,8 @@ def bot():
                                 db.session.commit()
                                 from keyboards import keyboardChangeAccess
                                 session.send_message(peer_id, 'Отчество установленно! Ваше отчество - ' + ' '.join(text.split(' ')[1:]), keyboard=json.dumps(keyboardChangeAccess))
-                            except:
-                                session.send_message(peer_id, 'Произошла ошибка')
+                            except Exception as e:
+                                exceptionHelp(e, peer_id)
                         else:
                             session.send_message(peer_id, 'Введите отчество пыжы')
                     if command_text1 == 'дата':
@@ -96,8 +101,8 @@ def bot():
                                     db.session.commit()
                                     from keyboards import keyboardChangeAccess
                                     session.send_message(peer_id, 'Дата рождения установленна! Ваша дата рождения - ' + ' '.join(text.split(' ')[2:]), keyboard=json.dumps(keyboardChangeAccess))
-                                except:
-                                    session.send_message(peer_id, 'Произошла ошибка')
+                                except Exception as e:
+                                    exceptionHelp(e, peer_id)
                             else:
                                 session.send_message(peer_id, 'Введите дату рождения пыжы')
                         else:
@@ -111,8 +116,8 @@ def bot():
                                     db.session.commit()
                                     from keyboards import keyboardChangeAccess
                                     session.send_message(peer_id, 'Место рождения установленно! Ваше место рождения - ' + ' '.join(text.split(' ')[2:]), keyboard=json.dumps(keyboardChangeAccess))
-                                except:
-                                    session.send_message(peer_id, 'Произошла ошибка')
+                                except Exception as e:
+                                    exceptionHelp(e, peer_id)
                             else:
                                 session.send_message(peer_id, 'Введите место рождения пыжы')
                         elif text.lower().split(' ')[1] == 'проживания':
@@ -123,8 +128,8 @@ def bot():
                                     db.session.commit()
                                     from keyboards import keyboardChangeAccess
                                     session.send_message(peer_id, 'Место проживания установленно! Ваше место проживания - ' + ' '.join(text.split(' ')[2:]), keyboard=json.dumps(keyboardChangeAccess))
-                                except:
-                                    session.send_message(peer_id, 'Произошла ошибка')
+                                except Exception as e:
+                                    exceptionHelp(e, peer_id)
                             else:
                                 session.send_message(peer_id, 'Введите место проживания пыжы')
                         else:
@@ -137,8 +142,8 @@ def bot():
                                 db.session.commit()
                                 from keyboards import keyboardChangeAccess
                                 session.send_message(peer_id, 'Национальность установленна! Ваша национальность - ' + ' '.join(text.split(' ')[1:]), keyboard=json.dumps(keyboardChangeAccess))
-                            except:
-                                session.send_message(peer_id, 'Произошла ошибка')
+                            except Exception as e:
+                                exceptionHelp(e, peer_id)
                         else:
                             session.send_message(peer_id, text='Введите национальность пыжы')
                     if command_text1 == 'сексуальная':
@@ -150,8 +155,8 @@ def bot():
                                     db.session.commit()
                                     from keyboards import keyboardChangeAccess
                                     session.send_message(peer_id, 'Сексуальная ориентация установленна! Ваша сексуальная ориентация - ' + ' '.join(text.split(' ')[2:]), keyboard=json.dumps(keyboardChangeAccess))
-                                except:
-                                    session.send_message(peer_id, 'Произошла ошибка')
+                                except Exception as e:
+                                    exceptionHelp(e, peer_id)
                             else:
                                 session.send_message(peer_id, 'Введите дату рождения пыжы')
                         else:
@@ -164,8 +169,8 @@ def bot():
                                 db.session.commit()
                                 from keyboards import keyboardChangeAccess
                                 session.send_message(peer_id, 'Пол установленн! Ваш пол - ' + ' '.join(text.split(' ')[1:]), keyboard=json.dumps(keyboardChangeAccess))
-                            except:
-                                session.send_message(peer_id, 'Произошла ошибка')
+                            except Exception as e:
+                                exceptionHelp(e, peer_id)
                         else:
                             session.send_message(peer_id, text='Введите пол пыжы')
                     if command_text1 == 'фото':
@@ -184,8 +189,8 @@ def bot():
                             User.Img = img_url
                             db.session.commit()
                             session.send_message(peer_id, 'Принято! Ссылка на фото:\n\n' + img_url, keyboard=json.dumps(keyboardChangeAccess))
-                        except:
-                            session.send_message(peer_id, 'Произошла ошибка!')
+                        except Exception as e:
+                            exceptionHelp(e, peer_id)
                     if command_text1 + ' ' + text.lower().split(' ')[1] == 'паспорт показать' or command_text1 + ' ' + text.lower().split(' ')[1] == 'показать паспорт' or payload['command'] == 'show_passport':
                         session.send_message(peer_id, 'Пожайлуста подождите⌛.\nПаспорту нужно время на обработку.')
                         if payload['command'] != 'show_passport':
@@ -216,38 +221,39 @@ def bot():
                                         User.Count) + 'Ŀ !\nVk_ID - ' + str(User.vk_id) + '\nUserID - ' + str(User.id),
                                                          attachment=img_id)
                         except Exception as e:
-                            session.send_message(peer_id, 'Произошла ошибка!')
-                            print(e)
+                            exceptionHelp(e, peer_id)
                     if command_text1 == 'перевести':
                         try:
                             FirstUser = Passport.query.filter_by(vk_id=from_id).first()
                             SecondUser = Passport.query.filter_by(id=int(text.split('\n')[0].split(' ')[1])).first()
-                            if peer_id != SecondUser.vk_id:
-                                summ = int(text.split('\n')[0].split(' ')[2])
-                                if FirstUser.Count >= summ:
-                                    FirstUser.Count = FirstUser.Count - summ
-                                    SecondUser.Count = SecondUser.Count + summ
-                                    db.session.commit()
-                                    try:
-                                        if len(text.split('\n')[1]) > 0:
-                                            comment = '✉ | Комментарий к переводу: ' + text.split('\n')[1]
-                                        else:
-                                            comment = '✉ | Комментария к переводу нет.'
-                                    except IndexError as e:
-                                        comment = '✉ | Комментария к переводу нет.'
-                                    from keyboards import keyboardTransfer1 as keyboard1
-                                    from keyboards import keyboardTransfer2 as keyboard2
-                                    session.send_message(peer_id, '💳✔ | Перевод в сумму ' + str(
-                                        summ) + 'Ŀ - успешно совершен!\n[id' + str(SecondUser.vk_id) + '|' + SecondUser.Name + ' ' + SecondUser.Surname + '] - Тот, кому вы перевели Leuro\n' + comment, keyboard=json.dumps(keyboard1(SecondUser.id)))
-                                    session.send_message(SecondUser.vk_id, '💳 | [id' + str(SecondUser.vk_id) + '|' + SecondUser.Name + ' ' + SecondUser.Surname + '], к вам пришел перевод в размере ' + str(
-                                        summ) + 'Ŀ!\nОт [id' + str(from_id) + '|' + FirstUser.Name + ' ' + FirstUser.Surname + ']\n' + comment, keyboard=json.dumps(keyboard2(FirstUser.id)))
-                                else:
-                                    session.send_message(peer_id, text='💳❌ | У вас сумма перевода больше, чем у вас имеется на счету денег.')
+                            if SecondUser == None:
+                                session.send_message(peer_id, text='Пользователь с таким ID не найден!')
                             else:
-                                session.send_message(peer_id, text='💳❌ | Вы не можите перевести самому себе')
+                                if peer_id != SecondUser.vk_id:
+                                    summ = int(text.split('\n')[0].split(' ')[2])
+                                    if FirstUser.Count >= summ:
+                                        FirstUser.Count = FirstUser.Count - summ
+                                        SecondUser.Count = SecondUser.Count + summ
+                                        db.session.commit()
+                                        try:
+                                            if len(text.split('\n')[1]) > 0:
+                                                comment = '✉ | Комментарий к переводу: ' + text.split('\n')[1]
+                                            else:
+                                                comment = '✉ | Комментария к переводу нет.'
+                                        except IndexError as e:
+                                            comment = '✉ | Комментария к переводу нет.'
+                                        from keyboards import keyboardTransfer1 as keyboard1
+                                        from keyboards import keyboardTransfer2 as keyboard2
+                                        session.send_message(peer_id, '💳✔ | Перевод в сумму ' + str(
+                                            summ) + 'Ŀ - успешно совершен!\n[id' + str(SecondUser.vk_id) + '|' + SecondUser.Name + ' ' + SecondUser.Surname + '] - Тот, кому вы перевели Leuro\n' + comment, keyboard=json.dumps(keyboard1(SecondUser.id)))
+                                        session.send_message(SecondUser.vk_id, '💳 | [id' + str(SecondUser.vk_id) + '|' + SecondUser.Name + ' ' + SecondUser.Surname + '], к вам пришел перевод в размере ' + str(
+                                            summ) + 'Ŀ!\nОт [id' + str(from_id) + '|' + FirstUser.Name + ' ' + FirstUser.Surname + ']\n' + comment, keyboard=json.dumps(keyboard2(FirstUser.id)))
+                                    else:
+                                        session.send_message(peer_id, text='💳❌ | У вас сумма перевода больше, чем у вас имеется на счету денег.')
+                                else:
+                                    session.send_message(peer_id, text='💳❌ | Вы не можите перевести самому себе')
                         except Exception as e:
-                            session.send_message(peer_id, 'Произошла ошибка!')
-                            print(e)
+                            exceptionHelp(e, peer_id)
                     if text.lower().split('\n')[0] == 'позовите админа':
                         session.send_message(peer_id, 'Зовём-зовём. Ждите админа.')
                         try:
@@ -259,6 +265,31 @@ def bot():
                             comment = '✉ | Вопроса заранее нет.'
                         session.send_message(578425189,
                                              text = 'Здравия, вас зовут!\nhttps://vk.com/gim193840305?sel=' + str(from_id) + '\n' + comment)
+                    if payload['command'] == 'bug_report':
+                        from keyboards import BugReport2 as keyboard
+                        id = Passport.query.filter_by(vk_id=from_id).first().id
+                        session.send_message(578425189,
+                                             text='Здравия, была обнаружена ошибка! Обнаржил её [id'+ str(from_id
+                                             ) +'|данный пользователь]\nhttps://vk.com/gim193840305?sel=' + str(
+                                                 from_id) + '\nНаградить ли его?', keyboard=json.dumps(keyboard(id)))
+                        session.send_message(peer_id, 'Сообщение администратору бота отправлено, он попытается решить проблемму')
+                    if payload['command'] == 'bug_report_money':
+                        try:
+                            id = payload['id']
+                            summ = 150
+                            User = Passport.query.filter_by(id=id)
+                            User.Count = User.Count + summ
+                            db.session.commit()
+                            from keyboards import keyboardChangeAccess as keyboard
+                            session.send_message(User.vk_id,
+                                                 'Здравия, так как вы нашли ошибку, вы были вознаграждены 150Leuro!',
+                                                 keyboard=json.dumps(keyboard))
+                            session.send_message(peer_id, 'Вознаграждение отправлено!')
+                        except Exception as e:
+                            exceptionHelp(e, peer_id)
+                    if text.lower() == 'Ладно':
+                        from keyboards import BugReport1 as keyboard
+                        session.send_message(peer_id, 'Жесть, ошибка!', keyboard=json.dumps(keyboard))
                 elif peer_id != from_id:
                     pass
 

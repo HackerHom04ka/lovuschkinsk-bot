@@ -96,3 +96,37 @@ def keyboardTransfer2 (id):
         ]
     }
     return keyboard
+
+def BugReport2 (id):
+    keyboard = {
+        'inline': True,
+        'buttons': [
+            [
+                {
+                    'action': {
+                        'type': 'text',
+                        'label': '💳 | Наградить',
+                        'payload': json.dumps({'command': 'bug_report_money', 'id': id})
+                    },
+                    'color': 'positive'
+                }
+            ]
+        ]
+    }
+    return keyboard
+
+BugReport1 = {
+    'inline': True,
+    'buttons': [
+        [
+            {
+                'action': {
+                    'type': 'text',
+                    'label': '❌ | Сообщить об ошибке',
+                    'payload': json.dumps({'command': 'bug_report'})
+                },
+                'color': 'positive'
+            }
+        ]
+    ]
+}
