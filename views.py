@@ -202,16 +202,19 @@ def bot():
                             from passport import createPassport
                             from keyboards import keyboardPassport
                             User = Passport.query.filter_by(id=id).first()
-                            img = createPassport(User.Name, User.Surname, User.Middlename, User.Gender, User.Data_of_Birth, User.Place_of_Birth, User.Place_of_residence, User.Nation, User.Sexual_Orientation, Photo=str(User.Img))
-                            img_id = session.inputIMGMSG(img, peer_id)
-                            if User.vk_id == from_id:
-                                session.send_message(peer_id, text='Вот ваш паспорт!\nСчёт - ' + str(
-                                    User.Count) + 'Ŀ !\nVk_ID - ' + str(User.vk_id) + '\nUserID - ' + str(User.id),
-                                                     attachment=img_id, keyboard=json.dumps(keyboardPassport))
+                            if User == None:
+                                session.send_message(peer_id, text='Пользователь с таким ID не найден!')
                             else:
-                                session.send_message(peer_id, text='Вот паспорт пользователя [id' + str(User.vk_id) + '|' + User.Name + ' ' + User.Surname + '] !\nСчёт - ' + str(
-                                    User.Count) + 'Ŀ !\nVk_ID - ' + str(User.vk_id) + '\nUserID - ' + str(User.id),
-                                                     attachment=img_id)
+                                img = createPassport(User.Name, User.Surname, User.Middlename, User.Gender, User.Data_of_Birth, User.Place_of_Birth, User.Place_of_residence, User.Nation, User.Sexual_Orientation, Photo=str(User.Img))
+                                img_id = session.inputIMGMSG(img, peer_id)
+                                if User.vk_id == from_id:
+                                    session.send_message(peer_id, text='Вот ваш паспорт!\nСчёт - ' + str(
+                                        User.Count) + 'Ŀ !\nVk_ID - ' + str(User.vk_id) + '\nUserID - ' + str(User.id),
+                                                         attachment=img_id, keyboard=json.dumps(keyboardPassport))
+                                else:
+                                    session.send_message(peer_id, text='Вот паспорт пользователя [id' + str(User.vk_id) + '|' + User.Name + ' ' + User.Surname + '] !\nСчёт - ' + str(
+                                        User.Count) + 'Ŀ !\nVk_ID - ' + str(User.vk_id) + '\nUserID - ' + str(User.id),
+                                                         attachment=img_id)
                         except Exception as e:
                             session.send_message(peer_id, 'Произошла ошибка!')
                             print(e)
@@ -237,7 +240,7 @@ def bot():
                                     session.send_message(peer_id, '💳✔ | Перевод в сумму ' + str(
                                         summ) + 'Ŀ - успешно совершен!\n[id' + str(SecondUser.vk_id) + '|' + SecondUser.Name + ' ' + SecondUser.Surname + '] - Тот, кому вы перевели Leuro\n' + comment, keyboard=json.dumps(keyboard1(SecondUser.id)))
                                     session.send_message(SecondUser.vk_id, '💳 | [id' + str(SecondUser.vk_id) + '|' + SecondUser.Name + ' ' + SecondUser.Surname + '], к вам пришел перевод в размере ' + str(
-                                        summ) + 'Ŀ!\nОт [id' + str(from_id) + '|' + FirstUser.Name + ' ' + FirstUser.Surname + ']\n' + comment, keyboard=json.dumps(keyboard2(from_id)))
+                                        summ) + 'Ŀ!\nОт [id' + str(from_id) + '|' + FirstUser.Name + ' ' + FirstUser.Surname + ']\n' + comment, keyboard=json.dumps(keyboard2(FirstUser.id)))
                                 else:
                                     session.send_message(peer_id, text='💳❌ | У вас сумма перевода больше, чем у вас имеется на счету денег.')
                             else:
