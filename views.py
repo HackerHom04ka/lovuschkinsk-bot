@@ -277,7 +277,7 @@ def bot():
                         try:
                             id = payload['id']
                             summ = 150
-                            User = Passport.query.filter_by(id=id)
+                            User = Passport.query.filter_by(id=id).first()
                             User.Count = User.Count + summ
                             db.session.commit()
                             from keyboards import keyboardChangeAccess as keyboard
