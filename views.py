@@ -287,7 +287,7 @@ def bot():
                             session.send_message(peer_id, 'Вознаграждение отправлено!')
                         except Exception as e:
                             exceptionHelp(e, peer_id)
-                    if text.lower() == 'ладно':
+                    if text.lower() == 'ладно ок ладно':
                         from keyboards import BugReport1 as keyboard
                         session.send_message(peer_id, 'Жесть, ошибка!', keyboard=json.dumps(keyboard))
                 elif peer_id != from_id:
