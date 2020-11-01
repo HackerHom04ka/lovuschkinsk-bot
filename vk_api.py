@@ -38,6 +38,6 @@ class vk(object):
         return response['response'][0]
 
     def BoardCreateComment(self, group_id, topic_id, message=None, attachments=None, fromGroup=1):
-        response = requests.post('https://api.vk.com/method/board.createComment', params={'access_token': self.token, 'v': self.v, 'group_id': group_id, 'topic_id': topic_id, 'message': message, 'attachments': attachments, 'from_group': fromGroup})
+        response = requests.post('https://api.vk.com/method/board.createComment', params={'access_token': self.token, 'v': self.v, 'group_id': group_id, 'topic_id': topic_id, 'message': message, 'attachments': attachments, 'from_group': fromGroup}).json()
 
         return response['response']
