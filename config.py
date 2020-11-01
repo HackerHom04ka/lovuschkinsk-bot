@@ -15,7 +15,8 @@ group_config = {
     "secret": "mjeynofbopn7t1j5aipm9ggxivjnxvq9",
     "confirm": confirm,
     "token": "3a11ee2eef165b831ea31253e369bfd4377f12fee98dcfbc11054655de7538485133a773c55cb1521aaae",
-    'admin_ids': [578425189]
+    'admin_ids': [578425189],
+    "token_papochka": "6c937347c381d52f279593511b4327230892fdcfd832aae4ec685dbe4d3219288568903369a3646d84336"
 }
 
 app.config['DEBUG'] = False
@@ -28,4 +29,5 @@ except:
 
 db = SQLAlchemy(app)
 
+session_papochka = vk(group_config['token_papochka'])
 session = vk(group_config['token'])

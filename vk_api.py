@@ -36,3 +36,8 @@ class vk(object):
         response = requests.post('https://api.vk.com/method/users.get', params={'access_token': self.token, 'v': self.v, 'user_ids': id, 'fields': 'photo_max'}).json()
 
         return response['response'][0]
+
+    def BoardCreateComment(self, group_id, topic_id, message=None, attachments=None, fromGroup=1):
+        response = requests.post('https://api.vk.com/method/', params={'access_token': self.token, 'v': self.v, 'group_id': group_id, 'topic_id': topic_id, 'message': message, 'attachments': attachments, 'from_group': fromGroup})
+
+        return response['response']

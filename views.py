@@ -1,4 +1,4 @@
-from config import app, db, group_config, session
+from config import app, db, group_config, session, session_papochka
 from models import Person as Passport
 from flask import request
 import json
@@ -34,10 +34,15 @@ def bot():
                 peer_id = message['peer_id'] # Откуда пришло
                 from_id = message['from_id'] # Кто прислал
                 command_text1 = text.lower().split('\n')[0].split(' ')[0]
+                try:
+                    text.lower().split('\n')[0].split(' ')[1] = text.lower().split('\n')[0].split(' ')[1]
+                except:
+                    text.lower().split('\n')[0].split(' ')[1] = ''
 
                 if Passport.query.filter_by(vk_id=from_id).first() == None:
                     if str(from_id)[0] != '-':
-                        session.send_message(peer_id, 'Был найден [id' + str(from_id) + '|незарегистрированный пользователь]!')
+                        session.send_message(peer_id, 'Был найден [id' + str(
+                            from_id) + '|незарегистрированный пользователь]!')
                         try:
                             img = session.getUser(from_id)['photo_max']
                             Name = session.getUser(from_id)['first_name']
@@ -55,7 +60,8 @@ def bot():
                         from keyboards import keyboardStart
                         session.send_message(peer_id, 'Здравия, товарищ для начала, вам нужен паспорт, в сообщении появится кнопка', keyboard=json.dumps(keyboardStart))
                     if text.lower() == 'passport create' or text.lower() == 'паспорт создать' or payload['command'] == 'create_passport' or text.lower() == 'паспорт изменить' or text.lower() == 'изменить паспорт' or text.lower() == 'создать паспорт':
-                        session.send_message(peer_id, 'Что бы редактировать данные в паспорте, есть данные команды:\n"Фамилия (Фамилия)"\n"Имя (Имя)"\n"Отчество (Отчество)"\n"Пол (Пол)"\n"Дата рождения (Дата рождения)"\n"Место рождения (Место рождения)"\n"Место проживания (Место жительства)"\n"Национальность (Национальность)"\n"Сексуальная ориентация (Сексуальная ориентация)"\n"Фото" и отправить своё фото\nНадеемся, что понятно объяснили!')
+                        session.send_message(peer_id,
+                                             'Что бы редактировать данные в паспорте, есть данные команды:\n"Фамилия (Фамилия)"\n"Имя (Имя)"\n"Отчество (Отчество)"\n"Пол (Пол)"\n"Дата рождения (Дата рождения)"\n"Место рождения (Место рождения)"\n"Место проживания (Место жительства)"\n"Национальность (Национальность)"\n"Сексуальная ориентация (Сексуальная ориентация)"\n"Фото" и отправить своё фото\nНадеемся, что понятно объяснили!')
                     if command_text1 == 'имя':
                         if text.split(' ')[1]:
                             try:
@@ -217,7 +223,8 @@ def bot():
                                         User.Count) + 'Ŀ !\nVk_ID - ' + str(User.vk_id) + '\nUserID - ' + str(User.id),
                                                          attachment=img_id, keyboard=json.dumps(keyboardPassport))
                                 else:
-                                    session.send_message(peer_id, text='Вот паспорт пользователя [id' + str(User.vk_id) + '|' + User.Name + ' ' + User.Surname + '] !\nСчёт - ' + str(
+                                    session.send_message(peer_id, text='Вот паспорт пользователя [id' + str(
+                                        User.vk_id) + '|' + User.Name + ' ' + User.Surname + '] !\nСчёт - ' + str(
                                         User.Count) + 'Ŀ !\nVk_ID - ' + str(User.vk_id) + '\nUserID - ' + str(User.id),
                                                          attachment=img_id)
                         except Exception as e:
@@ -245,11 +252,22 @@ def bot():
                                         from keyboards import keyboardTransfer1 as keyboard1
                                         from keyboards import keyboardTransfer2 as keyboard2
                                         session.send_message(peer_id, '💳✔ | Перевод в сумму ' + str(
-                                            summ) + 'Ŀ - успешно совершен!\n[id' + str(SecondUser.vk_id) + '|' + SecondUser.Name + ' ' + SecondUser.Surname + '] - Тот, кому вы перевели Leuro\n' + comment, keyboard=json.dumps(keyboard1(SecondUser.id)))
-                                        session.send_message(SecondUser.vk_id, '💳 | [id' + str(SecondUser.vk_id) + '|' + SecondUser.Name + ' ' + SecondUser.Surname + '], к вам пришел перевод в размере ' + str(
-                                            summ) + 'Ŀ!\nОт [id' + str(from_id) + '|' + FirstUser.Name + ' ' + FirstUser.Surname + ']\n' + comment, keyboard=json.dumps(keyboard2(FirstUser.id)))
+                                            summ) + 'Ŀ - успешно совершен!\n[id' + str(
+                                            SecondUser.vk_id) + '|' + SecondUser.Name + ' ' + SecondUser.Surname + '] - Тот, кому вы перевели Ŀ\n💳 | Ваш баланс - ' + str(
+                                            FirstUser.Count) + '\n💳 | Баланс получившего - ' + str(
+                                            SecondUser.Count) + '\n' + comment,
+                                                             keyboard=json.dumps(keyboard1(SecondUser.id)))
+                                        session.send_message(
+                                            SecondUser.vk_id, '💳 | [id' + str(
+                                                SecondUser.vk_id) + '|' + SecondUser.Name + ' ' + SecondUser.Surname + '], к вам пришел перевод в размере ' + str(
+                                            summ) + 'Ŀ!\nОт [id' + str(
+                                                from_id) + '|' + FirstUser.Name + ' ' + FirstUser.Surname + ']\n💳 | Ваш баланс - ' + str(
+                                            SecondUser.Count) + '\n💳 | Баланс переводившего - ' + str(
+                                            FirstUser.Count) + '\n' + comment,
+                                            keyboard=json.dumps(keyboard2(FirstUser.id)))
                                     else:
-                                        session.send_message(peer_id, text='💳❌ | У вас сумма перевода больше, чем у вас имеется на счету денег.')
+                                        session.send_message(peer_id,
+                                                             text='💳❌ | У вас сумма перевода больше, чем у вас имеется на счету денег.')
                                 else:
                                     session.send_message(peer_id, text='💳❌ | Вы не можите перевести самому себе')
                         except Exception as e:
@@ -283,7 +301,7 @@ def bot():
                             db.session.commit()
                             from keyboards import keyboardChangeAccess as keyboard
                             session.send_message(User.vk_id,
-                                                 'Здравия, так как вы нашли ошибку, вы были вознаграждены 150Leuro!',
+                                                 'Здравия, так как вы нашли ошибку, вы были вознаграждены 150Ŀ!',
                                                  keyboard=json.dumps(keyboard))
                             session.send_message(peer_id, 'Вознаграждение отправлено!')
                         except Exception as e:
@@ -309,16 +327,51 @@ def bot():
                                     from keyboards import keyboardChangeAccess as keyboard2
                                     session.send_message(peer_id, '💸 | Штраф в размере ' + str(
                                         summ) + ' оформлен!\nПоучивший штраф - [id' + str(
-                                        User.vk_id) + '|' + User.Name + ' ' + User.Surname + ']\n' + comment,
+                                        User.vk_id) + '|' + User.Name + ' ' + User.Surname + ']\n💳 | Баланс оштрафованного - ' + str(
+                                        User.Count) + 'Ŀ\n' + comment,
                                         keyboard=json.dumps(keyboard1(User.id)))
                                     session.send_message(User.vk_id, '💸 | Вам штраф в размере ' + str(
-                                        summ) + 'Leuro!\n💳 | Ваш баланс: ' + str(User.Count) + 'Leuro\n' + comment,
+                                        summ) + 'Ŀ!\n💳 | Ваш баланс - ' + str(User.Count) + 'Ŀ\n' + comment,
                                         keyboard=json.dumps(keyboard2))
+                                except Exception as e:
+                                    exceptionHelp(e, peer_id)
+                    if command_text1 == 'приз':
+                        if from_id in group_config['admin_ids']:
+                            User = Passport.query.filter_by(id=int(text.split('\n')[0].split(' ')[1])).first()
+                            summ = int(text.split('\n')[0].split(' ')[2])
+                            if User == None:
+                                session.send_message(peer_id, 'Пользователя с таким id нет!')
+                            else:
+                                try:
+                                    comment = '✉ | Комментарий к призу: ' + text.split('\n')[1]
+                                except IndexError as e:
+                                    comment = '✉ | Комментария к призу нет.'
+                                try:
+                                    User.Count = User.Count + summ
+                                    db.session.commit()
+                                    from keyboards import fineKeyboard as keyboard1
+                                    from keyboards import keyboardChangeAccess as keyboard2
+                                    session.send_message(peer_id, '🎁💷 | Приз в размере ' + str(
+                                        summ) + ' оформлен!\nПоучивший приз - [id' + str(
+                                        User.vk_id) + '|' + User.Name + ' ' + User.Surname + ']\n💳 | Баланс получившего - ' + str(
+                                        User.Count) + 'Ŀ\n' + comment,
+                                                         keyboard=json.dumps(keyboard1(User.id)))
+                                    session.send_message(User.vk_id, '🎁💷 | Вам приз в размере ' + str(
+                                        summ) + 'Ŀ!\n💳 | Ваш баланс - ' + str(User.Count) + 'Ŀ\n' + comment,
+                                                         keyboard=json.dumps(keyboard2))
                                 except Exception as e:
                                     exceptionHelp(e, peer_id)
                         else:
                             session.send_message(peer_id, '🙍‍♂️❌ | У вас недостаточнго прав!')
                 elif peer_id != from_id:
                     pass
-
+            if data['type'] == 'group_leave':
+                pidaras_id = data['object']['user_id']
+                pidaras_info = session.getUser(pidaras_id)
+                Name = pidaras_info['first_name']
+                Surname = pidaras_info['last_name']
+                message = '[id' + str(pidaras_id) + '|' + Name + ' ' + Surname + '] = вышедший пидорас'
+                session_papochka.BoardCreateComment(group_id=group_config['id'], topic_id=46593350, message=message)
+            if data['type'] == 'group_join':
+                molodec_id = data['object']['user_id']
             return 'ok'
