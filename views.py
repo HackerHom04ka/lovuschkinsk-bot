@@ -3,6 +3,7 @@ from models import Person as Passport
 from flask import request
 import json
 from vk_api import vk
+import random
 
 def exceptionHelp (e, peer_id):
     from keyboards import BugReport1 as keyboard
@@ -35,9 +36,9 @@ def bot():
                 from_id = message['from_id'] # Кто прислал
                 command_text1 = text.lower().split('\n')[0].split(' ')[0]
                 try:
-                    text.lower().split('\n')[0].split(' ')[1] = text.lower().split('\n')[0].split(' ')[1]
+                    text.lower().split('\n')[0].split(' ')[1]
                 except:
-                    text.lower().split('\n')[0].split(' ')[1] = ''
+                    text.lower().split('\n')[0].split(' ').append('')
 
                 if Passport.query.filter_by(vk_id=from_id).first() == None:
                     if str(from_id)[0] != '-':
@@ -60,8 +61,7 @@ def bot():
                         from keyboards import keyboardStart
                         session.send_message(peer_id, 'Здравия, товарищ для начала, вам нужен паспорт, в сообщении появится кнопка', keyboard=json.dumps(keyboardStart))
                     if text.lower() == 'passport create' or text.lower() == 'паспорт создать' or payload['command'] == 'create_passport' or text.lower() == 'паспорт изменить' or text.lower() == 'изменить паспорт' or text.lower() == 'создать паспорт':
-                        session.send_message(peer_id,
-                                             'Что бы редактировать данные в паспорте, есть данные команды:\n"Фамилия (Фамилия)"\n"Имя (Имя)"\n"Отчество (Отчество)"\n"Пол (Пол)"\n"Дата рождения (Дата рождения)"\n"Место рождения (Место рождения)"\n"Место проживания (Место жительства)"\n"Национальность (Национальность)"\n"Сексуальная ориентация (Сексуальная ориентация)"\n"Фото" и отправить своё фото\nНадеемся, что понятно объяснили!')
+                        session.send_message(peer_id, 'Что бы редактировать данные в паспорте, есть данные команды:\n"Фамилия (Фамилия)"\n"Имя (Имя)"\n"Отчество (Отчество)"\n"Пол (Пол)"\n"Дата рождения (Дата рождения)"\n"Место рождения (Место рождения)"\n"Место проживания (Место жительства)"\n"Национальность (Национальность)"\n"Сексуальная ориентация (Сексуальная ориентация)"\n"Фото" и отправить своё фото\nНадеемся, что понятно объяснили!')
                     if command_text1 == 'имя':
                         if text.split(' ')[1]:
                             try:
@@ -370,8 +370,12 @@ def bot():
                 pidaras_info = session.getUser(pidaras_id)
                 Name = pidaras_info['first_name']
                 Surname = pidaras_info['last_name']
-                message = '[id' + str(pidaras_id) + '|' + Name + ' ' + Surname + '] = вышедший пидорас'
+                fragment_message = random.choice(['чекай свою мамку.', 'слит.', 'вернись, либо пидорас.', 'ты окаался, как и твой батя, лохом, геем, пидором.', 'вернись.'])
+                message = '[id' + str(pidaras_id) + '|' + Name + ' ' + Surname + '], ' + fragment_message
                 session_papochka.BoardCreateComment(group_id=group_config['id'], topic_id=46593350, message=message)
-            if data['type'] == 'group_join':
-                molodec_id = data['object']['user_id']
+            if data['type'] == 'wall_post_new':
+                if str(data['object']['from_id'])[0] == '-':
+                    distribution_users = Passport.query.filter_by(distribution=True).all()
+                    for user in distribution_users:
+                        session.send_message(user.vk_id, '📢 | Новый пост в нашей группе!', attachment='wall' + str(data['object']['owner_id']) + '_' + str(data['object']['id']))
             return 'ok'

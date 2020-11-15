@@ -4,6 +4,8 @@ class Person(db.Model):
     id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True)
     vk_id = db.Column(db.Integer, unique=True, nullable=False)
 
+    distribution = db.Column(db.Boolean, default=True)
+
     Name = db.Column(db.String(80), default='-')
     Surname = db.Column(db.String(80), default='-')
     Middlename = db.Column(db.String(80), default='-')

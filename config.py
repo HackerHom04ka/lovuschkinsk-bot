@@ -2,6 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 import os
 from vk_api import vk
+from flask_migrate import Migrate
 
 app = Flask('lovushkinsk')
 
@@ -16,7 +17,7 @@ group_config = {
     "confirm": confirm,
     "token": "3a11ee2eef165b831ea31253e369bfd4377f12fee98dcfbc11054655de7538485133a773c55cb1521aaae",
     'admin_ids': [578425189],
-    "token_papochka": "6c937347c381d52f279593511b4327230892fdcfd832aae4ec685dbe4d3219288568903369a3646d84336"
+    "token_papochka": "414555006e083f8dbaff1d00db714fa35b6516789adda87ae428a541b8f6d5ef5a468cf0dff3ed7219a3b"
 }
 
 app.config['DEBUG'] = False
@@ -25,9 +26,11 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 try:
     app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 except:
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://jgebkzqmdypmnn:dbe08c523f1f2d4b125bd332a022cdf72c93a9551041fcbdb71fb7bb3b05ff13@ec2-52-72-34-184.compute-1.amazonaws.com:5432/d21fpmusudrt7o'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://kjnpwujmrlkrxf:a4749d1f7771f81a3e9b20eb8119ca92a27c1ef4192229e0145b3ece0bc29aff@ec2-107-22-33-173.compute-1.amazonaws.com:5432/djfr3k1op99nt'
 
 db = SQLAlchemy(app)
 
 session_papochka = vk(group_config['token_papochka'])
 session = vk(group_config['token'])
+
+migrate = Migrate(app, db)
