@@ -36,9 +36,9 @@ def bot():
                 from_id = message['from_id'] # Кто прислал
                 command_text1 = text.lower().split('\n')[0].split(' ')[0]
                 try:
-                    text.lower().split('\n')[0].split(' ')[1]
+                    command_text2 = 1text.lower().split('\n')[0].split(' ')[1]
                 except:
-                    text.lower().split('\n')[0].split(' ').append('')
+                    command_text2 = ''
 
                 if Passport.query.filter_by(vk_id=from_id).first() == None:
                     if str(from_id)[0] != '-':
@@ -197,7 +197,7 @@ def bot():
                             session.send_message(peer_id, 'Принято! Ссылка на фото:\n\n' + img_url, keyboard=json.dumps(keyboardChangeAccess))
                         except Exception as e:
                             exceptionHelp(e, peer_id)
-                    if command_text1 + ' ' + text.lower().split(' ')[1] == 'паспорт показать' or command_text1 + ' ' + text.lower().split(' ')[1] == 'показать паспорт' or payload['command'] == 'show_passport':
+                    if command_text1 + ' ' + command_text2 == 'паспорт показать' or command_text1 + ' ' + command_text2 == 'показать паспорт' or payload['command'] == 'show_passport':
                         session.send_message(peer_id, 'Пожайлуста подождите⌛.\nПаспорту нужно время на обработку.')
                         if payload['command'] != 'show_passport':
                             try:
