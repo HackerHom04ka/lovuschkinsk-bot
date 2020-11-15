@@ -36,7 +36,7 @@ def bot():
                 from_id = message['from_id'] # Кто прислал
                 command_text1 = text.lower().split('\n')[0].split(' ')[0]
                 try:
-                    command_text2 = 1text.lower().split('\n')[0].split(' ')[1]
+                    command_text2 = text.lower().split('\n')[0].split(' ')[1]
                 except:
                     command_text2 = ''
 
