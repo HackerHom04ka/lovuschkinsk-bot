@@ -363,6 +363,19 @@ def bot():
                                     exceptionHelp(e, peer_id)
                         else:
                             session.send_message(peer_id, '🙍‍♂️❌ | У вас недостаточнго прав!')
+
+                    if text.lower() == 'рассылка':
+                        try:
+                            FirstUser = Passport.query.filter_by(vk_id=from_id).first()
+                            if FirstUser.distribution or FirstUser.distribution == None:
+                                FirstUser.distribution = False
+                                session.send_message(peer_id, ' ❌📢 | Уведомления были отключены')
+                            else:
+                                FirstUser.distribution = True
+                                session.send_message(peer_id, ' ✅📢 | Уведомления были включены')
+
+                        except Exception as e:
+                            exceptionHelp(e, peer_id)
                 elif peer_id != from_id:
                     pass
             if data['type'] == 'group_leave':
@@ -375,7 +388,7 @@ def bot():
                 session_papochka.BoardCreateComment(group_id=group_config['id'], topic_id=46593350, message=message)
             if data['type'] == 'wall_post_new':
                 if str(data['object']['from_id'])[0] == '-':
-                    distribution_users = Passport.query.filter_by(distribution=True).all()
+                    distribution_users = Passport.query.filter_by(distribution=True, distribution=None).all()
                     for user in distribution_users:
                         session.send_message(user.vk_id, '📢 | Новый пост в нашей группе!', attachment='wall' + str(data['object']['owner_id']) + '_' + str(data['object']['id']))
-            return 'ok'
+            return 'ok', 200
