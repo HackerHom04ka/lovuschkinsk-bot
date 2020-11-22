@@ -29,7 +29,6 @@ def load_modules():
     files = os.listdir(sys.path[1] + "/commands")
     modules = filter(lambda x: x.endswith('.py'), files)
     for m in modules:
-        print("commands." + m[0:-3])
         importlib.import_module("commands." + m[0:-3])
 
 def get_answer(body):
@@ -52,6 +51,7 @@ def get_answer(body):
     if distance < len(body)*0.4:
         message, attachment, keyboard = command.process()
         message = 'По теории расстояния Дамерау-Левенштейна - Ваша комманда опознана как "%s"\n\n' % key + message
+    print(command_list)
     return message, attachment, keyboard
 
 def create_answer(data, session):
