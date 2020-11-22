@@ -1,5 +1,7 @@
 command_list = []
 
+arg = {}
+
 class Command:
    def __init__(self):
        self.__keys = {'message': [], 'payload': []}

@@ -1,5 +1,5 @@
 import os, sys, importlib
-from command_system import command_list
+from command_system import command_list, arg
 
 def damerau_levenshtein_distance(s1, s2):
     d = {}
@@ -45,7 +45,7 @@ def get_answer(body, from_id):
                 distance = d
                 command = c
                 key = k
-                command_system.arg['from_id'] = from_id
+                arg['from_id'] = from_id
                 if distance == 0:
                     message, attachment, keyboard = c.process()
                     return message, attachment, keyboard
