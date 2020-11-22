@@ -39,7 +39,7 @@ def get_answer(body):
     command = None
     key = ''
     for c in command_list:
-        for k in c.keys:
+        for k in c.keys['message']:
             d = damerau_levenshtein_distance(body, k)
             if d < distance:
                 distance = d
@@ -51,7 +51,6 @@ def get_answer(body):
     if distance < len(body)*0.4:
         message, attachment, keyboard = command.process()
         message = 'По теории расстояния Дамерау-Левенштейна - Ваша комманда опознана как "%s"\n\n' % key + message
-    print(command_list)
     return message, attachment, keyboard
 
 def create_answer(data, session):
