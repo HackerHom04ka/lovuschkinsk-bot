@@ -16,7 +16,7 @@ def distribution():
         db.session.commit()
         message =  ' ✅📢 | Уведомления были включены'
     attachment = ''
-    keuboard = {}
+    keyboard = {}
     return message, attachment, keyboard
 
 command_distribution.keysm = ['рассылка', 'distribution']
