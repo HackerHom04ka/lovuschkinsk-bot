@@ -14,12 +14,12 @@ class Command:
    @keys.setter
    def keysm(self, mas):
        for k in mas:
-           self.__keys.message.append(k.lower())
+           self.__keys['message'].append(k.lower())
 
    @keys.setter
    def keysp(self, mas):
        for k in mas:
-           self.__keys.payload.append(k)
+           self.__keys['payload'].append(k)
 
    def process(self):
        pass
