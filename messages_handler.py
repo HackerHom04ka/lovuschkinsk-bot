@@ -31,7 +31,7 @@ def load_modules():
     for m in modules:
         importlib.import_module("commands." + m[0:-3])
 
-def get_answer(body):
+def get_answer(body, from_id):
     message = ""
     attachment = ""
     keyboard = {}
@@ -45,6 +45,7 @@ def get_answer(body):
                 distance = d
                 command = c
                 key = k
+                command_system.arg['from_id'] = from_id
                 if distance == 0:
                     message, attachment, keyboard = c.process()
                     return message, attachment, keyboard
@@ -58,5 +59,5 @@ def create_answer(data, session):
     from_id = data['from_id']
     peer_id = data['peer_id']
     if peer_id == peer_id:
-        message, attachment, keyboard = get_answer(data['text'].lower())
+        message, attachment, keyboard = get_answer(data['text'].lower(), from_id)
         session.send_message(peer_id, message, attachment, keyboard)
