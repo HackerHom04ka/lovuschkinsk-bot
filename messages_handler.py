@@ -27,7 +27,7 @@ def damerau_levenshtein_distance(s1, s2):
 def load_modules():
     # путь от рабочей директории, ее можно изменить в настройках приложения
     print(sys.path)
-    files = os.listdir(sys.path + "\\commands")
+    files = os.listdir(sys.path[1] + "\\commands")
     modules = filter(lambda x: x.endswith('.py'), files)
     for m in modules:
         importlib.import_module("commands." + m[0:-3])
