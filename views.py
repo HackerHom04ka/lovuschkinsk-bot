@@ -4,6 +4,7 @@ from flask import request
 import json
 from vk_api import vk
 import random
+from messages_handler import create_answer
 
 def exceptionHelp (e, peer_id):
     from keyboards import BugReport1 as keyboard
@@ -363,21 +364,8 @@ def bot():
                                     exceptionHelp(e, peer_id)
                         else:
                             session.send_message(peer_id, '🙍‍♂️❌ | У вас недостаточнго прав!')
+                    create_answer(message, session)
 
-                    if text.lower() == 'рассылка':
-                        try:
-                            User = Passport.query.filter_by(vk_id=from_id).first()
-                            if User.distribution:
-                                User.distribution = False
-                                db.session.commit()
-                                session.send_message(peer_id, ' ❌📢 | Уведомления были отключены')
-                            else:
-                                User.distribution = True
-                                db.session.commit()
-                                session.send_message(peer_id, ' ✅📢 | Уведомления были включены')
-
-                        except Exception as e:
-                            exceptionHelp(e, peer_id)
                 elif peer_id != from_id:
                     pass
             if data['type'] == 'group_leave':
@@ -392,6 +380,5 @@ def bot():
                 if str(data['object']['from_id'])[0] == '-':
                     distribution_users = Passport.query.filter_by(distribution=True).all()
                     for user in distribution_users:
-                        print(user)
                         session.send_message(user.vk_id, '📢 | Новый пост в нашей группе!', attachment='wall' + str(data['object']['owner_id']) + '_' + str(data['object']['id']))
             return 'ok', 200
