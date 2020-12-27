@@ -19,7 +19,7 @@ def distribution():
     keyboard = {}
     return message, attachment, keyboard
 
-command_distribution.keysm = ['рассылка', 'distribution']
+command_distribution.keysm = ['рассылка', 'distribution', 'sending']
 command_distribution.keysp = ['distribution']
 command_distribution.desciption = 'Отключает/включает рассылку'
 command_distribution.process = distribution

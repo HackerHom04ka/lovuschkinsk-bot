@@ -40,12 +40,24 @@ def get_answer(body, from_id):
     key = ''
     for c in command_list:
         for k in c.keys['message']:
-            d = damerau_levenshtein_distance(body, k)
-            if d < distance:
+            new_body = ''
+            for ke in k.split():
+                for word in body.split('\n')[0].split():
+                    if ke != word:
+                        arg['notsystem_vars'].append(word)
+                    else:
+                        new_body += word + ' '
+            print('NOTSYS_VARS:\n' + arg['notsystem_vars'] + '\nNEW_BUDY: ' + new_body)
+            new_body = new_body[:-1]
+            new_distance = len(new_body)
+            d = damerau_levenshtein_distance(new_body, k)
+            if d < new_distance:
                 distance = d
                 command = c
                 key = k
-                arg['from_id'] = from_id
+                arg['system_vars']['from_id'] = from_id
+                try:
+                    arg['notsystem_vars'].append(body.split('\n')[1])
                 if distance == 0:
                     message, attachment, keyboard = c.process()
                     return message, attachment, keyboard
@@ -59,5 +71,5 @@ def create_answer(data, session):
     from_id = data['from_id']
     peer_id = data['peer_id']
     if peer_id == peer_id:
-        message, attachment, keyboard = get_answer(data['text'].lower(), from_id)
+        message, attachment, keyboard = get_answer(data['text'], from_id)
         session.send_message(peer_id, message, attachment, keyboard)

@@ -1,6 +1,6 @@
 command_list = []
 
-arg = {}
+arg = {'system_vars': {}, 'notsystem_vars': []}
 
 class Command:
    def __init__(self):
