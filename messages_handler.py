@@ -1,5 +1,6 @@
 import os, sys, importlib
 from command_system import command_list, arg
+import json
 
 def damerau_levenshtein_distance(s1, s2):
     d = {}
@@ -47,7 +48,7 @@ def get_answer(body, from_id):
                         arg['notsystem_vars'].append(word)
                     else:
                         new_body += word + ' '
-            print('NOTSYS_VARS:\n' + arg['notsystem_vars'] + '\nNEW_BUDY: ' + new_body)
+            print('NOTSYS_VARS:\n' + json.dumps(arg['notsystem_vars']) + '\nNEW_BUDY: ' + new_body)
             new_body = new_body[:-1]
             new_distance = len(new_body)
             print(new_body)
@@ -61,7 +62,8 @@ def get_answer(body, from_id):
                 try:
                     arg['notsystem_vars'].append(body.split('\n')[1])
                 except:
-                    print(arg['notsystem_vars'][-1])
+                    pass
+
                 if distance == 0:
                     message, attachment, keyboard = c.process()
                     return message, attachment, keyboard
