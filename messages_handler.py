@@ -50,6 +50,8 @@ def get_answer(body, from_id):
             print('NOTSYS_VARS:\n' + arg['notsystem_vars'] + '\nNEW_BUDY: ' + new_body)
             new_body = new_body[:-1]
             new_distance = len(new_body)
+            print(new_body)
+            print(new_distance)
             d = damerau_levenshtein_distance(new_body, k)
             if d < new_distance:
                 distance = d
@@ -58,6 +60,8 @@ def get_answer(body, from_id):
                 arg['system_vars']['from_id'] = from_id
                 try:
                     arg['notsystem_vars'].append(body.split('\n')[1])
+                except:
+                    print(arg['notsystem_vars'][-1])
                 if distance == 0:
                     message, attachment, keyboard = c.process()
                     return message, attachment, keyboard
