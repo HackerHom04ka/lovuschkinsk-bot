@@ -46,10 +46,12 @@ def get_answer(body, from_id, payload=None):
                 new_body = ''
                 for ke in k.split():
                     for word in body.split('\n')[0].split():
-                        if ke != word:
-                            arg['notsystem_vars'].append(word)
+                        dista = damerau_levenshtein_distance(word, ke)
+                        if dista < len(word):
+                            if dista == 0 or dista < len(word)*0.4:
+                                new_body += word + ' '
                         else:
-                            new_body += word + ' '
+                            arg['notsystem_vars'].append(word)
                 new_body = new_body[:-1]
                 new_distance = len(new_body)
                 d = damerau_levenshtein_distance(new_body, k)
@@ -57,6 +59,7 @@ def get_answer(body, from_id, payload=None):
                     distance = d
                     command = c
                     key = k
+                    body = new_body
                     try:
                         arg['notsystem_vars'].append(body.split('\n')[1])
                     except:
