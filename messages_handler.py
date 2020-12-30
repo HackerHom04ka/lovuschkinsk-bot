@@ -32,50 +32,66 @@ def load_modules():
     for m in modules:
         importlib.import_module("commands." + m[0:-3])
 
-def get_answer(body, from_id):
+def get_answer(body, from_id, payload=None):
     message = ""
     attachment = ""
     keyboard = {}
+    arg['system_vars']['from_id'] = from_id
     distance = len(body)
     command = None
     key = ''
     for c in command_list:
-        for k in c.keys['message']:
-            new_body = ''
-            for ke in k.split():
-                for word in body.split('\n')[0].split():
-                    if ke != word:
-                        arg['notsystem_vars'].append(word)
-                    else:
-                        new_body += word + ' '
-            print('NOTSYS_VARS:\n' + json.dumps(arg['notsystem_vars']) + '\nNEW_BUDY: ' + new_body)
-            new_body = new_body[:-1]
-            new_distance = len(new_body)
-            print(new_body)
-            print(new_distance)
-            d = damerau_levenshtein_distance(new_body, k)
-            if d < new_distance:
-                distance = d
-                command = c
-                key = k
-                arg['system_vars']['from_id'] = from_id
-                try:
-                    arg['notsystem_vars'].append(body.split('\n')[1])
-                except:
-                    pass
-
-                if distance == 0:
+        if payload == None or payload['command'] == '':
+            for k in c.keys['message']:
+                new_body = ''
+                for ke in k.split():
+                    for word in body.split('\n')[0].split():
+                        if ke != word:
+                            arg['notsystem_vars'].append(word)
+                        else:
+                            new_body += word + ' '
+                new_body = new_body[:-1]
+                new_distance = len(new_body)
+                d = damerau_levenshtein_distance(new_body, k)
+                if d < new_distance:
+                    distance = d
+                    command = c
+                    key = k
+                    try:
+                        arg['notsystem_vars'].append(body.split('\n')[1])
+                    except:
+                        pass
+                    if distance == 0:
+                        message, attachment, keyboard = c.process()
+                        arg['notsystem_vars'].clear()
+                        return message, attachment, keyboard
+        else:
+            for k in c.keys['payload']:
+                if payload['command'] == k:
+                    new_payload = {}
+                    for key, val in payload:
+                        if key != payload['command']:
+                            new_payload[key] = value
+                    new_payload['notsystem_vars'].append(new_payload)
+                    command = c
+                    key = k
                     message, attachment, keyboard = c.process()
+                    arg['notsystem_vars'].clear()
                     return message, attachment, keyboard
     if distance < len(body)*0.4:
         message, attachment, keyboard = command.process()
         message = 'По теории расстояния Дамерау-Левенштейна - Ваша комманда опознана как "%s"\n\n' % key + message
+        arg['notsystem_vars'].clear()
     return message, attachment, keyboard
 
 def create_answer(data, session):
     load_modules()
     from_id = data['from_id']
     peer_id = data['peer_id']
+    try:
+        payload = json.loads(data['payload'])
+    except:
+        payload = {'command': ''}
     if peer_id == peer_id:
-        message, attachment, keyboard = get_answer(data['text'], from_id)
+        message, attachment, keyboard = get_answer(data['text'], from_id, payload)
         session.send_message(peer_id, message, attachment, keyboard)
