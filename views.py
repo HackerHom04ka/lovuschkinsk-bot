@@ -63,18 +63,6 @@ def bot():
                         session.send_message(peer_id, 'Здравия, товарищ для начала, вам нужен паспорт, в сообщении появится кнопка', keyboard=json.dumps(keyboardStart))
                     if text.lower() == 'passport create' or text.lower() == 'паспорт создать' or payload['command'] == 'create_passport' or text.lower() == 'паспорт изменить' or text.lower() == 'изменить паспорт' or text.lower() == 'создать паспорт':
                         session.send_message(peer_id, 'Что бы редактировать данные в паспорте, есть данные команды:\n"Фамилия (Фамилия)"\n"Имя (Имя)"\n"Отчество (Отчество)"\n"Пол (Пол)"\n"Дата рождения (Дата рождения)"\n"Место рождения (Место рождения)"\n"Место проживания (Место жительства)"\n"Национальность (Национальность)"\n"Сексуальная ориентация (Сексуальная ориентация)"\n"Фото" и отправить своё фото\nНадеемся, что понятно объяснили!')
-                    if command_text1 == 'имя':
-                        if text.split(' ')[1]:
-                            try:
-                                User = Passport.query.filter_by(vk_id=from_id).first()
-                                User.Name = ' '.join(text.split(' ')[1:])
-                                db.session.commit()
-                                from keyboards import keyboardChangeAccess
-                                session.send_message(peer_id, 'Имя установленно! Ваше имя - ' + ' '.join(text.split(' ')[1:]), keyboard=json.dumps(keyboardChangeAccess))
-                            except Exception as e:
-                                exceptionHelp(e, peer_id)
-                        else:
-                            session.send_message(peer_id, 'Введите имя пыжы')
                     if command_text1 == 'фамилия':
                         if text.split(' ')[1]:
                             try:
