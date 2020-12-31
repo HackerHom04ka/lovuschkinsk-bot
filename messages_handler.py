@@ -32,7 +32,7 @@ def load_modules():
     for m in modules:
         importlib.import_module("commands." + m[0:-3])
 
-def get_answer(body, from_id, payload=None):
+async def get_answer(body, from_id, payload=None):
     message = ""
     attachment = ""
     keyboard = {}
