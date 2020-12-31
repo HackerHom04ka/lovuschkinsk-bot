@@ -11,15 +11,15 @@ def name(nsv):
     from_id = command_system.arg['system_vars']['from_id']
     User = Passport.query.filter_by(vk_id=from_id).first()
     new_name = ''
-    try:
-        if nsv:
-            for n in nsv[1:]:
-                new_name += n + ' '
-            name = new_name[:-1]
-    except:
+    namevar = ''
+    if nsv != []:
+        for n in nsv[1:]:
+            new_name += n + ' '
+        namevar = new_name[:-1]
+    else
         message = 'Имя не найдено а переменных сообщения, пожайлуста напишите имя в сообщении\np.s. Убедитесь в том что у вас нет лишних пробелов!'
         return message, attachment, keyboard
-    User.Name = name
+    User.Name = namevar
     db.session.commit()
     message = 'Имя [id' + str(from_id) + '|пользователя] установленно как ' + name + '!'
     return message, attachment, keyboard
