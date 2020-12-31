@@ -81,6 +81,7 @@ def get_answer(body, from_id, payload=None):
                         message, attachment, keyboard = command.process(arg['notsystem_vars'])
                         message = 'По теории расстояния Дамерау-Левенштейна - Ваша комманда опознана как "%s"\n\n' % key + message
                         arg['notsystem_vars'].clear()
+                        return message, attachment, keyboard
                 else:
                     arg['notsystem_vars'].clear()
         else:
@@ -95,7 +96,8 @@ def get_answer(body, from_id, payload=None):
                     key = k
                     message, attachment, keyboard = c.process(arg['notsystem_vars'])
                     arg['notsystem_vars'].clear()
-                    return message, attachment, keyboard
+                    return message, attachment, keyboard]
+    return message, attachment, keyboard
 def create_answer(data, session):
     load_modules()
     from_id = data['from_id']
