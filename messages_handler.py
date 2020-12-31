@@ -51,7 +51,7 @@ def get_answer(body, from_id, payload=None):
                         if dista < len(word):
                             if dista == 0 or dista < len(word)*0.4:
                                 for wa in arg['notsystem_vars']:
-                                    if wa == word:
+                                    if wa != word:
                                         new_notsystem_vars.append(word)
                                 new_body += word + ' '
                         else:

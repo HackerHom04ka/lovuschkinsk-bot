@@ -11,6 +11,7 @@ def name():
     User = Passport.query.filter_by(vk_id=from_id).first()
     new_name = ''
     try:
+        print(command_system.arg['notsystem_vars'][1:])
         for n in command_system.arg['notsystem_vars'][1:]:
             new_name += n + ' '
         name = new_name[:-1]
