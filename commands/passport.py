@@ -12,8 +12,8 @@ def name(nsv):
     User = Passport.query.filter_by(vk_id=from_id).first()
     new_name = ''
     namevar = ''
-    if nsv != []:
-        for n in nsv[1:]:
+    if range(nsv) >= 1:
+        for n in nsv:
             new_name += n + ' '
         namevar = new_name[:-1]
     else:
