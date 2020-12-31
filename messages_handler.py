@@ -62,7 +62,7 @@ def get_answer(body, from_id, payload=None):
                 if d < new_distance:
                     for i in range(len(arg['notsystem_vars'])):
                         for j in new_notsystem_vars:
-                            if i == j:
+                            if arg['notsystem_vars'][i] == j:
                                 del arg['notsystem_vars'][i]
                     distance = d
                     command = c
@@ -73,6 +73,7 @@ def get_answer(body, from_id, payload=None):
                     except:
                         pass
                     if distance == 0:
+                        print(arg['notsystem_vars'])
                         message, attachment, keyboard = c.process()
                         arg['notsystem_vars'].clear()
                         return message, attachment, keyboard
