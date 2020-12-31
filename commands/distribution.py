@@ -4,7 +4,7 @@ from config import db
 
 command_distribution = command_system.Command()
 
-def distribution():
+def distribution(nsv):
     from_id = command_system.arg['system_vars']['from_id']
     User = Passport.query.filter_by(vk_id=from_id).first()
     if User.distribution:

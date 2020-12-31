@@ -1,9 +1,9 @@
 from messages_handler import create_answer as messages
 from config import db
 
-async def events(data, session, session_papochka):
+def events(data, session, session_papochka):
     if data['type'] == 'message_new':
-        await messages(data['object']['message'], session)
+        messages(data['object']['message'], session)
     if data['type'] == 'group_leave':
         pidaras_id = data['object']['user_id']
         pidaras_info = session.getUser(pidaras_id)

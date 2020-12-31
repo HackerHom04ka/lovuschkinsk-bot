@@ -12,7 +12,7 @@ def exceptionHelp (e, peer_id):
     session.send_message(peer_id, 'Жесть, ошибка!', keyboard=json.dumps(keyboard))
 
 @app.route('/bot', methods=['POST'])
-async def bot():
+def bot():
     # Распаковка данных
     data = json.loads(request.data)
     # Проверка на наличие поля 'type'
@@ -352,7 +352,7 @@ async def bot():
                                     exceptionHelp(e, peer_id)
                         else:
                             session.send_message(peer_id, '🙍‍♂️❌ | У вас недостаточнго прав!')
-                    await create_answer(message, session)
+                    create_answer(message, session)
 
                 elif peer_id != from_id:
                     pass

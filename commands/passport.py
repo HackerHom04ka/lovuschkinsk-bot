@@ -4,17 +4,17 @@ from config import db
 
 command_distribution = command_system.Command()
 
-def name():
+def name(nsv):
     attachment = ''
     keyboard = {}
     from_id = command_system.arg['system_vars']['from_id']
     User = Passport.query.filter_by(vk_id=from_id).first()
     new_name = ''
     try:
-        print(command_system.arg['notsystem_vars'][1:])
-        for n in command_system.arg['notsystem_vars'][1:]:
-            new_name += n + ' '
-        name = new_name[:-1]
+        if nsv:
+            for n in nsv[1:]:
+                new_name += n + ' '
+            name = new_name[:-1]
     except:
         message = 'Имя не найдено а переменных сообщения, пожайлуста напишите имя в сообщении\np.s. Убедитесь в том что у вас нет лишних пробелов!'
         return message, attachment, keyboard
