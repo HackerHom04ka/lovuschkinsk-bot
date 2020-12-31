@@ -74,7 +74,7 @@ async def get_answer(body, from_id, payload=None):
                         pass
                     if distance == 0:
                         print(arg['notsystem_vars'])
-                        await message, attachment, keyboard = c.process()
+                        message, attachment, keyboard = await c.process()
                         arg['notsystem_vars'].clear()
                         return message, attachment, keyboard
                 else:
@@ -89,7 +89,7 @@ async def get_answer(body, from_id, payload=None):
                     new_payload['notsystem_vars'].append(new_payload)
                     command = c
                     key = k
-                    message, attachment, keyboard = c.process()
+                    message, attachment, keyboard = await c.process()
                     arg['notsystem_vars'].clear()
                     return message, attachment, keyboard
     if distance < len(body)*0.4:
