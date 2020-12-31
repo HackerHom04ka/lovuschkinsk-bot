@@ -93,12 +93,12 @@ async def get_answer(body, from_id, payload=None):
                     arg['notsystem_vars'].clear()
                     return message, attachment, keyboard
     if distance < len(body)*0.4:
-        message, attachment, keyboard = command.process()
+        message, attachment, keyboard = await command.process()
         message = 'По теории расстояния Дамерау-Левенштейна - Ваша комманда опознана как "%s"\n\n' % key + message
         arg['notsystem_vars'].clear()
     return message, attachment, keyboard
 
-def create_answer(data, session):
+async def create_answer(data, session):
     load_modules()
     from_id = data['from_id']
     peer_id = data['peer_id']
@@ -107,5 +107,5 @@ def create_answer(data, session):
     except:
         payload = {'command': ''}
     if peer_id == peer_id:
-        message, attachment, keyboard = get_answer(data['text'], from_id, payload)
+        message, attachment, keyboard = await get_answer(data['text'], from_id, payload)
         session.send_message(peer_id, message, attachment, keyboard)
