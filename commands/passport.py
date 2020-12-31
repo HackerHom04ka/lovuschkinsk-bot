@@ -5,20 +5,21 @@ from config import db
 command_distribution = command_system.Command()
 
 def name():
+    attachment = ''
+    keyboard = {}
     from_id = command_system.arg['system_vars']['from_id']
     User = Passport.query.filter_by(vk_id=from_id).first()
-    if command_system.arg['notsystem_vars'][1] == None:
-        message = 'Имя не найдено а переменных сообщения, пожайлуста напишите имя в сообщении\np.s. Убедитесь в том что у вас нет лишних пробелов!'
-    else:
-        new_name = ''
+    new_name = ''
+    try:
         for n in command_system.arg['notsystem_vars'][1:]:
             new_name += n + ' '
         name = new_name[:-1]
-        User.Name = name
-        db.session.commit()
-        message = 'Имя [id' + str(from_id) + '|пользователя] установленно как ' + name + '!'
-    attachment = ''
-    keyboard = {}
+    except:
+        message = 'Имя не найдено а переменных сообщения, пожайлуста напишите имя в сообщении\np.s. Убедитесь в том что у вас нет лишних пробелов!'
+        return message, attachment, keyboard
+    User.Name = name
+    db.session.commit()
+    message = 'Имя [id' + str(from_id) + '|пользователя] установленно как ' + name + '!'
     return message, attachment, keyboard
 
 command_distribution.keysm = ['name', 'имя']
