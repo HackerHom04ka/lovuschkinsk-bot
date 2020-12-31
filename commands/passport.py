@@ -21,7 +21,7 @@ def name(nsv):
         return message, attachment, keyboard
     User.Name = namevar
     db.session.commit()
-    message = 'Имя [id' + str(from_id) + '|пользователя] установленно как ' + name + '!'
+    message = 'Имя [id' + str(from_id) + '|пользователя] установленно как ' + namevar + '!'
     return message, attachment, keyboard
 
 command_distribution.keysm = ['name', 'имя']
