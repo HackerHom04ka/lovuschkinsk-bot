@@ -5,6 +5,7 @@ from config import db
 command_distribution = command_system.Command()
 
 def name(nsv):
+    print(nsv)
     attachment = ''
     keyboard = {}
     from_id = command_system.arg['system_vars']['from_id']
