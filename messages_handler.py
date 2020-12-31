@@ -73,7 +73,7 @@ def get_answer(body, from_id, payload=None):
                     except:
                         pass
                     if distance == 0:
-                        message, attachment, keyboard = await c.process(arg['notsystem_vars'])
+                        message, attachment, keyboard = c.process(arg['notsystem_vars'])
                         arg['notsystem_vars'].clear()
                         return message, attachment, keyboard
                 else:
