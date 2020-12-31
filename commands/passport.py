@@ -16,7 +16,7 @@ def name(nsv):
         for n in nsv[1:]:
             new_name += n + ' '
         namevar = new_name[:-1]
-    else
+    else:
         message = 'Имя не найдено а переменных сообщения, пожайлуста напишите имя в сообщении\np.s. Убедитесь в том что у вас нет лишних пробелов!'
         return message, attachment, keyboard
     User.Name = namevar
