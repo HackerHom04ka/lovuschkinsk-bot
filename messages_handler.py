@@ -96,7 +96,7 @@ def get_answer(body, from_id, payload=None):
                     key = k
                     message, attachment, keyboard = c.process(arg['notsystem_vars'])
                     arg['notsystem_vars'].clear()
-                    return message, attachment, keyboard]
+                    return message, attachment, keyboard
     return message, attachment, keyboard
 def create_answer(data, session):
     load_modules()
