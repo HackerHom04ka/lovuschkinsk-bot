@@ -106,5 +106,5 @@ def create_answer(data, session):
     except:
         payload = {'command': ''}
     if peer_id == peer_id:
-        message, attachment, keyboard = await get_answer(data['text'], from_id, payload)
+        message, attachment, keyboard = get_answer(data['text'], from_id, payload)
         session.send_message(peer_id, message, attachment, keyboard)
