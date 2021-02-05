@@ -58,7 +58,7 @@ def get_answer(body, from_id, payload=None, attachments=None):
                                 new_body += word.lower() + ' '
                                 continue
                         else:
-                            arg['notsystem_vars']['words'].append(word)
+                            arg['notsystem_vars'].words.append(word)
                 new_body = new_body[:-1]
                 new_distance = len(new_body)
                 d = damerau_levenshtein_distance(new_body, k)
