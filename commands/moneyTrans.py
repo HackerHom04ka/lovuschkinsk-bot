@@ -102,10 +102,7 @@ def command_penalty(nsv):
         comment = '✉ | Комментарий к штрафу:\n' + com
     session.send_message(User.vk_id, '💸 | Вам штраф в размере ' + str(
         summ) + 'Ŀ!\n💳 | Ваш баланс - ' + str(User.Count) + 'Ŀ\n' + comment, 'keyboard'=keyboard2)
-    message = '💸 | Штраф в размере ' + str(
-        summ) + ' оформлен!\nПоучивший штраф - [id' + str(
-        User.vk_id) + '|' + User.Name + ' ' + User.Surname + ']\n💳 | Баланс оштрафованного - ' + str(
-        User.Count) + 'Ŀ\n' + comment
+    message = '💸 | Штраф в размере ' + str(summ) + ' оформлен!\nПолучивший штраф - [id' + str(User.vk_id) + '|' + User.Name + ' ' + User.Surname + ']\n💳 | Баланс оштрафованного - ' + str(User.Count) + 'Ŀ\n' + comment
     return message, attachment, keyboard
 
 def command_gift(nsv):
@@ -141,10 +138,7 @@ def command_gift(nsv):
         comment = '✉ | Комментарий к призу:\n' + com
     session.send_message('🎁💷 | Вам приз в размере ' + str(
         summ) + 'Ŀ!\n💳 | Ваш баланс - ' + str(User.Count) + 'Ŀ\n' + comment, 'keyboard'=keyboard2)
-    message = '🎁💷 | Приз в размере ' + str(
-        summ) + ' оформлен!\nПоучивший приз - [id' + str(
-        User.vk_id) + '|' + User.Name + ' ' + User.Surname + ']\n💳 | Баланс получившего - ' + str(
-        User.Count) + 'Ŀ\n' + comment
+    message = '🎁💷 | Приз в размере ' + str(summ) + ' оформлен!\nПолучивший приз - [id' + str(User.vk_id) + '|' + User.Name + ' ' + User.Surname + ']\n💳 | Баланс получившего - ' + str(User.Count) + 'Ŀ\n' + comment
     return message, attachment, keyboard
 def command_transition(nsv):
     attachment = ''
