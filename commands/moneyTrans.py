@@ -61,7 +61,7 @@ def command_bug_report(nsv):
 def command_penalty(nsv):
     attachment = ''
     try:
-        secondId = int(nsv['words'][0])
+        secondId = int(nsv['wordes'][0])
     except:
         message = 'Переменная "id" должна быть числом'
         keyboard = {}
@@ -73,7 +73,7 @@ def command_penalty(nsv):
         keyboard = {}
         return message, attachment, keyboard
     try:
-        summ = int(nsv['words'][1])
+        summ = int(nsv['wordes'][1])
     except:
         message = 'Переменная "сумма" должна быть числом'
         keyboard = {}
@@ -96,7 +96,7 @@ def command_penalty(nsv):
 def command_gift(nsv):
     attachment = ''
     try:
-        secondId = int(nsv['words'][0])
+        secondId = int(nsv['wordes'][0])
     except:
         message = 'Переменная "id" должна быть числом'
         keyboard = {}
@@ -108,7 +108,7 @@ def command_gift(nsv):
         keyboard = {}
         return message, attachment, keyboard
     try:
-        summ = int(nsv['words'][1])
+        summ = int(nsv['wordes'][1])
     except:
         message = 'Переменная "сумма" должна быть числом'
         keyboard = {}
@@ -132,7 +132,7 @@ def command_transition(nsv):
     attachment = ''
     FirstUser = Passport.query.filter_by(vk_id=from_id).first()
     try:
-        secondId = int(nsv['words'][0])
+        secondId = int(nsv['wordes'][0])
     except:
         message = 'Переменная "id" должна быть числом'
         keyboard = {}
@@ -148,12 +148,12 @@ def command_transition(nsv):
         keyboard = {}
         return message, attachment, keyboard
     try:
-        summ = int(nsv['words'][1])
+        summ = int(nsv['wordes'][1])
     except:
         message = 'Переменная "сумма" должна быть числом'
         keyboard = {}
         return message, attachment, keyboard
-    if int(nsv['words'][1]) < FirstUser.Count:
+    if int(nsv['wordes'][1]) < FirstUser.Count:
         message = 'Сумма слишком большая для вашего баланса'
         keyboard = {}
         return message, attachment, keyboard

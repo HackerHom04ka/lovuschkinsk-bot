@@ -39,8 +39,8 @@ def name(nsv):
     User = Passport.query.filter_by(vk_id=from_id).first()
     new_name = ''
     namevar = ''
-    if len(nsv['words']) >= 1:
-        for n in nsv['words']:
+    if len(nsv['wordes']) >= 1:
+        for n in nsv['wordes']:
             new_name += n + ' '
         namevar = new_name[:-1]
     else:
@@ -64,8 +64,8 @@ def surname(nsv):
     User = Passport.query.filter_by(vk_id=from_id).first()
     new_name = ''
     namevar = ''
-    if len(nsv['words']) >= 1:
-        for n in nsv['words']:
+    if len(nsv['wordes']) >= 1:
+        for n in nsv['wordes']:
             new_name += n + ' '
         namevar = new_name[:-1]
     else:
@@ -89,8 +89,8 @@ def middlename(nsv):
     User = Passport.query.filter_by(vk_id=from_id).first()
     new_name = ''
     namevar = ''
-    if len(nsv['words']) >= 1:
-        for n in nsv['words']:
+    if len(nsv['wordes']) >= 1:
+        for n in nsv['wordes']:
             new_name += n + ' '
         namevar = new_name[:-1]
     else:
@@ -113,8 +113,8 @@ def dob(nsv):
     User = Passport.query.filter_by(vk_id=from_id).first()
     new_name = ''
     namevar = ''
-    if len(nsv['words']) >= 1:
-        for n in nsv['words']:
+    if len(nsv['wordes']) >= 1:
+        for n in nsv['wordes']:
             new_name += n + ' '
         namevar = new_name[:-1]
     else:
@@ -137,8 +137,8 @@ def Place_of_Birth(nsv):
     User = Passport.query.filter_by(vk_id=from_id).first()
     new_name = ''
     namevar = ''
-    if len(nsv['words']) >= 1:
-        for n in nsv['words']:
+    if len(nsv['wordes']) >= 1:
+        for n in nsv['wordes']:
             new_name += n + ' '
         namevar = new_name[:-1]
     else:
@@ -160,8 +160,8 @@ def Place_of_residence(nsv):
     User = Passport.query.filter_by(vk_id=from_id).first()
     new_name = ''
     namevar = ''
-    if len(nsv['words']) >= 1:
-        for n in nsv['words']:
+    if len(nsv['wordes']) >= 1:
+        for n in nsv['wordes']:
             new_name += n + ' '
         namevar = new_name[:-1]
     else:
@@ -184,8 +184,8 @@ def Gender(nsv):
     User = Passport.query.filter_by(vk_id=from_id).first()
     new_name = ''
     namevar = ''
-    if len(nsv['words']) >= 1:
-        for n in nsv['words']:
+    if len(nsv['wordes']) >= 1:
+        for n in nsv['wordes']:
             new_name += n + ' '
         namevar = new_name[:-1]
     else:
@@ -208,8 +208,8 @@ def nation(nsv):
     User = Passport.query.filter_by(vk_id=from_id).first()
     new_name = ''
     namevar = ''
-    if len(nsv['words']) >= 1:
-        for n in nsv['words']:
+    if len(nsv['wordes']) >= 1:
+        for n in nsv['wordes']:
             new_name += n + ' '
         namevar = new_name[:-1]
     else:
@@ -232,8 +232,8 @@ def sex_orien(nsv):
     User = Passport.query.filter_by(vk_id=from_id).first()
     new_name = ''
     namevar = ''
-    if len(nsv['words']) >= 1:
-        for n in nsv['words']:
+    if len(nsv['wordes']) >= 1:
+        for n in nsv['wordes']:
             new_name += n + ' '
         namevar = new_name[:-1]
     else:
@@ -295,7 +295,7 @@ def show(nsv):
             id = Passport.query.filter_by(vk_id=from_id).first().id
     else:
         try:
-            id = int(nsv['words'][0])
+            id = int(nsv['wordes'][0])
         except:
             id = Passport.query.filter_by(vk_id=from_id).first().id
     from passport import createPassport
