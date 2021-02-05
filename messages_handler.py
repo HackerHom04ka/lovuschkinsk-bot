@@ -40,13 +40,13 @@ def get_answer(body, from_id, payload=None, attachments=None):
     arg['system_vars']['from_id'] = from_id
     arg['system_vars']['peer_id'] = from_id
     arg['notsystem_vars']['attachments'] = attachments
+    arg['notsystem_vars']['wordes'] == body.split('\n')[0].split()
     distance = len(body)
     command = None
     key = ''
     for c in command_list:
         if not payload or payload['command'] == '':
             for k in c.keys['message']:
-                arg['notsystem_vars']['wordes'] == body.split('\n')[0].split()
                 print(arg['notsystem_vars']['wordes'])
                 print(len(k.split()), len(arg['notsystem_vars']['wordes']))
                 if len(k.split()) > len(arg['notsystem_vars']['wordes']):
