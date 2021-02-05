@@ -5,7 +5,6 @@ import json
 from vk_api import vk
 import random
 from events_handler import events
-from after_response import AfterResponse
 
 def exceptionHelp (e, peer_id):
     from keyboards import BugReport1 as keyboard
