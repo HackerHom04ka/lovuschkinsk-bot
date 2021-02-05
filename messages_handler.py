@@ -51,9 +51,7 @@ def get_answer(body, from_id, payload=None, attachments=None):
                         dista = damerau_levenshtein_distance(word, ke)
                         if dista == 0 or dista < len(word)*0.4:
                             new_body += word.lower() + ' '
-                            for wi in range(len(arg['notsystem_vars']['words'])):
-                                if arg['notsystem_vars']['words'][wi] == word:
-                                    del arg['notsystem_vars']['words'][wi]
+                            list(filter((word).__ne__, arg['notsystem_vars']['words']))
                         elif dista > len(word)*0.4:
                             arg['notsystem_vars']['words'].append(word)
 
