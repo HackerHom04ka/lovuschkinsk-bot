@@ -6,4 +6,3 @@ psycopg2
 Pillow
 flask_migrate
 flask_script
-Werkzeug

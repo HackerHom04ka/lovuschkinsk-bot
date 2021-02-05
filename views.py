@@ -58,7 +58,9 @@ def botResp():
                 return group_config['confirm']
             else:
                 return 'ok', 200
+
 @app.errorhandler(500)
 def handler(e):
     print(e)
+    session.send_message(578425189, e)
     return 'ok'
