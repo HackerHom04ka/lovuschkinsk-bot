@@ -13,8 +13,7 @@ def exceptionHelp (e, peer_id):
     session.send_message(peer_id, 'Жесть, ошибка!', keyboard=json.dumps(keyboard))
 
 #@app.route('/bot', methods=['POST'])
-@app.after_response
-def botFunc():
+def botFunc(data):
     # Распаковка данных
     data = json.loads(request.data)
     # Проверка группы
@@ -41,8 +40,12 @@ def botFunc():
             events(data, session, session_papochka)
 @app.route('/bot', methods=['POST'])
 def botResp():
-    # Распаковка данных
     data = json.loads(request.data)
+    def do_work():
+        import time
+        time.sleep(0.1)
+        botFunc(data)
+    do_work()
     # Проверка на наличие поля 'type'
     if 'type' not in data.keys():
         return 'not \'type\' in keys'

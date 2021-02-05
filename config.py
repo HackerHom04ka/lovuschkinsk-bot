@@ -35,5 +35,3 @@ session_papochka = vk(group_config['token_papochka'])
 session = vk(group_config['token'])
 
 migrate = Migrate(app, db)
-
-AfterResponse(app)
