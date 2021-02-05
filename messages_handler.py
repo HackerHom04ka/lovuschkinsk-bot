@@ -60,10 +60,11 @@ def get_answer(body, from_id, payload=None, attachments=None):
                     if dista == 0 or dista < len(a)*0.4:
                         dist += 1
                     else:
-                        continue
-                else:
-                    new_body = ' '.join(str(x) for x in arg['notsystem_vars']['wordes'][0:len_k])
-                    arg['notsystem_vars']['wordes'] = arg['notsystem_vars']['wordes'][len_k:]
+                        dist = 0
+                    if dist == len_k:
+                        new_body = ' '.join(str(x) for x in arg['notsystem_vars']['wordes'][0:len_k])
+                        arg['notsystem_vars']['wordes'] = arg['notsystem_vars']['wordes'][len_k:]
+                        break
                 new_distance = len(new_body)
                 d = damerau_levenshtein_distance(new_body, k)
                 if d < new_distance:
