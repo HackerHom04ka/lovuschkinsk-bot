@@ -46,14 +46,15 @@ def get_answer(body, from_id, payload=None, attachments=None):
     for c in command_list:
         if not payload or payload['command'] == '':
             for k in c.keys['message']:
-                arg['notsystem_vars']['words'] == body.split('\n')[0].split()
-                print(len(k.split()), len(arg['notsystem_vars']['words']))
-                if len(k.split()) > len(arg['notsystem_vars']['words']):
+                arg['notsystem_vars']['wordes'] == body.split('\n')[0].split()
+                print(arg['notsystem_vars']['wordes'])
+                print(len(k.split()), len(arg['notsystem_vars']['wordes']))
+                if len(k.split()) > len(arg['notsystem_vars']['wordes']):
                     continue
                 len_k = len(k.split())
                 dist = 0
                 for kw in range(len(k.split())):
-                    a = arg['notsystem_vars']['words'][kw]
+                    a = arg['notsystem_vars']['wordes'][kw]
                     b = k.split()[kw]
                     dista = damerau_levenshtein_distance(a, b)
                     if dista == 0 or dista < a*0.4:
@@ -61,12 +62,12 @@ def get_answer(body, from_id, payload=None, attachments=None):
                     else:
                         break
                 else:
-                    new_body = ' '.join(str(x) for x in arg['notsystem_vars']['words'][0:len_k])
-                    arg['notsystem_vars']['words'] = arg['notsystem_vars']['words'][len_k:]
+                    new_body = ' '.join(str(x) for x in arg['notsystem_vars']['wordes'][0:len_k])
+                    arg['notsystem_vars']['wordes'] = arg['notsystem_vars']['wordes'][len_k:]
                 new_distance = len(new_body)
                 d = damerau_levenshtein_distance(new_body, k)
                 if d < new_distance:
-                    print(arg['notsystem_vars']['words'])
+                    print(arg['notsystem_vars']['wordes'])
                     distance = d
                     command = c
                     key = k
@@ -83,15 +84,15 @@ def get_answer(body, from_id, payload=None, attachments=None):
                     if distance == 0:
                         print(arg['notsystem_vars'])
                         message, attachment, keyboard = c.process(arg['notsystem_vars'])
-                        arg['notsystem_vars'] == {'system_vars': {}, 'notsystem_vars': {'words': [], 'attachments': [], 'comments': [], 'payload': {}}, 'isPayload': False}
+                        arg['notsystem_vars'] == {'system_vars': {}, 'notsystem_vars': {'wordes': [], 'attachments': [], 'comments': [], 'payload': {}}, 'isPayload': False}
                         return message, attachment, keyboard
                     elif distance < len(body)*0.4:
                         message, attachment, keyboard = command.process(arg['notsystem_vars'])
                         message = 'По теории расстояния Дамерау-Левенштейна - Ваша комманда опознана как "%s"\n\n' % key + message
-                        arg['notsystem_vars'] = {'system_vars': {}, 'notsystem_vars': {'words': [], 'attachments': [], 'comments': [], 'payload': {}}, 'isPayload': False}
+                        arg['notsystem_vars'] = {'system_vars': {}, 'notsystem_vars': {'wordes': [], 'attachments': [], 'comments': [], 'payload': {}}, 'isPayload': False}
                         return message, attachment, keyboard
                 else:
-                    arg['notsystem_vars'] = {'system_vars': {}, 'notsystem_vars': {'words': [], 'attachments': [], 'comments': [], 'payload': {}}, 'isPayload': False}
+                    arg['notsystem_vars'] = {'system_vars': {}, 'notsystem_vars': {'wordes': [], 'attachments': [], 'comments': [], 'payload': {}}, 'isPayload': False}
         else:
             for k in c.keys['payload']:
                 if payload['command'] == k:
@@ -103,7 +104,7 @@ def get_answer(body, from_id, payload=None, attachments=None):
                     key = k
                     arg['isPayload'] == True
                     message, attachment, keyboard = c.process(arg['notsystem_vars'])
-                    arg['notsystem_vars'] = {'system_vars': {}, 'notsystem_vars': {'words': [], 'attachments': [], 'comments': [], 'payload': {}}, 'isPayload': False}
+                    arg['notsystem_vars'] = {'system_vars': {}, 'notsystem_vars': {'wordes': [], 'attachments': [], 'comments': [], 'payload': {}}, 'isPayload': False}
                     return message, attachment, keyboard
     return message, attachment, keyboard
 def create_answer(data, session):
