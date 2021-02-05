@@ -17,5 +17,5 @@ def events(data, session, session_papochka):
             from keyboards import sendingKeyboard
             distribution_users = Passport.query.filter_by(distribution=True).all()
             for user in distribution_users:
-                session.send_message(user.vk_id, '📢 | Новый пост в нашей группе!', attachment='wall' + str(data['object']['owner_id']) + '_' + str(data['object']['id']), 'keyboard': sendingKeyboard)
+                session.send_message(user.vk_id, '📢 | Новый пост в нашей группе!', attachment='wall' + str(data['object']['owner_id']) + '_' + str(data['object']['id']), 'keyboard'=sendingKeyboard)
         return 'ok', 200
