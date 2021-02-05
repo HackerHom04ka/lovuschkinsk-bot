@@ -64,9 +64,10 @@ def get_answer(body, from_id, payload=None, attachments=None):
                 d = damerau_levenshtein_distance(new_body, k)
                 if d < new_distance:
                     print(arg['notsystem_vars']['words'])
+                    print(new_notsystem_vars)
                     for i in range(len(arg['notsystem_vars']['words'])):
-                        for j in new_notsystem_vars:
-                            if arg['notsystem_vars']['words'][i] == j:
+                        for j in range(len(new_notsystem_vars)):
+                            if arg['notsystem_vars']['words'][i] == new_notsystem_vars[j]:
                                 del arg['notsystem_vars']['words'][i]
                     distance = d
                     command = c
