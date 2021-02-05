@@ -62,10 +62,12 @@ def get_answer(body, from_id, payload=None, attachments=None):
                     else:
                         dist = 0
                     if dist == len_k:
-                        new_body = ' '.join(str(x) for x in arg['notsystem_vars']['wordes'][0:len_k])
-                        arg['notsystem_vars']['wordes'] = arg['notsystem_vars']['wordes'][len_k:]
                         break
-                new_distance = len(new_body)
+                if dist == len_k:
+                    global new_body, new_distance, arg['notsystem_vars']['wordes']
+                    new_body = ' '.join(str(x) for x in arg['notsystem_vars']['wordes'][0:len_k])
+                    arg['notsystem_vars']['wordes'] = arg['notsystem_vars']['wordes'][len_k:]
+                    new_distance = len(new_body)
                 d = damerau_levenshtein_distance(new_body, k)
                 if d < new_distance:
                     print(arg['notsystem_vars']['wordes'])
