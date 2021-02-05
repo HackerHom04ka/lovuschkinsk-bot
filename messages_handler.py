@@ -38,6 +38,7 @@ def get_answer(body, from_id, payload=None, attachments=None):
     attachment = ''
     keyboard = {}
     arg['system_vars']['from_id'] = from_id
+    arg['system_vars']['peer_id'] = from_id
     arg['notsystem_vars']['attachments'] = attachments
     distance = len(body)
     command = None
@@ -49,12 +50,10 @@ def get_answer(body, from_id, payload=None, attachments=None):
                 for word in body.split('\n')[0].split():
                     for ke in k.split():
                         dista = damerau_levenshtein_distance(word, ke)
-                        if dista == 0 or dista < len(word)*0.4:
-                            new_body += word.lower() + ' '
-                            list(filter((word).__ne__, arg['notsystem_vars']['words']))
-                        elif dista > len(word)*0.4:
+                        if dista < len(word)*0.4 or dista == 0:
+                            new_body += word + ' '
+                        else:
                             arg['notsystem_vars']['words'].append(word)
-
                 new_body = new_body[:-1]
                 new_distance = len(new_body)
                 d = damerau_levenshtein_distance(new_body, k)
@@ -81,10 +80,10 @@ def get_answer(body, from_id, payload=None, attachments=None):
                     elif distance < len(body)*0.4:
                         message, attachment, keyboard = command.process(arg['notsystem_vars'])
                         message = 'По теории расстояния Дамерау-Левенштейна - Ваша комманда опознана как "%s"\n\n' % key + message
-                        arg['notsystem_vars'] == {'system_vars': {}, 'notsystem_vars': {'words': [], 'attachments': [], 'comments': [], 'payload': {}}, 'isPayload': False}
+                        arg['notsystem_vars'] = {'system_vars': {}, 'notsystem_vars': {'words': [], 'attachments': [], 'comments': [], 'payload': {}}, 'isPayload': False}
                         return message, attachment, keyboard
                 else:
-                    arg['notsystem_vars'] == {'system_vars': {}, 'notsystem_vars': {'words': [], 'attachments': [], 'comments': [], 'payload': {}}, 'isPayload': False}
+                    arg['notsystem_vars'] = {'system_vars': {}, 'notsystem_vars': {'words': [], 'attachments': [], 'comments': [], 'payload': {}}, 'isPayload': False}
         else:
             for k in c.keys['payload']:
                 if payload['command'] == k:
@@ -96,7 +95,7 @@ def get_answer(body, from_id, payload=None, attachments=None):
                     key = k
                     arg['isPayload'] == True
                     message, attachment, keyboard = c.process(arg['notsystem_vars'])
-                    arg['notsystem_vars'] == {'system_vars': {}, 'notsystem_vars': {'words': [], 'attachments': [], 'comments': [], 'payload': {}}, 'isPayload': False}
+                    arg['notsystem_vars'] = {'system_vars': {}, 'notsystem_vars': {'words': [], 'attachments': [], 'comments': [], 'payload': {}}, 'isPayload': False}
                     return message, attachment, keyboard
     return message, attachment, keyboard
 def create_answer(data, session):
@@ -108,6 +107,6 @@ def create_answer(data, session):
     except:
         payload = {'command': ''}
     attachments = data['attachments']
-    if peer_id == peer_id:
+    if peer_id == from_id:
         message, attachment, keyboard = get_answer(data['text'], from_id, payload, attachments)
         session.send_message(peer_id, message, attachment, keyboard)

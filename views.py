@@ -18,6 +18,7 @@ def botFunc(data):
         if data['secret'] == group_config['secret']:
             if data['type'] == 'message_new':
                 from_id = data['object']['message']['from_id']
+                peer_id = data['object']['message']['peer_id']
                 if Passport.query.filter_by(vk_id=from_id).first() == None:
                     if str(from_id)[0] != '-':
                         session.send_message(peer_id, 'Был найден [id' + str(
