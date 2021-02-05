@@ -44,7 +44,7 @@ def get_answer(body, from_id, payload=None, attachments=None):
     distance = len(body)
     command = None
     new_body = ''
-    new_distance = ''
+    new_distance = 0
     key = ''
     for c in command_list:
         if not payload or payload['command'] == '':
