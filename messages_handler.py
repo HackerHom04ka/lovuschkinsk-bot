@@ -67,8 +67,8 @@ def get_answer(body, from_id, payload=None, attachments=None):
                     print(new_notsystem_vars)
                     for i in range(len(arg['notsystem_vars']['words'])):
                         for j in range(len(new_notsystem_vars)):
-                            if arg['notsystem_vars']['words'][i] == new_notsystem_vars[j]:
-                                del arg['notsystem_vars']['words'][i]
+                            if arg['notsystem_vars']['words'] == new_notsystem_vars[j]:
+                                arg['notsystem_vars']['words'].remove(new_notsystem_vars[j])
                     distance = d
                     command = c
                     key = k
