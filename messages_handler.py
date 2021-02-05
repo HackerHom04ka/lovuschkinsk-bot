@@ -43,7 +43,7 @@ def get_answer(body, from_id, payload=None, attachments=None):
     command = None
     key = ''
     for c in command_list:
-        if payload == None or payload['command'] == '':
+        if not payload or payload['command'] == '':
             for k in c.keys['message']:
                 new_body = ''
                 new_notsystem_vars = []
@@ -58,7 +58,7 @@ def get_answer(body, from_id, payload=None, attachments=None):
                                 new_body += word.lower() + ' '
                                 continue
                         else:
-                            arg['notsystem_vars'].words.append(word)
+                            arg['notsystem_vars']['words'].append(word)
                 new_body = new_body[:-1]
                 new_distance = len(new_body)
                 d = damerau_levenshtein_distance(new_body, k)
@@ -91,7 +91,7 @@ def get_answer(body, from_id, payload=None, attachments=None):
                         arg['notsystem_vars'] == {'system_vars': {}, 'notsystem_vars': {'words': [], 'attachments': [], 'comments': [], 'payload': {}}, 'isPayload': False}
                         return message, attachment, keyboard
                 else:
-                    arg['notsystem_vars'].clear()
+                    arg['notsystem_vars'] == {'system_vars': {}, 'notsystem_vars': {'words': [], 'attachments': [], 'comments': [], 'payload': {}}, 'isPayload': False}
         else:
             for k in c.keys['payload']:
                 if payload['command'] == k:
