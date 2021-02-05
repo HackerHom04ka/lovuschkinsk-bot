@@ -289,12 +289,12 @@ def show(nsv):
     print(nsv)
     if nsv['isPayload']:
         try:
-            id = nsv['payload']['id']
+            id = int(nsv['payload']['id'])
         except:
             id = Passport.query.filter_by(vk_id=from_id).first().id
     else:
         try:
-            id = nsv['words'][0]
+            id = int(nsv['words'][0])
         except:
             id = Passport.query.filter_by(vk_id=from_id).first().id
     from passport import createPassport
