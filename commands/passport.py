@@ -287,7 +287,7 @@ def show(nsv):
     from_id = command_system.arg['system_vars']['from_id']
     session.send_message(from_id, 'Пожайлуста подождите⌛.\nПаспорту нужно время на обработку.')
     print(nsv)
-    if nsv.isPayload:
+    if nsv['isPayload']:
         try:
             id = nsv['payload']['id']
         except:
