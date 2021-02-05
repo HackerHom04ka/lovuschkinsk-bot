@@ -57,7 +57,7 @@ def get_answer(body, from_id, payload=None, attachments=None):
                     a = arg['notsystem_vars']['wordes'][kw]
                     b = k.split()[kw]
                     dista = damerau_levenshtein_distance(a, b)
-                    if dista == 0 or dista < a*0.4:
+                    if dista == 0 or dista < len(a)*0.4:
                         dist += 1
                     else:
                         break
