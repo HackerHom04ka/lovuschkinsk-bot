@@ -1,7 +1,7 @@
 command_list = []
 command_cat_list = []
 
-arg = {'system_vars': {}, 'notsystem_vars': {'words': [], 'attachments': [], 'comments': [], 'payload': {}}, 'isPayload': False}
+arg = {'system_vars': {}, 'notsystem_vars': {'words': [], 'attachments': [], 'comments': [], 'payload': {}, 'isPayload': False}}
 
 class Command:
    def __init__(self):
