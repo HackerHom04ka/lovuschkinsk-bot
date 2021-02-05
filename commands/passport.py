@@ -285,7 +285,7 @@ def show(nsv):
     print(nsv)
     keyboard = {}
     from_id = command_system.arg['system_vars']['from_id']
-    session.send_message(peer_id, 'Пожайлуста подождите⌛.\nПаспорту нужно время на обработку.')
+    session.send_message(from_id, 'Пожайлуста подождите⌛.\nПаспорту нужно время на обработку.')
     if nsv['isPayload']:
         try:
             id = nsv['payload']['id']
