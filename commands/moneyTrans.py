@@ -46,9 +46,7 @@ def command_bug_report_money(nsv):
     User = Passport.query.filter_by(id=id).first()
     User.Count += 150
     db.session.commit()
-    session.send_message(User.vk_id,
-                         'Здравия, так как вы нашли ошибку, вы были вознаграждены 150Ŀ!',
-                         keyboard=json.dumps(keyboard1))
+    session.send_message(User.vk_id, 'Здравия, так как вы нашли ошибку, вы были вознаграждены 150Ŀ!', keyboard=json.dumps(keyboard1))
     message = 'Вознаграждение отправлено!'
     return message, attachment, keyboard
 def command_bug_report(nsv):
@@ -57,10 +55,7 @@ def command_bug_report(nsv):
     keyboard = {}
     from_id = command_system.arg['system_vars']['from_id']
     id = Passport.query.filter_by(vk_id=from_id).first().id
-    session.send_message(578425189,
-                         text='Здравия, была обнаружена ошибка! Обнаржил её [id'+ str(from_id
-                         ) +'|данный пользователь]\nhttps://vk.com/gim193840305?sel=' + str(
-                             from_id) + '\nНаградить ли его?', keyboard=keyboard1(id))
+    session.send_message(578425189, text='Здравия, была обнаружена ошибка! Обнаржил её [id'+ str(from_id) +'|данный пользователь]\nhttps://vk.com/gim193840305?sel=' + str(from_id) + '\nНаградить ли его?', keyboard=keyboard1(id))
     message = 'Сообщение администратору бота отправлено, он попытается решить проблему'
     return message, attachment, keyboard
 def command_penalty(nsv):
@@ -94,8 +89,7 @@ def command_penalty(nsv):
             com = c + '\n'
         com = com[:-1]
         comment = '✉ | Комментарий к штрафу:\n' + com
-    session.send_message(User.vk_id, '💸 | Вам штраф в размере ' + str(
-        summ) + 'Ŀ!\n💳 | Ваш баланс - ' + str(User.Count) + 'Ŀ\n' + comment, 'keyboard'=keyboard2)
+    session.send_message(User.vk_id, '💸 | Вам штраф в размере ' + str(summ) + 'Ŀ!\n💳 | Ваш баланс - ' + str(User.Count) + 'Ŀ\n' + comment, 'keyboard'=keyboard2)
     message = '💸 | Штраф в размере ' + str(summ) + ' оформлен!\nПолучивший штраф - [id' + str(User.vk_id) + '|' + User.Name + ' ' + User.Surname + ']\n💳 | Баланс оштрафованного - ' + str(User.Count) + 'Ŀ\n' + comment
     return message, attachment, keyboard
 
