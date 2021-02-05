@@ -91,8 +91,6 @@ def get_answer(body, from_id, payload=None, attachments=None):
                         message = 'По теории расстояния Дамерау-Левенштейна - Ваша комманда опознана как "%s"\n\n' % key + message
                         arg['notsystem_vars'] = {'system_vars': {}, 'notsystem_vars': {'wordes': [], 'attachments': [], 'comments': [], 'payload': {}}, 'isPayload': False}
                         return message, attachment, keyboard
-                else:
-                    arg['notsystem_vars'] = {'system_vars': {}, 'notsystem_vars': {'wordes': [], 'attachments': [], 'comments': [], 'payload': {}}, 'isPayload': False}
         else:
             for k in c.keys['payload']:
                 if payload['command'] == k:
