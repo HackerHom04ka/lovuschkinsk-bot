@@ -47,9 +47,8 @@ def admin():
             com = c + '\n'
         com = com[:-1]
         comment = '✉ | Вопрос заранее:\n' + com
-    for a in group_config['admin_ids'']:
-        session.send_message(a,
-                             text = 'Здравия, вас зовут!\nhttps://vk.com/gim193840305?sel=' + str(from_id) + '\n' + comment)
+    for a in group_config['admin_ids']:
+        session.send_message(a, text = 'Здравия, вас зовут!\nhttps://vk.com/gim193840305?sel=' + str(from_id) + '\n' + comment)
     message = "Уведомления разосланы админам"
     attachment = ''
     keyboard = {}
