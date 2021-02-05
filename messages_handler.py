@@ -53,6 +53,7 @@ def get_answer(body, from_id, payload=None, attachments=None):
                         if dista < len(word)*0.4 or dista == 0:
                             new_body += word + ' '
                         else:
+                            print(arg['notsystem_vars']['words'])
                             arg['notsystem_vars']['words'].append(word)
                 new_body = new_body[:-1]
                 new_distance = len(new_body)
