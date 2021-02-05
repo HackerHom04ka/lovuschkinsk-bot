@@ -50,13 +50,11 @@ def get_answer(body, from_id, payload=None, attachments=None):
                 for ke in k.split():
                     for word in body.split('\n')[0].split():
                         dista = damerau_levenshtein_distance(word, ke)
-                        if dista < len(word):
-                            if dista == 0 or dista < len(word)*0.4:
-                                for wa in arg['notsystem_vars']['words']:
-                                    if wa.lower() == word:
-                                        new_notsystem_vars.append(word)
-                                new_body += word.lower() + ' '
-                                continue
+                        if if dista == 0 or dista < len(word)*0.4:
+                            for wi in range(len(arg['notsystem_vars']['words'])):
+                                if arg['notsystem_vars']['words'][wi].lower() == word:
+                                    del arg['notsystem_vars']['words'][wi]
+                            new_body += word.lower() + ' '
                         else:
                             arg['notsystem_vars']['words'].append(word)
                 new_body = new_body[:-1]
@@ -65,7 +63,7 @@ def get_answer(body, from_id, payload=None, attachments=None):
                 if d < new_distance:
                     print(arg['notsystem_vars']['words'])
                     print(new_notsystem_vars)
-                    for j in new_notsystem_var:
+                    for j in new_notsystem_vars:
                         for i in range(len(arg['notsystem_vars']['words'])):
                             if arg['notsystem_vars']['words'][i] == j:
                                 del arg['notsystem_vars']['words'][i]
