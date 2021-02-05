@@ -46,24 +46,20 @@ def get_answer(body, from_id, payload=None, attachments=None):
         if not payload or payload['command'] == '':
             for k in c.keys['message']:
                 new_body = ''
-                new_notsystem_vars = []
-                for ke in k.split():
-                    for word in body.split('\n')[0].split():
+                for word in body.split('\n')[0].split():
+                    for ke in k.split():
                         dista = damerau_levenshtein_distance(word, ke)
                         if dista == 0 or dista < len(word)*0.4:
                             new_body += word.lower() + ' '
-                        else:
+                            break
+                        elif dista > len(word)*0.4:
                             arg['notsystem_vars']['words'].append(word)
+
                 new_body = new_body[:-1]
                 new_distance = len(new_body)
                 d = damerau_levenshtein_distance(new_body, k)
                 if d < new_distance:
                     print(arg['notsystem_vars']['words'])
-                    print(new_notsystem_vars)
-                    for j in new_notsystem_vars:
-                        for i in range(len(arg['notsystem_vars']['words'])):
-                            if arg['notsystem_vars']['words'][i] == j:
-                                del arg['notsystem_vars']['words'][i]
                     del new_notsystem_vars
                     distance = d
                     command = c
