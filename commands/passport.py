@@ -1,7 +1,6 @@
 import command_system
 from models import Person as Passport
 from config import db, session
-from keyboards import keyboardChangeAccess as keyboard
 
 command_cat = command_system.CommandCat()
 command_cat.title = 'Паспротные'
@@ -49,6 +48,7 @@ def name(nsv):
         return message, attachment, keyboard
     User.Name = namevar
     db.session.commit()
+    from keyboards import keyboardChangeAccess as keyboard
     message = 'Имя [id' + str(from_id) + '|пользователя] установленно как ' + namevar + '!'
     return message, attachment, keyboard
 
@@ -74,6 +74,7 @@ def surname(nsv):
         return message, attachment, keyboard
     User.Surname = namevar
     db.session.commit()
+    from keyboards import keyboardChangeAccess as keyboard
     message = 'Фамилия [id' + str(from_id) + '|пользователя] установленна как ' + namevar + '!'
     return message, attachment, keyboard
 
@@ -99,6 +100,7 @@ def middlename(nsv):
         return message, attachment, keyboard
     User.Middlename = namevar
     db.session.commit()
+    from keyboards import keyboardChangeAccess as keyboard
     message = 'Отчество [id' + str(from_id) + '|пользователя] установленно как ' + namevar + '!'
     return message, attachment, keyboard
 
@@ -123,6 +125,7 @@ def dob(nsv):
         return message, attachment, keyboard
     User.Data_of_Birth = namevar
     db.session.commit()
+    from keyboards import keyboardChangeAccess as keyboard
     message = 'Дата рождения [id' + str(from_id) + '|пользователя] установленна как ' + namevar + '!'
     return message, attachment, keyboard
 
@@ -146,6 +149,7 @@ def Place_of_Birth(nsv):
         return message, attachment, keyboard
     User.Place_of_Birth = namevar
     db.session.commit()
+    from keyboards import keyboardChangeAccess as keyboard
     message = 'Место рождения [id' + str(from_id) + '|пользователя] установленно как ' + namevar + '!'
     return message, attachment, keyboard
 
@@ -170,6 +174,7 @@ def Place_of_residence(nsv):
         return message, attachment, keyboard
     User.Place_of_residence = namevar
     db.session.commit()
+    from keyboards import keyboardChangeAccess as keyboard
     message = 'Место проживания [id' + str(from_id) + '|пользователя] установленно как ' + namevar + '!'
     return message, attachment, keyboard
 
@@ -194,6 +199,7 @@ def Gender(nsv):
         return message, attachment, keyboard
     User.Gender = namevar
     db.session.commit()
+    from keyboards import keyboardChangeAccess as keyboard
     message = 'Пол [id' + str(from_id) + '|пользователя] установлен как ' + namevar + '!'
     return message, attachment, keyboard
 
@@ -218,6 +224,7 @@ def nation(nsv):
         return message, attachment, keyboard
     User.Nation = namevar
     db.session.commit()
+    from keyboards import keyboardChangeAccess as keyboard
     message = 'Национальность [id' + str(from_id) + '|пользователя] установленна как ' + namevar + '!'
     return message, attachment, keyboard
 
@@ -242,6 +249,7 @@ def sex_orien(nsv):
         return message, attachment, keyboard
     User.Sexual_Orientation = namevar
     db.session.commit()
+    from keyboards import keyboardChangeAccess as keyboard
     message = 'Секс. Ориентация [id' + str(from_id) + '|пользователя] установленна как ' + namevar + '!'
     return message, attachment, keyboard
 
@@ -275,6 +283,7 @@ def photo(nsv):
     User.Img = photo_url
     db.session.commit()
     message = 'Принято! Ссылка на фото:\n\n' + photo_url
+    from keyboards import keyboardChangeAccess as keyboard
     attachment = 'photo' + str(photo['owner_id']) + '_' + str(photo['id'])
     return message, attachment, keyboard
 command_photo.keysm = ['photo', 'фото', 'изображение', 'img']
