@@ -60,7 +60,7 @@ def get_answer(body, from_id, payload=None, attachments=None):
                     if dista == 0 or dista < len(a)*0.4:
                         dist += 1
                     else:
-                        break
+                        continue
                 else:
                     new_body = ' '.join(str(x) for x in arg['notsystem_vars']['wordes'][0:len_k])
                     arg['notsystem_vars']['wordes'] = arg['notsystem_vars']['wordes'][len_k:]
