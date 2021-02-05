@@ -60,7 +60,6 @@ def get_answer(body, from_id, payload=None, attachments=None):
                 d = damerau_levenshtein_distance(new_body, k)
                 if d < new_distance:
                     print(arg['notsystem_vars']['words'])
-                    del new_notsystem_vars
                     distance = d
                     command = c
                     key = k
