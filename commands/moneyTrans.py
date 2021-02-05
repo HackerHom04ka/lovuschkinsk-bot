@@ -46,7 +46,7 @@ def command_bug_report_money(nsv):
     User = Passport.query.filter_by(id=id).first()
     User.Count += 150
     db.session.commit()
-    session.send_message(User.vk_id, 'Здравия, так как вы нашли ошибку, вы были вознаграждены 150Ŀ!', keyboard=json.dumps(keyboard1))
+    session.send_message(User.vk_id, 'Здравия, так как вы нашли ошибку, вы были вознаграждены 150Ŀ!', keyboard=keyboard1)
     message = 'Вознаграждение отправлено!'
     return message, attachment, keyboard
 def command_bug_report(nsv):
@@ -89,7 +89,7 @@ def command_penalty(nsv):
             com = c + '\n'
         com = com[:-1]
         comment = '✉ | Комментарий к штрафу:\n' + com
-    session.send_message(User.vk_id, '💸 | Вам штраф в размере ' + str(summ) + 'Ŀ!\n💳 | Ваш баланс - ' + str(User.Count) + 'Ŀ\n' + comment, 'keyboard'=keyboard2)
+    session.send_message(User.vk_id, '💸 | Вам штраф в размере ' + str(summ) + 'Ŀ!\n💳 | Ваш баланс - ' + str(User.Count) + 'Ŀ\n' + comment, keyboard=keyboard2)
     message = '💸 | Штраф в размере ' + str(summ) + ' оформлен!\nПолучивший штраф - [id' + str(User.vk_id) + '|' + User.Name + ' ' + User.Surname + ']\n💳 | Баланс оштрафованного - ' + str(User.Count) + 'Ŀ\n' + comment
     return message, attachment, keyboard
 
@@ -125,7 +125,7 @@ def command_gift(nsv):
         com = com[:-1]
         comment = '✉ | Комментарий к призу:\n' + com
     session.send_message('🎁💷 | Вам приз в размере ' + str(
-        summ) + 'Ŀ!\n💳 | Ваш баланс - ' + str(User.Count) + 'Ŀ\n' + comment, 'keyboard'=keyboard2)
+        summ) + 'Ŀ!\n💳 | Ваш баланс - ' + str(User.Count) + 'Ŀ\n' + comment, keyboard=keyboard2)
     message = '🎁💷 | Приз в размере ' + str(summ) + ' оформлен!\nПолучивший приз - [id' + str(User.vk_id) + '|' + User.Name + ' ' + User.Surname + ']\n💳 | Баланс получившего - ' + str(User.Count) + 'Ŀ\n' + comment
     return message, attachment, keyboard
 def command_transition(nsv):
@@ -170,7 +170,7 @@ def command_transition(nsv):
             com = c + '\n'
         com = com[:-1]
         comment = '✉ | Комментарий к переводу:\n' + com
-    session.send_message(SecondUser.vk_id, '💳 | [id' + str(SecondUser.vk_id) + '|' + SecondUser.Name + ' ' + SecondUser.Surname + '], к вам пришел перевод в размере ' + str(summ) + 'Ŀ!\nОт [id' + str(from_id) + '|' + FirstUser.Name + ' ' + FirstUser.Surname + ']\n💳 | Ваш баланс - ' + str(SecondUser.Count) + '\n💳 | Баланс переводившего - ' + str(FirstUser.Count) + '\n' + comment, 'keyboard'=keyboard2)
+    session.send_message(SecondUser.vk_id, '💳 | [id' + str(SecondUser.vk_id) + '|' + SecondUser.Name + ' ' + SecondUser.Surname + '], к вам пришел перевод в размере ' + str(summ) + 'Ŀ!\nОт [id' + str(from_id) + '|' + FirstUser.Name + ' ' + FirstUser.Surname + ']\n💳 | Ваш баланс - ' + str(SecondUser.Count) + '\n💳 | Баланс переводившего - ' + str(FirstUser.Count) + '\n' + comment, keyboard=keyboard2)
     message = '💳✔ | Перевод в сумму ' + str(summ) + 'Ŀ - успешно совершен!\n[id' + str(SecondUser.vk_id) + '|' + SecondUser.Name + ' ' + SecondUser.Surname + '] - Тот, кому вы перевели Ŀ\n💳 | Ваш баланс - ' + str(FirstUser.Count) + '\n💳 | Баланс получившего - ' + str(SecondUser.Count) + '\n' + comment
     return message, attachment, keyboard
 
