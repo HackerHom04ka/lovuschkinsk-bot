@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 import os
 from vk_api import vk
 from flask_migrate import Migrate
-from after_response import AfterResponseMiddleware
+from after_response import AfterResponse
 
 app = Flask('lovushkinsk')
 
@@ -36,4 +36,4 @@ session = vk(group_config['token'])
 
 migrate = Migrate(app, db)
 
-AfterResponseMiddleware(app)
+AfterResponse(app)
