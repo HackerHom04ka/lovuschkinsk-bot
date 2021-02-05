@@ -47,6 +47,7 @@ def get_answer(body, from_id, payload=None, attachments=None):
         if not payload or payload['command'] == '':
             for k in c.keys['message']:
                 arg['notsystem_vars']['words'] == body.split('\n')[0].split()
+                print(len(k.split()), len(arg['notsystem_vars']['words']))
                 if len(k.split()) > len(arg['notsystem_vars']['words']):
                     continue
                 len_k = len(k.split())
