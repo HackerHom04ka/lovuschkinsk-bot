@@ -38,12 +38,6 @@ command_transition.keysm = ['перевод', 'перевести', 'transition'
 command_transition.keysp = ['transition']
 command_gift.desciption = 'Перевод пользователю'
 
-command_bug_report_money.process = command_bug_report_money
-command_bug_report.process = command_bug_report
-command_penalty.process = command_penalty
-command_gift.process = command_gift
-command_transition.process = command_transition
-
 def command_bug_report_money(nsv):
     from keyboards import keyboardChangeAccess as keyboard1
     id = nsv['payload']['id']
@@ -185,3 +179,9 @@ def command_transition(nsv):
     session.send_message(SecondUser.vk_id, '💳 | [id' + str(SecondUser.vk_id) + '|' + SecondUser.Name + ' ' + SecondUser.Surname + '], к вам пришел перевод в размере ' + str(summ) + 'Ŀ!\nОт [id' + str(from_id) + '|' + FirstUser.Name + ' ' + FirstUser.Surname + ']\n💳 | Ваш баланс - ' + str(SecondUser.Count) + '\n💳 | Баланс переводившего - ' + str(FirstUser.Count) + '\n' + comment, 'keyboard'=keyboard2)
     message = '💳✔ | Перевод в сумму ' + str(summ) + 'Ŀ - успешно совершен!\n[id' + str(SecondUser.vk_id) + '|' + SecondUser.Name + ' ' + SecondUser.Surname + '] - Тот, кому вы перевели Ŀ\n💳 | Ваш баланс - ' + str(FirstUser.Count) + '\n💳 | Баланс получившего - ' + str(SecondUser.Count) + '\n' + comment
     return message, attachment, keyboard
+
+command_bug_report_money.process = command_bug_report_money
+command_bug_report.process = command_bug_report
+command_penalty.process = command_penalty
+command_gift.process = command_gift
+command_transition.process = command_transition

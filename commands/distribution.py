@@ -34,11 +34,6 @@ command_distribution.keysp = ['distribution']
 command_distribution.desciption = 'Отключает/включает рассылку'
 command_distribution.process = distribution
 
-command_admin.keysm = ['admin', 'админ', 'позовите админа']
-command_admin.keysp = ['admin']
-command_admin.desciption = 'Позвать админа'
-command_admin.process = admin
-
 def admin():
     if len(nsv['comments']) <= 0:
         comment = '✉ | Вопроса заранее нет.'
@@ -53,3 +48,7 @@ def admin():
     attachment = ''
     keyboard = {}
     return message, attachment, keyboard
+command_admin.keysm = ['admin', 'админ', 'позовите админа']
+command_admin.keysp = ['admin']
+command_admin.desciption = 'Позвать админа'
+command_admin.process = admin
