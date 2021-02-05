@@ -13,15 +13,11 @@ def exceptionHelp (e, peer_id):
 
 #@app.route('/bot', methods=['POST'])
 def botFunc(data):
-    # Распаковка данных
     data = json.loads(request.data)
-    # Проверка группы
     if data['group_id'] == group_config['id']:
-        # Проверка секретного ключа
         if data['secret'] == group_config['secret']:
-            # Если пришло сообщение
             if data['type'] == 'message_new':
-                from_id = message['from_id'] # Кто прислал
+                from_id = data['object']['message']['from_id']
                 if Passport.query.filter_by(vk_id=from_id).first() == None:
                     if str(from_id)[0] != '-':
                         session.send_message(peer_id, 'Был найден [id' + str(
