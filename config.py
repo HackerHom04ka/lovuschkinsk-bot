@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 import os
 from vk_api import vk
 from flask_migrate import Migrate
+from after_response import AfterResponseMiddleware
 
 app = Flask('lovushkinsk')
 
@@ -15,9 +16,9 @@ group_config = {
     "id": 193840305,
     "secret": "mjeynofbopn7t1j5aipm9ggxivjnxvq9",
     "confirm": confirm,
-    "token": "3a11ee2eef165b831ea31253e369bfd4377f12fee98dcfbc11054655de7538485133a773c55cb1521aaae",
-    'admin_ids': [578425189],
-    "token_papochka": "414555006e083f8dbaff1d00db714fa35b6516789adda87ae428a541b8f6d5ef5a468cf0dff3ed7219a3b"
+    "token": "f6bb39939051686173c4ec3dde30be7df36af7cf07b3700d660a6be5cdc750dd3df5f36c0d96baafc45ad",
+    'admin_ids': [578425189, 632017862, 507603326, 325809318, 620261037],
+    "token_papochka": "a4f28407db73134f0c4831506bc7b89ff7561ec95b2c5d245fa455f417904de394d9bb24de83140e23f46"
 }
 
 app.config['DEBUG'] = False
@@ -34,3 +35,5 @@ session_papochka = vk(group_config['token_papochka'])
 session = vk(group_config['token'])
 
 migrate = Migrate(app, db)
+
+AfterResponseMiddleware(app)

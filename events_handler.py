@@ -14,6 +14,8 @@ def events(data, session, session_papochka):
         session_papochka.BoardCreateComment(group_id=group_config['id'], topic_id=46593350, message=message)
     if data['type'] == 'wall_post_new':
         if str(data['object']['from_id'])[0] == '-':
+            from keyboards import sendingKeyboard
             distribution_users = Passport.query.filter_by(distribution=True).all()
             for user in distribution_users:
-                session.send_message(user.vk_id, '📢 | Новый пост в нашей группе!', attachment='wall' + str(data['object']['owner_id']) + '_' + str(data['object']['id']))
+                session.send_message(user.vk_id, '📢 | Новый пост в нашей группе!', attachment='wall' + str(data['object']['owner_id']) + '_' + str(data['object']['id']), 'keyboard': sendingKeyboard)
+        return 'ok', 200

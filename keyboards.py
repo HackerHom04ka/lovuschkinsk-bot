@@ -149,3 +149,37 @@ def fineKeyboard (id):
     }
     return keyboard
 
+def giftKeyboard (id):
+    keyboard = {
+        'inline': True,
+        'buttons': [
+            [
+                {
+                    'action': {
+                        'type': 'text',
+                        'label': '📙 | Показать паспорт получившего приз',
+                        'payload': json.dumps({'command': 'show_passport', 'id': id})
+                    },
+                    'color': 'positive'
+                }
+            ]
+        ]
+    }
+    return keyboard
+
+sendingKeyboard = {
+    'inline': True,
+    'buttons': [
+        [
+            {
+                'action': {
+                    'type': 'text',
+                    'label': '❌📢 | Отключить рассылку',
+                    'payload': json.dumps({'command': 'distribution'})
+                },
+                'color': 'positive'
+            }
+        ]
+    ]
+}
+}

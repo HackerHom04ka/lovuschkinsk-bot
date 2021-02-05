@@ -1,12 +1,14 @@
 command_list = []
+command_cat_list = []
 
-arg = {'system_vars': {}, 'notsystem_vars': []}
+arg = {'system_vars': {}, 'notsystem_vars': {'words': [], 'attachments': [], 'comments': [], 'payload': {}}, 'isPayload': False}
 
 class Command:
    def __init__(self):
        self.__keys = {'message': [], 'payload': []}
        self.description = ''
        self.show = True
+       self.isAdmin = False
        command_list.append(self)
 
    @property
@@ -25,3 +27,11 @@ class Command:
 
    def process(self):
        pass
+
+class CommandCat:
+    def __init__(self):
+        self.title = ''
+        self.description = ''
+        self.show = True
+        self.commands = []
+        command_cat_list.append(self)
