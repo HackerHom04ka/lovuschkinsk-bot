@@ -57,7 +57,7 @@ def get_answer(body, from_id, payload=None, attachments=None):
                                         new_notsystem_vars.append(word)
                                 new_body += word.lower() + ' '
                         else:
-                            arg['notsystem_vars'].append(word)
+                            arg['notsystem_vars']['words'].append(word)
                 new_body = new_body[:-1]
                 new_distance = len(new_body)
                 d = damerau_levenshtein_distance(new_body, k)
@@ -113,7 +113,7 @@ def create_answer(data, session):
         payload = json.loads(data['payload'])
     except:
         payload = {'command': ''}
-    attachments = data['attachments'][0]['photo']['sizes']
+    attachments = data['attachments']
     if peer_id == peer_id:
         message, attachment, keyboard = get_answer(data['text'], from_id, payload, attachments)
         session.send_message(peer_id, message, attachment, keyboard)
