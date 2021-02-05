@@ -56,16 +56,17 @@ def get_answer(body, from_id, payload=None, attachments=None):
                                     if wa.lower() == word:
                                         new_notsystem_vars.append(word)
                                 new_body += word.lower() + ' '
+                                continue
                         else:
                             arg['notsystem_vars']['words'].append(word)
                 new_body = new_body[:-1]
                 new_distance = len(new_body)
                 d = damerau_levenshtein_distance(new_body, k)
                 if d < new_distance:
-                    for i in range(len(arg['notsystem_vars'])):
+                    for i in range(len(arg['notsystem_vars']['words'])):
                         for j in new_notsystem_vars:
-                            if arg['notsystem_vars'][i] == j:
-                                del arg['notsystem_vars'][i]
+                            if arg['notsystem_vars']['words'][i] == j:
+                                del arg['notsystem_vars']['words'][i]
                     distance = d
                     command = c
                     key = k
