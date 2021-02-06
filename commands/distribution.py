@@ -35,6 +35,8 @@ command_distribution.desciption = 'Отключает/включает расс�
 command_distribution.process = distribution
 
 def admin(nsv):
+    from_id = command_system.arg['system_vars']['from_id']
+    peer_id = command_system.arg['system_vars']['peer_id']
     if len(nsv['comments']) <= 0:
         comment = '✉ | Вопроса заранее нет.'
     else:
