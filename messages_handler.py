@@ -3,8 +3,9 @@ from command_system import command_list, arg
 import json
 from config import group_config
 
-def err_handler():
+def err_handler(e):
     message = "Была обнаружена ошибка, сообщить о ней?"
+    print(e)
     attachment = ""
     from keyboards import BugReport1 as keyboard
     return message, attachment, keyboard
@@ -95,32 +96,32 @@ def get_answer(body, from_id, payload=None, attachments=None):
                         print(arg['notsystem_vars'])
                         try:
                             message, attachment, keyboard = c.process(arg['notsystem_vars'])
-                        except:
-                            message, attachment, keyboard = err_handler()
+                        except Exception as e:
+                            message, attachment, keyboard = err_handler(e)
                         arg['notsystem_vars'] == {'system_vars': {}, 'notsystem_vars': {'wordes': [], 'attachments': [], 'comments': [], 'payload': {}}, 'isPayload': False}
                         return message, attachment, keyboard
                     elif distance < len(body)*0.4:
                         try:
                             message, attachment, keyboard = c.process(arg['notsystem_vars'])
                             message = 'По теории расстояния Дамерау-Левенштейна - Ваша комманда опознана как "%s"\n\n' % key + message
-                        except:
-                            message, attachment, keyboard = err_handler()
+                        except Exception as e:
+                            message, attachment, keyboard = err_handler(e)
                         arg['notsystem_vars'] = {'system_vars': {}, 'notsystem_vars': {'wordes': [], 'attachments': [], 'comments': [], 'payload': {}}, 'isPayload': False}
                         return message, attachment, keyboard
         else:
             for k in c.keys['payload']:
                 if payload['command'] == k:
-                    new_payload = {}
-                    for key, val in payload:
+                    for key, val in payload.items():
                         if key != 'command':
                             arg['notsystem_vars']['payload'][key] = value
                     command = c
+                    print(arg['notsystem_vars']['payload'])
                     key = k
                     arg['isPayload'] == True
                     try:
                         message, attachment, keyboard = c.process(arg['notsystem_vars'])
-                    except:
-                        message, attachment, keyboard = err_handler()
+                    except Exception as e:
+                        message, attachment, keyboard = err_handler(e)
                     arg['notsystem_vars'] = {'system_vars': {}, 'notsystem_vars': {'wordes': [], 'attachments': [], 'comments': [], 'payload': {}}, 'isPayload': False}
                     return message, attachment, keyboard
     return message, attachment, keyboard
