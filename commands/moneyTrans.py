@@ -57,7 +57,7 @@ def penalty(nsv):
         return message, attachment, keyboard
     User = Passport.query.filter_by(id=secondId).first()
     from_id = command_system.arg['system_vars']['from_id']
-    if not SecondUser:
+    if not User:
         message = 'Пользователь с таким индификатором не найден'
         keyboard = {}
         return message, attachment, keyboard
@@ -96,8 +96,7 @@ def gift(nsv):
         keyboard = {}
         return message, attachment, keyboard
     User = Passport.query.filter_by(id=secondId).first()
-    from_id = command_system.arg['system_vars']['from_id']
-    if not SecondUser:
+    if not User:
         message = 'Пользователь с таким индификатором не найден'
         keyboard = {}
         return message, attachment, keyboard
@@ -151,7 +150,7 @@ def transition(nsv):
         message = 'Переменная "сумма" должна быть числом'
         keyboard = {}
         return message, attachment, keyboard
-    if int(nsv['wordes'][1]) < FirstUser.Count:
+    if int(nsv['wordes'][1]) > FirstUser.Count:
         message = 'Сумма слишком большая для вашего баланса'
         keyboard = {}
         return message, attachment, keyboard

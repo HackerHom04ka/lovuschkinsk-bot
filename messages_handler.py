@@ -113,7 +113,7 @@ def get_answer(body, from_id, payload=None, attachments=None):
                 if payload['command'] == k:
                     for key, val in payload.items():
                         if key != 'command':
-                            arg['notsystem_vars']['payload'][key] = value
+                            arg['notsystem_vars']['payload'][key] = val
                     command = c
                     print(arg['notsystem_vars'])
                     key = k
