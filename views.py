@@ -11,37 +11,33 @@ def exceptionHelp (e, peer_id):
     print(e)
     session.send_message(peer_id, 'Жесть, ошибка!', keyboard=json.dumps(keyboard))
 
-#@app.route('/bot', methods=['POST'])
 def botFunc(data):
-    data = json.loads(request.data)
-    if data['group_id'] == group_config['id']:
-        if data['secret'] == group_config['secret']:
-            if data['type'] == 'message_new':
-                from_id = data['object']['message']['from_id']
-                peer_id = data['object']['message']['peer_id']
-                if Passport.query.filter_by(vk_id=from_id).first() == None:
-                    if str(from_id)[0] != '-':
-                        session.send_message(peer_id, 'Был найден [id' + str(
-                            from_id) + '|незарегистрированный пользователь]!')
-                        try:
-                            img = session.getUser(from_id)['photo_max']
-                            Name = session.getUser(from_id)['first_name']
-                            Surname = session.getUser(from_id)['last_name']
-                            newUser = Passport(vk_id=from_id, Img=img, Name=Name, Surname=Surname, Count=200)
-                            db.session.add(newUser)
-                            db.session.commit()
-                            session.send_message(peer_id, 'Пользователь успешно дабавлен в ДБ\nОбратитесь в ЛС к боту!')
-                        except Exception as e:
-                            exceptionHelp(e, peer_id)
-            events(data, session, session_papochka)
+    if data['type'] == 'message_new':
+        from_id = data['object']['message']['from_id']
+        peer_id = data['object']['message']['peer_id']
+        if Passport.query.filter_by(vk_id=from_id).first() == None:
+            if str(from_id)[0] != '-':
+                session.send_message(peer_id, 'Был найден [id' + str(
+                    from_id) + '|незарегистрированный пользователь]!')
+                try:
+                    img = session.getUser(from_id)['photo_max']
+                    Name = session.getUser(from_id)['first_name']
+                    Surname = session.getUser(from_id)['last_name']
+                    newUser = Passport(vk_id=from_id, Img=img, Name=Name, Surname=Surname, Count=200)
+                    db.session.add(newUser)
+                    db.session.commit()
+                    session.send_message(peer_id, 'Пользователь успешно дабавлен в ДБ\nОбратитесь в ЛС к боту!')
+                except Exception as e:
+                    exceptionHelp(e, peer_id)
+    events(data, session, session_papochka)
+
 @app.route('/bot', methods=['POST'])
 def botResp():
     data = json.loads(request.data)
     def do_work():
         import time
-        time.sleep(0.1)
+        time.sleep(0.5)
         botFunc(data)
-    do_work()
     # Проверка на наличие поля 'type'
     if 'type' not in data.keys():
         return 'not \'type\' in keys'
@@ -53,6 +49,7 @@ def botResp():
             if data['type'] == 'confirmation':
                 return group_config['confirm']
             else:
+                do_work()
                 return 'ok', 200
 
 @app.errorhandler(500)
