@@ -44,10 +44,12 @@ def get_answer(body, from_id, payload=None, attachments=None):
     message = ""
     attachment = ''
     keyboard = {}
+    print(body)
     arg['system_vars']['from_id'] = from_id
     arg['system_vars']['peer_id'] = from_id
     arg['notsystem_vars']['attachments'] = attachments
     arg['notsystem_vars']['wordes'] = body.split('\n')[0].split()
+    print(body)
     distance = len(body)
     command = None
     new_body = ''
