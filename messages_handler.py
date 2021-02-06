@@ -88,7 +88,7 @@ def get_answer(body, from_id, payload=None, attachments=None):
                         attachment = ''
                         keyboard = {}
                         return message, attachment, keyboard
-                    if body.split('\n') >= 2:
+                    if len(body.split('\n')) >= 2:
                         arg['notsystem_vars']['comments'] = body.split('\n')[1:]
                     if distance == 0:
                         print(arg['notsystem_vars'])
