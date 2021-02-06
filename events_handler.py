@@ -1,5 +1,6 @@
 from messages_handler import create_answer as messages
 from config import db
+from models import Person as Passport
 
 def events(data, session, session_papochka):
     if data['type'] == 'message_new':
@@ -18,4 +19,3 @@ def events(data, session, session_papochka):
             distribution_users = Passport.query.filter_by(distribution=True).all()
             for user in distribution_users:
                 session.send_message(user.vk_id, '📢 | Новый пост в нашей группе!', attachment='wall' + str(data['object']['owner_id']) + '_' + str(data['object']['id']), keyboard=sendingKeyboard)
-        return 'ok', 200

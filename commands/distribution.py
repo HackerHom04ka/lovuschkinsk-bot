@@ -1,6 +1,6 @@
 import command_system
 from models import Person as Passport
-from config import db, group_config
+from config import db, group_config, session
 
 command_cat = command_system.CommandCat()
 command_cat.title = 'Уведомления'

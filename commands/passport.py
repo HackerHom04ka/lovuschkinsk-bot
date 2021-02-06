@@ -279,6 +279,8 @@ def photo(nsv):
         if size['height'] > max_height:
             max_height = size['height']
             photo_url = size['url']
+    from_id = command_system.arg['system_vars']['from_id']
+    User = Passport.query.filter_by(vk_id=from_id).first()
     User.Img = photo_url
     db.session.commit()
     message = 'Принято! Ссылка на фото:\n\n' + photo_url
