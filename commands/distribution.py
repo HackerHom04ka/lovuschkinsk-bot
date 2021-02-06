@@ -38,9 +38,7 @@ def admin(nsv):
     if len(nsv['comments']) <= 0:
         comment = '✉ | Вопроса заранее нет.'
     else:
-        for c in nsv['comments']:
-            com = c + '\n'
-        com = com[:-1]
+        com = '\n'.join(str(x) for x in arg['notsystem_vars']['comments'])
         comment = '✉ | Вопрос заранее:\n' + com
     for a in group_config['admin_ids']:
         session.send_message(a, text = 'Здравия, вас зовут!\nhttps://vk.com/gim193840305?sel=' + str(from_id) + '\n' + comment)

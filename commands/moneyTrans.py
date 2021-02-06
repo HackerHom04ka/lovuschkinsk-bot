@@ -75,7 +75,7 @@ def command_penalty(nsv):
     User = Passport.query.filter_by(id=secondId).first()
     from_id = command_system.arg['system_vars']['from_id']
     if not SecondUser:
-        message = 'Пользователь с таким индефикатором не найден'
+        message = 'Пользователь с таким индификатором не найден'
         keyboard = {}
         return message, attachment, keyboard
     try:
@@ -91,9 +91,7 @@ def command_penalty(nsv):
     if len(nsv['comments']) <= 0:
         comment = '✉ | Комментария к штрафу нет.'
     else:
-        for c in nsv['comments']:
-            com = c + '\n'
-        com = com[:-1]
+        com = '\n'.join(str(x) for x in arg['notsystem_vars']['comments'])
         comment = '✉ | Комментарий к штрафу:\n' + com
     session.send_message(User.vk_id, '💸 | Вам штраф в размере ' + str(summ) + 'Ŀ!\n💳 | Ваш баланс - ' + str(User.Count) + 'Ŀ\n' + comment, keyboard=keyboard2)
     message = '💸 | Штраф в размере ' + str(summ) + ' оформлен!\nПолучивший штраф - [id' + str(User.vk_id) + '|' + User.Name + ' ' + User.Surname + ']\n💳 | Баланс оштрафованного - ' + str(User.Count) + 'Ŀ\n' + comment
@@ -112,7 +110,7 @@ def command_gift(nsv):
     User = Passport.query.filter_by(id=secondId).first()
     from_id = command_system.arg['system_vars']['from_id']
     if not SecondUser:
-        message = 'Пользователь с таким индефикатором не найден'
+        message = 'Пользователь с таким индификатором не найден'
         keyboard = {}
         return message, attachment, keyboard
     try:
@@ -128,9 +126,7 @@ def command_gift(nsv):
     if len(nsv['comments']) <= 0:
         comment = '✉ | Комментария к призу нет.'
     else:
-        for c in nsv['comments']:
-            com = c + '\n'
-        com = com[:-1]
+        com = '\n'.join(str(x) for x in arg['notsystem_vars']['comments'])
         comment = '✉ | Комментарий к призу:\n' + com
     session.send_message(User.vk_id, '🎁💷 | Вам приз в размере ' + str(summ) + 'Ŀ!\n💳 | Ваш баланс - ' + str(User.Count) + 'Ŀ\n' + comment, keyboard=keyboard2)
     message = '🎁💷 | Приз в размере ' + str(summ) + ' оформлен!\nПолучивший приз - [id' + str(User.vk_id) + '|' + User.Name + ' ' + User.Surname + ']\n💳 | Баланс получившего - ' + str(User.Count) + 'Ŀ\n' + comment
@@ -149,7 +145,7 @@ def command_transition(nsv):
     SecondUser = Passport.query.filter_by(id=secondId).first()
     from_id = command_system.arg['system_vars']['from_id']
     if not SecondUser:
-        message = 'Пользователь с таким индефикатором не найден'
+        message = 'Пользователь с таким индификатором не найден'
         keyboard = {}
         return message, attachment, keyboard
     if peer_id == SecondUser.vk_id:
@@ -175,9 +171,7 @@ def command_transition(nsv):
     if len(nsv['comments']) <= 0:
         comment = '✉ | Комментария к переводу нет.'
     else:
-        for c in nsv['comments']:
-            com = c + '\n'
-        com = com[:-1]
+        com = '\n'.join(str(x) for x in arg['notsystem_vars']['comments'])
         comment = '✉ | Комментарий к переводу:\n' + com
     session.send_message(SecondUser.vk_id, '💳 | [id' + str(SecondUser.vk_id) + '|' + SecondUser.Name + ' ' + SecondUser.Surname + '], к вам пришел перевод в размере ' + str(summ) + 'Ŀ!\nОт [id' + str(from_id) + '|' + FirstUser.Name + ' ' + FirstUser.Surname + ']\n💳 | Ваш баланс - ' + str(SecondUser.Count) + '\n💳 | Баланс переводившего - ' + str(FirstUser.Count) + '\n' + comment, keyboard=keyboard2)
     message = '💳✔ | Перевод в сумму ' + str(summ) + 'Ŀ - успешно совершен!\n[id' + str(SecondUser.vk_id) + '|' + SecondUser.Name + ' ' + SecondUser.Surname + '] - Тот, кому вы перевели Ŀ\n💳 | Ваш баланс - ' + str(FirstUser.Count) + '\n💳 | Баланс получившего - ' + str(SecondUser.Count) + '\n' + comment
