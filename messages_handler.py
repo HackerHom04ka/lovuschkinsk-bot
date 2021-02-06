@@ -3,6 +3,12 @@ from command_system import command_list, arg
 import json
 from config import group_config
 
+def err_handler():
+    message = "Была обнаружена ошибка, сообщить о ней?"
+    attachment = ""
+    from keyboards import BugReport1 as keyboard
+    return message, attachment, keyboard
+
 def damerau_levenshtein_distance(s1, s2):
     d = {}
     lenstr1 = len(s1)
@@ -76,7 +82,7 @@ def get_answer(body, from_id, payload=None, attachments=None):
                     command = c
                     key = k
                     body = new_body
-                    if command.isAdmin and from_id not in group_config:
+                    if command.isAdmin and from_id not in group_config['admin_ids']:
                         message = 'У вас нет доступа'
                         attachment = ''
                         keyboard = {}
@@ -87,12 +93,18 @@ def get_answer(body, from_id, payload=None, attachments=None):
                         pass
                     if distance == 0:
                         print(arg['notsystem_vars'])
-                        message, attachment, keyboard = c.process(arg['notsystem_vars'])
+                        try:
+                            message, attachment, keyboard = c.process(arg['notsystem_vars'])
+                        except:
+                            message, attachment, keyboard = err_handler()
                         arg['notsystem_vars'] == {'system_vars': {}, 'notsystem_vars': {'wordes': [], 'attachments': [], 'comments': [], 'payload': {}}, 'isPayload': False}
                         return message, attachment, keyboard
                     elif distance < len(body)*0.4:
-                        message, attachment, keyboard = command.process(arg['notsystem_vars'])
-                        message = 'По теории расстояния Дамерау-Левенштейна - Ваша комманда опознана как "%s"\n\n' % key + message
+                        try:
+                            message, attachment, keyboard = c.process(arg['notsystem_vars'])
+                            message = 'По теории расстояния Дамерау-Левенштейна - Ваша комманда опознана как "%s"\n\n' % key + message
+                        except:
+                            message, attachment, keyboard = err_handler()
                         arg['notsystem_vars'] = {'system_vars': {}, 'notsystem_vars': {'wordes': [], 'attachments': [], 'comments': [], 'payload': {}}, 'isPayload': False}
                         return message, attachment, keyboard
         else:
@@ -105,7 +117,10 @@ def get_answer(body, from_id, payload=None, attachments=None):
                     command = c
                     key = k
                     arg['isPayload'] == True
-                    message, attachment, keyboard = c.process(arg['notsystem_vars'])
+                    try:
+                        message, attachment, keyboard = c.process(arg['notsystem_vars'])
+                    except:
+                        message, attachment, keyboard = err_handler()
                     arg['notsystem_vars'] = {'system_vars': {}, 'notsystem_vars': {'wordes': [], 'attachments': [], 'comments': [], 'payload': {}}, 'isPayload': False}
                     return message, attachment, keyboard
     return message, attachment, keyboard
