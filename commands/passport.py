@@ -260,20 +260,19 @@ command_sexual_orientation.process = sex_orien
 def photo(nsv):
     print(nsv)
     attachment = ''
-    if not nsv['attachment']:
+    if not nsv['attachments']:
         keyboard = {}
         message = "Нет вложений"
         return message, attachment, keyboard
+    photo = {}
+    for attachment in nsv['attachments']:
+        if attachment['type'] == "photo":
+            photo = attachment['photo']
+            break;
     else:
-        photo = {}
-        for attachment in nsv['attachment']:
-            if attachment['type'] == "photo":
-                photo = attachment['photo']
-                break;
-        else:
-            keyboard = {}
-            message = "Фото не было прикреплено"
-            return message, attachment, keyboard
+        keyboard = {}
+        message = "Фото не было прикреплено"
+        return message, attachment, keyboard
     max_height = 0
     photo_url = ''
     for size in photo['sizes']:
