@@ -115,7 +115,7 @@ def get_answer(body, from_id, payload=None, attachments=None):
                         if key != 'command':
                             arg['notsystem_vars']['payload'][key] = value
                     command = c
-                    print(arg['notsystem_vars']['payload'])
+                    print(arg['notsystem_vars'])
                     key = k
                     arg['notsystem_vars']['isPayload'] == True
                     try:
