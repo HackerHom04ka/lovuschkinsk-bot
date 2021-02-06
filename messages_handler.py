@@ -117,7 +117,7 @@ def get_answer(body, from_id, payload=None, attachments=None):
                     command = c
                     print(arg['notsystem_vars'])
                     key = k
-                    arg['notsystem_vars']['isPayload'] == True
+                    arg['notsystem_vars']['isPayload'] = True
                     try:
                         message, attachment, keyboard = c.process(arg['notsystem_vars'])
                     except Exception as e:

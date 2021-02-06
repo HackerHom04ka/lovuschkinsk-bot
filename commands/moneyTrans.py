@@ -67,7 +67,8 @@ def penalty(nsv):
         message = 'Переменная "сумма" должна быть числом'
         keyboard = {}
         return message, attachment, keyboard
-    from keyboards import fineKeyboard as keyboard1, keyboardChangeAccess as keyboard2
+    from keyboards import fineKeyboard as keyboard1
+    from keyboards import keyboardChangeAccess as keyboard2
     keyboard = fineKeyboard(User.id)
     User.Count -= summ
     db.session.commit()
@@ -106,7 +107,8 @@ def gift(nsv):
         message = 'Переменная "сумма" должна быть числом'
         keyboard = {}
         return message, attachment, keyboard
-    from keyboards import fineKeyboard as keyboard1, keyboardChangeAccess as keyboard2
+    from keyboards import giftKeyboard as keyboard1
+    from keyboards import keyboardChangeAccess as keyboard2
     keyboard = giftKeyboard(User.id)
     User.Count += summ
     db.session.commit()
