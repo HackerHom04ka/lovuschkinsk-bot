@@ -34,7 +34,7 @@ command_distribution.keysp = ['distribution']
 command_distribution.desciption = 'Отключает/включает рассылку'
 command_distribution.process = distribution
 
-def admin():
+def admin(nsv):
     if len(nsv['comments']) <= 0:
         comment = '✉ | Вопроса заранее нет.'
     else:

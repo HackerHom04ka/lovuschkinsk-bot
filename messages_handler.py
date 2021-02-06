@@ -76,7 +76,7 @@ def get_answer(body, from_id, payload=None, attachments=None):
                     command = c
                     key = k
                     body = new_body
-                    if command.isAdmin and peer_id not in group_config:
+                    if command.isAdmin and from_id not in group_config:
                         message = 'У вас нет доступа'
                         attachment = ''
                         keyboard = {}

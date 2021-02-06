@@ -39,6 +39,8 @@ command_transition.keysp = ['transition']
 command_gift.desciption = 'Перевод пользователю'
 
 def command_bug_report_money(nsv):
+    from_id = command_system.arg['system_vars']['from_id']
+    peer_id = command_system.arg['system_vars']['peer_id']
     from keyboards import keyboardChangeAccess as keyboard1
     id = nsv['payload']['id']
     attachment = ''
@@ -50,6 +52,8 @@ def command_bug_report_money(nsv):
     message = 'Вознаграждение отправлено!'
     return message, attachment, keyboard
 def command_bug_report(nsv):
+    from_id = command_system.arg['system_vars']['from_id']
+    peer_id = command_system.arg['system_vars']['peer_id']
     from keyboards import BugReport2 as keyboard1
     attachment = ''
     keyboard = {}
@@ -59,6 +63,8 @@ def command_bug_report(nsv):
     message = 'Сообщение администратору бота отправлено, он попытается решить проблему'
     return message, attachment, keyboard
 def command_penalty(nsv):
+    from_id = command_system.arg['system_vars']['from_id']
+    peer_id = command_system.arg['system_vars']['peer_id']
     attachment = ''
     try:
         secondId = int(nsv['wordes'][0])
@@ -94,6 +100,8 @@ def command_penalty(nsv):
     return message, attachment, keyboard
 
 def command_gift(nsv):
+    from_id = command_system.arg['system_vars']['from_id']
+    peer_id = command_system.arg['system_vars']['peer_id']
     attachment = ''
     try:
         secondId = int(nsv['wordes'][0])
@@ -124,11 +132,12 @@ def command_gift(nsv):
             com = c + '\n'
         com = com[:-1]
         comment = '✉ | Комментарий к призу:\n' + com
-    session.send_message('🎁💷 | Вам приз в размере ' + str(
-        summ) + 'Ŀ!\n💳 | Ваш баланс - ' + str(User.Count) + 'Ŀ\n' + comment, keyboard=keyboard2)
+    session.send_message(User.vk_id, '🎁💷 | Вам приз в размере ' + str(summ) + 'Ŀ!\n💳 | Ваш баланс - ' + str(User.Count) + 'Ŀ\n' + comment, keyboard=keyboard2)
     message = '🎁💷 | Приз в размере ' + str(summ) + ' оформлен!\nПолучивший приз - [id' + str(User.vk_id) + '|' + User.Name + ' ' + User.Surname + ']\n💳 | Баланс получившего - ' + str(User.Count) + 'Ŀ\n' + comment
     return message, attachment, keyboard
 def command_transition(nsv):
+    from_id = command_system.arg['system_vars']['from_id']
+    peer_id = command_system.arg['system_vars']['peer_id']
     attachment = ''
     FirstUser = Passport.query.filter_by(vk_id=from_id).first()
     try:
