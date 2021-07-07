@@ -2,7 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 import os
 from vk_api import vk
-from flask_migrate import Migrate
+# from flask_migrate import Migrate
 
 app = Flask('lovushkinsk')
 
@@ -33,4 +33,4 @@ db = SQLAlchemy(app)
 session_papochka = vk(group_config['token_papochka'])
 session = vk(group_config['token'])
 
-migrate = Migrate(app, db)
+# migrate = Migrate(app, db)

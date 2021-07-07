@@ -4,5 +4,5 @@ flask_sqlalchemy
 requests
 psycopg2
 Pillow
-flask_migrate
-flask_script
+# flask_migrate
+# flask_script
