@@ -2,6 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 import os
 from vk_api import vk
+from urllib.parse import urlparse
 # from flask_migrate import Migrate
 
 app = Flask('lovushkinsk')
@@ -24,7 +25,9 @@ app.config['DEBUG'] = False
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 try:
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+
+    xi = urlparse(os.environ['DATABASE_URL'])
+    app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql+psycopg2://" + xi.username + ":" + xi.password + "@" + xi.hostname + ":" + xi.port + xi.path
 except:
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://kjnpwujmrlkrxf:a4749d1f7771f81a3e9b20eb8119ca92a27c1ef4192229e0145b3ece0bc29aff@ec2-107-22-33-173.compute-1.amazonaws.com:5432/djfr3k1op99nt'
 
