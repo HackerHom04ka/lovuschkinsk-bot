@@ -128,7 +128,7 @@ def get_answer(body, from_id, payload=None, attachments=None):
                         err = e
                     arg['notsystem_vars'] = {'wordes': [], 'attachments': [], 'comments': [], 'payload': {}, 'isPayload': False}
                     return message, attachment, keyboard, err
-    return message, attachment, keyboard
+    return message, attachment, keyboard, err
 def create_answer(data, session):
     load_modules()
     from_id = data['from_id']
