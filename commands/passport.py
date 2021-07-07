@@ -313,6 +313,7 @@ def show(nsv):
     if not User:
         keyboard = {}
         message = 'Пользователь с таким индефикатором не найден'
+        attachment = ""
         return message, attachment, keyboard
     img = createPassport(User.Name, User.Surname, User.Middlename, User.Gender, User.Data_of_Birth, User.Place_of_Birth, User.Place_of_residence, User.Nation, User.Sexual_Orientation, Photo=str(User.Img))
     attachment = session.inputIMGMSG(img, peer_id)

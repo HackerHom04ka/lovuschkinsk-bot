@@ -78,7 +78,7 @@ def get_answer(body, from_id, payload=None, attachments=None):
                     new_body = ' '.join(str(x) for x in arg['notsystem_vars']['wordes'][0:len_k])
                     arg['notsystem_vars']['wordes'] = arg['notsystem_vars']['wordes'][len_k:]
                     new_distance = len(new_body)
-                d = damerau_levenshtein_distance(new_body, k)
+                d = damerau_levenshtein_distance(new_body.lower(), k.lower())
                 if d < new_distance:
                     print(arg['notsystem_vars']['wordes'])
                     distance = d
