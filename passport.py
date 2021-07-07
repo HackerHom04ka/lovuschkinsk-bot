@@ -16,7 +16,7 @@ def createPassport(Name, Surname, Middlename, Gender, Data_of_Birth, Place_of_Bi
     shablondraw = ImageDraw.Draw(shablon)
     #Text
     drawText(shablondraw, Name, 1290)
-    drawText(shablondraw, Surname, 1290)
+    drawText(shablondraw, Surname, 1390)
     drawText(shablondraw, Middlename, 1490)
     drawText(shablondraw, Gender, 1590)
     drawText(shablondraw, Data_of_Birth, 1690)

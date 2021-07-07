@@ -13,7 +13,7 @@ class vk(object):
         self.token = token
         self.v = v
 
-    def send_message(self, peer_id, text=None, attachment=None, keyboard=None):
+    def send_message(self, peer_id, text=None, attachment=None, keyboard=None, random_id=0, reply_to: int=None):
         """
         :param keyboard: Клавиатура
         :type keyboard: str or dict or list
@@ -22,7 +22,7 @@ class vk(object):
         if isinstance(keyboard, (dict, list)):
             keyboard = json.dumps(keyboard)
 
-        requests.post('https://api.vk.com/method/messages.send', params={'access_token': self.token, 'v': self.v, 'random_id': 0, 'peer_id': peer_id, 'message': text, 'attachment': attachment, 'keyboard': keyboard})
+        requests.post('https://api.vk.com/method/messages.send', params={'access_token': self.token, 'v': self.v, 'random_id': random_id, 'peer_id': peer_id, 'message': text, 'attachment': attachment, 'keyboard': keyboard, "reply_to": reply_to})
         return 'ok'
     
     def inputIMGMSG(self, photo, peer_id):

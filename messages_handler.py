@@ -140,6 +140,6 @@ def create_answer(data, session):
     attachments = data['attachments']
     if peer_id == from_id:
         message, attachment, keyboard, err = get_answer(data['text'], from_id, payload, attachments)
-        session.send_message(peer_id, message, attachment, keyboard)
+        session.send_message(peer_id, message, attachment, keyboard, random_id=data["id"], reply_to=data["id"])
         if err != None:
             raise err
