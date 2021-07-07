@@ -29,7 +29,7 @@ try:
     xi = urlparse(os.environ['DATABASE_URL'])
     app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql+psycopg2://" + xi.username + ":" + xi.password + "@" + xi.hostname + ":" + xi.port + xi.path
 except:
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://kjnpwujmrlkrxf:a4749d1f7771f81a3e9b20eb8119ca92a27c1ef4192229e0145b3ece0bc29aff@ec2-107-22-33-173.compute-1.amazonaws.com:5432/djfr3k1op99nt'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://kjnpwujmrlkrxf:a4749d1f7771f81a3e9b20eb8119ca92a27c1ef4192229e0145b3ece0bc29aff@ec2-107-22-33-173.compute-1.amazonaws.com:5432/djfr3k1op99nt'
 
 db = SQLAlchemy(app)
 
