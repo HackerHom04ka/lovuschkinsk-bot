@@ -15,9 +15,9 @@ group_config = {
     "id": 193840305,
     "secret": "mjeynofbopn7t1j5aipm9ggxivjnxvq9",
     "confirm": confirm,
-    "token": "f6bb39939051686173c4ec3dde30be7df36af7cf07b3700d660a6be5cdc750dd3df5f36c0d96baafc45ad",
-    'admin_ids': [578425189, 632017862, 507603326, 325809318, 620261037],
-    "token_papochka": "a4f28407db73134f0c4831506bc7b89ff7561ec95b2c5d245fa455f417904de394d9bb24de83140e23f46"
+    "token": "1d72e176625cfa8949dc1a36657ffdfaf4b82fa3e12adeae487587f8ba9640f3df876a069c375f04cc40b",
+    'admin_ids': [578425189, 541179325, 325809318, 620261037, 632017862],
+    "token_papochka": "5b8b8d17d60201c281e18906391cdb4bc18f79591883db7e79a749069a95f195483f920d31f8e21579b4d"
 }
 
 app.config['DEBUG'] = False
