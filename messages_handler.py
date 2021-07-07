@@ -1,5 +1,5 @@
 import os, sys, importlib
-from command_system import command_list, arg
+from command_system import command_list, arg, Command
 import json
 from config import group_config
 
@@ -65,9 +65,9 @@ def get_answer(body, from_id, payload=None, attachments=None):
                 len_k = len(k.split())
                 dist = 0
                 for kw in range(len(k.split())):
-                    a = arg['notsystem_vars']['wordes'][kw]
-                    b = k.split()[kw]
-                    dista = damerau_levenshtein_distance(a, b)
+                    a: str = arg['notsystem_vars']['wordes'][kw]
+                    b: str = k.split()[kw]
+                    dista = damerau_levenshtein_distance(a.lower(), b.lower())
                     if dista == 0 or dista < len(a)*0.4:
                         dist += 1
                     else:
@@ -103,7 +103,7 @@ def get_answer(body, from_id, payload=None, attachments=None):
                     elif distance < len(body)*0.4:
                         try:
                             message, attachment, keyboard = c.process(arg['notsystem_vars'])
-                            message = 'По теории расстояния Дамерау-Левенштейна - Ваша комманда опознана как "%s"\n\n' % key + message
+                            message = 'По расстоянию Дамерау-Левенштейна - Ваша команда опознана как "%s"\n\n' % key + message
                         except Exception as e:
                             message, attachment, keyboard = err_handler(e)
                         arg['notsystem_vars'] = {'wordes': [], 'attachments': [], 'comments': [], 'payload': {}, 'isPayload': False}

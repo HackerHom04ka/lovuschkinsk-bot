@@ -2,16 +2,14 @@ from config import app, db, group_config, session, session_papochka
 from models import Person as Passport
 from flask import request
 import json
-from vk_api import vk
-import random
-from events_handler import events
+from events_handler import events, eventLoop
 
 def exceptionHelp (e, peer_id):
     from keyboards import BugReport1 as keyboard
     print(e)
     session.send_message(peer_id, 'Жесть, ошибка!', keyboard=json.dumps(keyboard))
 
-def botFunc(data):
+async def botFunc(data):
     if data['type'] == 'message_new':
         from_id = data['object']['message']['from_id']
         peer_id = data['object']['message']['peer_id']
@@ -29,15 +27,11 @@ def botFunc(data):
                     session.send_message(peer_id, 'Пользователь успешно дабавлен в ДБ\nОбратитесь в ЛС к боту!')
                 except Exception as e:
                     exceptionHelp(e, peer_id)
-    events(data, session, session_papochka)
+    await events(data, session, session_papochka)
 
 @app.route('/bot', methods=['POST'])
 def botResp():
     data = json.loads(request.data)
-    def do_work():
-        import time
-        time.sleep(0.5)
-        botFunc(data)
     # Проверка на наличие поля 'type'
     if 'type' not in data.keys():
         return 'not \'type\' in keys'
@@ -49,11 +43,13 @@ def botResp():
             if data['type'] == 'confirmation':
                 return group_config['confirm']
             else:
-                do_work()
+                eventLoop.run_until_complete(botFunc(data))
                 return 'ok', 200
+        else:
+            return "notPerms", 402
+    else:
+        return "notPerms", 402
 
 @app.errorhandler(500)
 def handler(e):
-    print(e)
-    session.send_message(578425189, e)
     return 'ok'

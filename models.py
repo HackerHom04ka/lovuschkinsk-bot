@@ -1,4 +1,4 @@
-from config import db, session
+from config import db
 
 class Person(db.Model):
     id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True)

@@ -69,13 +69,13 @@ def penalty(nsv):
         return message, attachment, keyboard
     from keyboards import fineKeyboard as keyboard1
     from keyboards import keyboardChangeAccess as keyboard2
-    keyboard = fineKeyboard(User.id)
+    keyboard = keyboard1(User.id)
     User.Count -= summ
     db.session.commit()
     if len(nsv['comments']) <= 0:
         comment = '✉ | Комментария к штрафу нет.'
     else:
-        com = '\n'.join(str(x) for x in arg['notsystem_vars']['comments'])
+        com = '\n'.join(str(x) for x in command_system.arg['notsystem_vars']['comments'])
         comment = '✉ | Комментарий к штрафу:\n' + com
     session.send_message(User.vk_id, '💸 | Вам штраф в размере ' + str(summ) + 'Ŀ!\n💳 | Ваш баланс - ' + str(User.Count) + 'Ŀ\n' + comment, keyboard=keyboard2)
     message = '💸 | Штраф в размере ' + str(summ) + ' оформлен!\nПолучивший штраф - [id' + str(User.vk_id) + '|' + User.Name + ' ' + User.Surname + ']\n💳 | Баланс оштрафованного - ' + str(User.Count) + 'Ŀ\n' + comment
@@ -109,13 +109,13 @@ def gift(nsv):
         return message, attachment, keyboard
     from keyboards import giftKeyboard as keyboard1
     from keyboards import keyboardChangeAccess as keyboard2
-    keyboard = giftKeyboard(User.id)
+    keyboard = keyboard1(User.id)
     User.Count += summ
     db.session.commit()
     if len(nsv['comments']) <= 0:
         comment = '✉ | Комментария к призу нет.'
     else:
-        com = '\n'.join(str(x) for x in arg['notsystem_vars']['comments'])
+        com = '\n'.join(str(x) for x in command_system.arg['notsystem_vars']['comments'])
         comment = '✉ | Комментарий к призу:\n' + com
     session.send_message(User.vk_id, '🎁💷 | Вам приз в размере ' + str(summ) + 'Ŀ!\n💳 | Ваш баланс - ' + str(User.Count) + 'Ŀ\n' + comment, keyboard=keyboard2)
     message = '🎁💷 | Приз в размере ' + str(summ) + ' оформлен!\nПолучивший приз - [id' + str(User.vk_id) + '|' + User.Name + ' ' + User.Surname + ']\n💳 | Баланс получившего - ' + str(User.Count) + 'Ŀ\n' + comment
@@ -165,7 +165,7 @@ def transition(nsv):
     if len(nsv['comments']) <= 0:
         comment = '✉ | Комментария к переводу нет.'
     else:
-        com = '\n'.join(str(x) for x in arg['notsystem_vars']['comments'])
+        com = '\n'.join(str(x) for x in command_system.arg['notsystem_vars']['comments'])
         comment = '✉ | Комментарий к переводу:\n' + com
     session.send_message(SecondUser.vk_id, '💳 | [id' + str(SecondUser.vk_id) + '|' + SecondUser.Name + ' ' + SecondUser.Surname + '], к вам пришел перевод в размере ' + str(summ) + 'Ŀ!\nОт [id' + str(from_id) + '|' + FirstUser.Name + ' ' + FirstUser.Surname + ']\n💳 | Ваш баланс - ' + str(SecondUser.Count) + '\n💳 | Баланс переводившего - ' + str(FirstUser.Count) + '\n' + comment, keyboard=keyboard2)
     message = '💳✔ | Перевод в сумму ' + str(summ) + 'Ŀ - успешно совершен!\n[id' + str(SecondUser.vk_id) + '|' + SecondUser.Name + ' ' + SecondUser.Surname + '] - Тот, кому вы перевели Ŀ\n💳 | Ваш баланс - ' + str(FirstUser.Count) + '\n💳 | Баланс получившего - ' + str(SecondUser.Count) + '\n' + comment

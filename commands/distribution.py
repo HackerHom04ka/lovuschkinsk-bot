@@ -14,25 +14,25 @@ command_cat.commands = [
     command_admin
 ]
 
-def distribution(nsv):
-    from_id = command_system.arg['system_vars']['from_id']
-    User = Passport.query.filter_by(vk_id=from_id).first()
-    if User.distribution:
-        User.distribution = False
-        db.session.commit()
-        message =  ' ❌📢 | Уведомления были отключены'
-    else:
-        User.distribution = True
-        db.session.commit()
-        message =  ' ✅📢 | Уведомления были включены'
-    attachment = ''
-    keyboard = {}
-    return message, attachment, keyboard
+# def distribution(nsv):
+#     from_id = command_system.arg['system_vars']['from_id']
+#     User = Passport.query.filter_by(vk_id=from_id).first()
+#     if User.distribution:
+#         User.distribution = False
+#         db.session.commit()
+#         message =  ' ❌📢 | Уведомления были отключены'
+#     else:
+#         User.distribution = True
+#         db.session.commit()
+#         message =  ' ✅📢 | Уведомления были включены'
+#     attachment = ''
+#     keyboard = {}
+#     return message, attachment, keyboard
 
-command_distribution.keysm = ['рассылка', 'distribution', 'sending']
-command_distribution.keysp = ['distribution']
-command_distribution.desciption = 'Отключает/включает рассылку'
-command_distribution.process = distribution
+# command_distribution.keysm = ['рассылка', 'distribution', 'sending']
+# command_distribution.keysp = ['distribution']
+# command_distribution.desciption = 'Отключает/включает рассылку'
+# command_distribution.process = distribution
 
 def admin(nsv):
     from_id = command_system.arg['system_vars']['from_id']
@@ -40,7 +40,7 @@ def admin(nsv):
     if len(nsv['comments']) <= 0:
         comment = '✉ | Вопроса заранее нет.'
     else:
-        com = '\n'.join(str(x) for x in arg['notsystem_vars']['comments'])
+        com = '\n'.join(str(x) for x in command_system.arg['notsystem_vars']['comments'])
         comment = '✉ | Вопрос заранее:\n' + com
     for a in group_config['admin_ids']:
         session.send_message(a, text = 'Здравия, вас зовут!\nhttps://vk.com/gim193840305?sel=' + str(from_id) + '\n' + comment)

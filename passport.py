@@ -1,7 +1,10 @@
 from PIL import Image, ImageFont, ImageDraw
 from io import BytesIO
 import requests
-import os, sys
+
+def drawText(shablondraw, text, y, x=None):
+    font = ImageFont.truetype("passportsr/19539.ttf", 100)
+    shablondraw.text((1100 + x, y), text, (0, 0, 0), font=font)
 
 def ImageOpenURL(url):
     response = requests.get(url, stream=True).raw
@@ -9,20 +12,18 @@ def ImageOpenURL(url):
 
 def createPassport(Name, Surname, Middlename, Gender, Data_of_Birth, Place_of_Birth, Place_of_residence, Nation, Sexsual_Orientation, Photo=None):
     # Image Open
-    shablon = Image.open('passportsr/shablon.jpg')
+    shablon = Image.open('passportsr/shablon1.png')
     shablondraw = ImageDraw.Draw(shablon)
-    # Text and Font
-    font = ImageFont.truetype("passportsr/19539.ttf", 100)
     #Text
-    shablondraw.text((1100, 1290), Name, (0, 0, 0), font=font)
-    shablondraw.text((1100, 1390), Surname, (0, 0, 0), font=font)
-    shablondraw.text((1100, 1490), Middlename, (0, 0, 0), font=font)
-    shablondraw.text((1100, 1590), Gender, (0, 0, 0), font=font)
-    shablondraw.text((1100, 1690), Data_of_Birth, (0, 0, 0), font=font)
-    shablondraw.text((1100, 1790), Place_of_Birth, (0, 0, 0), font=font)
-    shablondraw.text((1100, 1890), Place_of_residence, (0, 0, 0), font=font)
-    shablondraw.text((1100, 1990), Nation, (0, 0, 0), font=font)
-    shablondraw.text((1170, 2090), Sexsual_Orientation, (0, 0, 0), font=font)
+    drawText(shablondraw, Name, 1290)
+    drawText(shablondraw, Surname, 1290)
+    drawText(shablondraw, Middlename, 1490)
+    drawText(shablondraw, Gender, 1590)
+    drawText(shablondraw, Data_of_Birth, 1690)
+    drawText(shablondraw, Place_of_Birth, 1790)
+    drawText(shablondraw, Place_of_residence, 1890)
+    drawText(shablondraw, Nation, 1990)
+    drawText(shablondraw, Sexsual_Orientation, 2090, 70)
     # Add Photo
     Photo = Image.open(ImageOpenURL(Photo))
     Photo = Photo.resize((657, 845))
