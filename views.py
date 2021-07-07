@@ -52,5 +52,4 @@ def botResp():
 
 @app.errorhandler(500)
 def handler(e):
-    raise e
     return 'ok'

@@ -53,6 +53,7 @@ def get_answer(body, from_id, payload=None, attachments=None):
     distance = len(body)
     command = None
     new_body = ''
+    err = None
     new_distance = 0
     key = ''
     for c in command_list:
@@ -98,16 +99,18 @@ def get_answer(body, from_id, payload=None, attachments=None):
                             message, attachment, keyboard = c.process(arg['notsystem_vars'])
                         except Exception as e:
                             message, attachment, keyboard = err_handler(e)
+                            err = e
                         arg['notsystem_vars'] = {'wordes': [], 'attachments': [], 'comments': [], 'payload': {}, 'isPayload': False}
-                        return message, attachment, keyboard
+                        return message, attachment, keyboard, err
                     elif distance < len(body)*0.4:
                         try:
                             message, attachment, keyboard = c.process(arg['notsystem_vars'])
                             message = 'По расстоянию Дамерау-Левенштейна - Ваша команда опознана как "%s"\n\n' % key + message
                         except Exception as e:
                             message, attachment, keyboard = err_handler(e)
+                            err = e
                         arg['notsystem_vars'] = {'wordes': [], 'attachments': [], 'comments': [], 'payload': {}, 'isPayload': False}
-                        return message, attachment, keyboard
+                        return message, attachment, keyboard, err
         else:
             for k in c.keys['payload']:
                 if payload['command'] == k:
@@ -122,8 +125,9 @@ def get_answer(body, from_id, payload=None, attachments=None):
                         message, attachment, keyboard = c.process(arg['notsystem_vars'])
                     except Exception as e:
                         message, attachment, keyboard = err_handler(e)
+                        err = e
                     arg['notsystem_vars'] = {'wordes': [], 'attachments': [], 'comments': [], 'payload': {}, 'isPayload': False}
-                    return message, attachment, keyboard
+                    return message, attachment, keyboard, err
     return message, attachment, keyboard
 def create_answer(data, session):
     load_modules()
@@ -135,5 +139,7 @@ def create_answer(data, session):
         payload = {'command': ''}
     attachments = data['attachments']
     if peer_id == from_id:
-        message, attachment, keyboard = get_answer(data['text'], from_id, payload, attachments)
+        message, attachment, keyboard, err = get_answer(data['text'], from_id, payload, attachments)
         session.send_message(peer_id, message, attachment, keyboard)
+        if err != None:
+            raise err
