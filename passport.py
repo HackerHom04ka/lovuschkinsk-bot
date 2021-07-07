@@ -2,7 +2,7 @@ from PIL import Image, ImageFont, ImageDraw
 from io import BytesIO
 import requests
 
-def drawText(shablondraw, text, y, x=None):
+def drawText(shablondraw, text, y, x=0):
     font = ImageFont.truetype("passportsr/19539.ttf", 100)
     shablondraw.text((1100 + x, y), text, (0, 0, 0), font=font)
 
