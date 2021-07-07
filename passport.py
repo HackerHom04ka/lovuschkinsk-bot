@@ -29,6 +29,6 @@ def createPassport(Name, Surname, Middlename, Gender, Data_of_Birth, Place_of_Bi
     Photo = Photo.resize((657, 845))
     shablon.paste(Photo, (120, 1319))
     # Return Image
-    shablon.save('passportsr/passport.jpg')
-    img = open('passportsr/passport.jpg', 'rb')
+    shablon.save('passportsr/passport.png')
+    img = open('passportsr/passport.png', 'rb')
     return img
