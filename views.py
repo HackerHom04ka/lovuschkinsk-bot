@@ -2,14 +2,15 @@ from config import app, db, group_config, session, session_papochka
 from models import Person as Passport
 from flask import request
 import json
-from events_handler import events, eventLoop
+import threading
+from events_handler import events
 
 def exceptionHelp (e, peer_id):
     from keyboards import BugReport1 as keyboard
     print(e)
     session.send_message(peer_id, 'Жесть, ошибка!', keyboard=json.dumps(keyboard))
 
-async def botFunc(data):
+def botFunc(data):
     if data['type'] == 'message_new':
         from_id = data['object']['message']['from_id']
         peer_id = data['object']['message']['peer_id']
@@ -27,7 +28,7 @@ async def botFunc(data):
                     session.send_message(peer_id, 'Пользователь успешно дабавлен в ДБ\nОбратитесь в ЛС к боту!')
                 except Exception as e:
                     exceptionHelp(e, peer_id)
-    await events(data, session, session_papochka)
+    events(data, session, session_papochka)
 
 @app.route('/bot', methods=['POST'])
 def botResp():
@@ -43,7 +44,8 @@ def botResp():
             if data['type'] == 'confirmation':
                 return group_config['confirm']
             else:
-                eventLoop.run_until_complete(botFunc(data))
+                th = threading.Thread(target=botFunc, args=(data, ))
+                th.start()
                 return 'ok', 200
         else:
             return "notPerms", 402

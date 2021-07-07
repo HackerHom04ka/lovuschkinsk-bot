@@ -4,7 +4,7 @@ import random
 from config import group_config
 import asyncio
 
-async def events(data, session: vk, session_papochka: vk):
+def events(data, session: vk, session_papochka: vk):
     if data['type'] == 'message_new':
         messages(data['object']['message'], session)
     if data['type'] == 'group_leave':
@@ -26,5 +26,3 @@ async def events(data, session: vk, session_papochka: vk):
     #             if user.id not in distribution_users1:
     #                 session.send_message(user.vk_id, '📢 | Новый пост в нашей группе!', attachment='wall' + str(data['object']['owner_id']) + '_' + str(data['object']['id']), keyboard=sendingKeyboard)
     #                 distribution_users1.append(user.id)
-
-eventLoop = asyncio.get_event_loop()
