@@ -1,4 +1,3 @@
-from logging import error
 from config import app, db, group_config, session, session_papochka
 from models import Person as Passport
 from flask import request
@@ -53,5 +52,5 @@ def botResp():
 
 @app.errorhandler(500)
 def handler(e):
-    error(e)
+    print(e)
     return 'ok'
