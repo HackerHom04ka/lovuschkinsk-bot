@@ -7,6 +7,7 @@ command_cat.title = 'Паспротные'
 command_cat.description = 'Команды связанные напрямую с паспортом'
 
 command_name = command_system.Command()
+command_info = command_system.Command()
 command_surname = command_system.Command()
 command_middlename = command_system.Command()
 command_dob = command_system.Command()
@@ -25,12 +26,39 @@ command_cat.commands = [
     command_dob,
     command_pob,
     command_por,
+    command_info,
     command_nation,
     command_sexual_orientation,
     command_gender,
     command_photo,
     command_show
 ]
+def info(nsv):
+    message = """
+    Команды для изменения:
+
+    имя (имя) - пример "имя Алексей"
+    фамилия (фамилия) - пример "имя Федотов"
+    отчество (отчество) - пример "имя Егоров"
+    пол (пол) - пример "пол Мужик"
+    др (дата рождения) - пример "др 28.07.1999"
+    место рождения (место рождения) - пример "место рождения город Ловушкаград"
+    место проживания (место проживания) - пример "место проживания город Ловушкаград"
+    нация (нация) - пример "нация Ловушкер"
+    сексуальная ориентация (сексуальная ориентация) - пример "сексуальная ориентация Гетеросексуал"
+    фото - пример ниже (учитывайте, что можно прикреплять только фото)
+
+    Всегда пожалуйста
+    """
+    attachment = "photo-193840305_457240415"
+    keyboard = {}
+    return message, attachment, keyboard
+
+command_info.keysm = ['set', 'изменить', "создать паспорт"]
+command_info.keysp = ['create_passport']
+command_info.desciption = 'Показывает комманды для уствновления данных в паспорте'
+command_info.process = info
+
 def name(nsv):
     print(nsv)
     attachment = ''
