@@ -29,6 +29,7 @@ def botFunc(data):
                 except Exception as e:
                     exceptionHelp(e, peer_id)
     events(data, session, session_papochka)
+    db.session.close()
 
 @app.route('/bot', methods=['POST'])
 def botResp():
