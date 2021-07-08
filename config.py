@@ -24,6 +24,9 @@ group_config = {
 app.config['DEBUG'] = False
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
+    "pool_recycle": 3600
+}
 try:
 
     xi = urlparse(os.environ['DATABASE_URL'])
