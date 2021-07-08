@@ -25,7 +25,8 @@ app.config['DEBUG'] = False
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
-    "pool_recycle": 3600
+    "pool_recycle": 3600,
+    "max_overflow": 300
 }
 try:
 
