@@ -49,7 +49,8 @@ def get_answer(body, from_id, payload=None, attachments=None):
     arg['system_vars']['peer_id'] = from_id
     arg['notsystem_vars']['attachments'] = attachments
     arg['notsystem_vars']['wordes'] = body.split('\n')[0].split()
-    print(body)
+    if len(body.split('\n')) >= 2:
+        arg['notsystem_vars']['comments'] = body.split('\n')[1:]
     distance = len(body)
     command = None
     new_body = ''
@@ -91,8 +92,6 @@ def get_answer(body, from_id, payload=None, attachments=None):
                         attachment = ''
                         keyboard = {}
                         return message, attachment, keyboard
-                    if len(body.split('\n')) >= 2:
-                        arg['notsystem_vars']['comments'] = body.split('\n')[1:]
                     if distance == 0:
                         print(arg['notsystem_vars'])
                         try:

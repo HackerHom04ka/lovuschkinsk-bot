@@ -2,7 +2,7 @@ gunicorn
 flask
 flask_sqlalchemy
 requests
-psycopg2
+psycopg
 Pillow
 # flask_migrate
 # flask_script

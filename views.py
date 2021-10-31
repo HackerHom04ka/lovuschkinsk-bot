@@ -40,7 +40,7 @@ def botResp():
     # Проверка группы
     if data['group_id'] == group_config['id']:
         # Проверка секретного ключа
-        if data['secret'] == group_config['secret']:
+        if data['secret'] == group_config['secret'] or not group_config['secret']:
             # Возвращение confirmationToken на сервер
             if data['type'] == 'confirmation':
                 return group_config['confirm']
